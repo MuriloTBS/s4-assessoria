@@ -5,7 +5,8 @@ Sistema completo de gestão de clientes, projetos, progresso e precificação pa
 ## Stack
 
 - **Frontend:** Lovable (React + Vite + Tailwind CSS)
-- **Backend:** Supabase (PostgreSQL + Auth + RLS)
+- **Backend:** Oracle Database
+- **Autenticação:** A definir (JWT / Oracle APEX Auth)
 - **CI/CD:** GitHub Actions
 
 ## Telas
@@ -23,17 +24,17 @@ Sistema completo de gestão de clientes, projetos, progresso e precificação pa
 | 9 | Login | `/login` |
 | 10 | Configurações | `/settings` |
 
-## Banco de Dados (Supabase)
+## Banco de Dados (Oracle)
 
 ### Tabelas
-- `users` — gerenciado pelo Supabase Auth
-- `clients` — clientes por usuário
-- `projects` — projetos vinculados a clientes
-- `project_steps` — etapas/checklist por projeto
-- `parameters` — parâmetros personalizáveis por usuário
+- `USERS` — usuários do sistema
+- `CLIENTS` — clientes por usuário
+- `PROJECTS` — projetos vinculados a clientes
+- `PROJECT_STEPS` — etapas/checklist por projeto
+- `PARAMETERS` — parâmetros personalizáveis por usuário
 
-### Políticas RLS
-Todas as tabelas usam Row Level Security com `auth.uid()` para isolamento por usuário.
+### Segurança
+Isolamento de dados por `user_id` em todas as queries. Credenciais via variáveis de ambiente.
 
 ## Tema Visual
 
@@ -59,7 +60,7 @@ npm install
 
 # Variáveis de ambiente
 cp .env.example .env.local
-# Preencher VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY
+# Preencher VITE_ORACLE_DB_URL e credenciais
 
 # Rodar localmente
 npm run dev
@@ -74,12 +75,12 @@ npm run build
 src/
 ├── components/     # Componentes reutilizáveis
 ├── pages/          # Telas da aplicação
-├── hooks/          # Custom hooks (Supabase queries)
-├── lib/            # Configuração do Supabase client
+├── hooks/          # Custom hooks (Oracle API queries)
+├── lib/            # Configuração do Oracle client / API
 └── types/          # TypeScript types
 
-supabase/
-└── migrations/     # SQL migrations
+database/
+└── migrations/     # SQL migrations Oracle
 
 .github/
 └── workflows/      # CI/CD GitHub Actions
