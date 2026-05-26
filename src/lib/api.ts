@@ -1,5 +1,6 @@
 // Oracle ORDS REST API — proxied via Vercel to avoid CORS
 const BASE = '/api'
+const ts = () => new Date().toISOString()
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
@@ -25,7 +26,7 @@ export const authApi = {
   async register(name: string, email: string, passwordHash: string) {
     const u = await request<OracleUser>('/s4_users/', {
       method: 'POST',
-      body: JSON.stringify({ name, email, password_hash: passwordHash }),
+      body: JSON.stringify({ name, email, password_hash: passwordHash, created_at: ts(), updated_at: ts() }),
     })
     return { id: u.id, email: u.email, name: u.name }
   },
@@ -41,7 +42,7 @@ export const clientApi = {
     return request<OracleClient>(`/s4_clients/${id}`).then(mapClient)
   },
   async create(data: Omit<import('@/types').Client, 'id' | 'created_at'>) {
-    return request<OracleClient>('/s4_clients/', { method: 'POST', body: JSON.stringify(data) }).then(mapClient)
+    return request<OracleClient>('/s4_clients/', { method: 'POST', body: JSON.stringify({ ...data, created_at: ts(), updated_at: ts() }) }).then(mapClient)
   },
   async update(id: number, data: Partial<import('@/types').Client>) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -75,7 +76,7 @@ export const projectApi = {
     return { ...mapProject(proj), client_name: clientRes.name, steps: stepsRes.items.map(mapStep) }
   },
   async create(data: Omit<import('@/types').Project, 'id' | 'created_at' | 'steps' | 'client_name'>) {
-    return request<OracleProject>('/s4_projects/', { method: 'POST', body: JSON.stringify(data) }).then(mapProject)
+    return request<OracleProject>('/s4_projects/', { method: 'POST', body: JSON.stringify({ ...data, created_at: ts(), updated_at: ts() }) }).then(mapProject)
   },
   async update(id: number, data: Partial<import('@/types').Project>) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -93,7 +94,7 @@ export const stepApi = {
     const { completed, ...rest } = data
     return request<OracleStep>('/s4_project_steps/', {
       method: 'POST',
-      body: JSON.stringify({ ...rest, completed: completed ? 1 : 0 }),
+      body: JSON.stringify({ ...rest, completed: completed ? 1 : 0, created_at: ts(), updated_at: ts() }),
     }).then(mapStep)
   },
   async update(id: number, data: Partial<import('@/types').ProjectStep>) {
@@ -117,7 +118,7 @@ export const paramsApi = {
   async save(data: import('@/types').Parameters): Promise<import('@/types').Parameters> {
     const { id, ...body } = data
     if (id === 0) {
-      return request<OracleParams>('/s4_parameters/', { method: 'POST', body: JSON.stringify(body) }).then(mapParams)
+      return request<OracleParams>('/s4_parameters/', { method: 'POST', body: JSON.stringify({ ...body, created_at: ts(), updated_at: ts() }) }).then(mapParams)
     }
     return request<OracleParams>(`/s4_parameters/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapParams)
   },
