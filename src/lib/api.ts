@@ -1,5 +1,5 @@
-// Oracle ORDS REST API client
-const BASE = 'https://g6602a8de4565f4-s4db.adb.sa-saopaulo-1.oraclecloudapps.com/ords/s4'
+// Oracle ORDS REST API — proxied via Vercel to avoid CORS
+const BASE = '/api'
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
