@@ -1,7 +1,7 @@
-import { useState, useEffect, type FormEvent } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
-import { clientApi } from '@/lib/storage'
+import { clientApi } from '@/lib/api'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Textarea from '@/components/ui/Textarea'
@@ -12,26 +12,26 @@ export default function ClientForm() {
   const navigate = useNavigate()
   const { id } = useParams()
   const isEdit = Boolean(id)
-
+  const [loading, setLoading] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', phone: '', company: '', notes: '' })
 
   useEffect(() => {
-    if (isEdit) {
-      const c = clientApi.get(Number(id))
+    if (isEdit) clientApi.get(Number(id)).then(c => {
       if (c) setForm({ name: c.name, email: c.email ?? '', phone: c.phone ?? '', company: c.company ?? '', notes: c.notes ?? '' })
-    }
+    })
   }, [id, isEdit])
 
-  function set(field: string, value: string) {
-    setForm(f => ({ ...f, [field]: value }))
-  }
+  function set(field: string, value: string) { setForm(f => ({ ...f, [field]: value })) }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    const data = { user_id: user!.id, name: form.name, email: form.email || undefined, phone: form.phone || undefined, company: form.company || undefined, notes: form.notes || undefined }
-    if (isEdit) clientApi.update(Number(id), data)
-    else clientApi.create(data)
-    navigate('/clients')
+    setLoading(true)
+    try {
+      const data = { user_id: user!.id, name: form.name, email: form.email || undefined, phone: form.phone || undefined, company: form.company || undefined, notes: form.notes || undefined }
+      if (isEdit) await clientApi.update(Number(id), data)
+      else await clientApi.create(data)
+      navigate('/clients')
+    } finally { setLoading(false) }
   }
 
   return (
@@ -50,7 +50,7 @@ export default function ClientForm() {
           </div>
           <Textarea label="Observações" value={form.notes} onChange={e => set('notes', e.target.value)} placeholder="Notas sobre o cliente..." />
           <div className="flex gap-3 pt-2">
-            <Button type="submit">{isEdit ? 'Salvar alterações' : 'Criar cliente'}</Button>
+            <Button type="submit" disabled={loading}>{loading ? 'Salvando...' : isEdit ? 'Salvar alterações' : 'Criar cliente'}</Button>
             <Button type="button" variant="secondary" onClick={() => navigate('/clients')}>Cancelar</Button>
           </div>
         </form>

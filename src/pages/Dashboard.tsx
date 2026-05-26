@@ -1,32 +1,33 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
-  XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
-} from 'recharts'
+import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 import { FolderKanban, CheckCircle, Users, Clock, Plus, Calculator } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
-import { projectApi, clientApi } from '@/lib/storage'
+import { projectApi, clientApi } from '@/lib/api'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import { formatDate, formatCurrency, statusColor } from '@/lib/utils'
+import type { Project, Client } from '@/types'
 
 const CHART_COLORS = ['#3b82f6', '#22c55e', '#f59e0b', '#ef4444', '#f97316']
 
 export default function Dashboard() {
   const { user } = useAuth()
   const navigate = useNavigate()
+  const [projects, setProjects] = useState<Project[]>([])
+  const [clients, setClients] = useState<Client[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const projects = useMemo(() => projectApi.list(user!.id), [user])
-  const clients  = useMemo(() => clientApi.list(user!.id), [user])
+  useEffect(() => {
+    Promise.all([projectApi.list(user!.id), clientApi.list(user!.id)])
+      .then(([p, c]) => { setProjects(p); setClients(c) })
+      .finally(() => setLoading(false))
+  }, [user])
 
-  const totalProjects  = projects.length
   const activeProjects = projects.filter(p => p.status === 'Em andamento').length
-  const totalClients   = clients.length
-  const upcoming       = projects.filter(p => p.deadline && new Date(p.deadline) >= new Date()).slice(0, 3)
-  const recent         = projects.slice(0, 5)
+  const upcoming = projects.filter(p => p.deadline && new Date(p.deadline) >= new Date()).slice(0, 3)
+  const recent = projects.slice(0, 5)
 
-  // Gráfico de barras — projetos por status
   const byStatus = [
     { name: 'Em andamento', value: projects.filter(p => p.status === 'Em andamento').length },
     { name: 'Concluído',    value: projects.filter(p => p.status === 'Concluído').length },
@@ -34,60 +35,52 @@ export default function Dashboard() {
     { name: 'Cancelado',    value: projects.filter(p => p.status === 'Cancelado').length },
   ]
 
-  // Gráfico de pizza — projetos por cliente
   const byClient = clients.slice(0, 5).map(c => ({
-    name: c.name,
-    value: projects.filter(p => p.client_id === c.id).length,
+    name: c.name, value: projects.filter(p => p.client_id === c.id).length,
   })).filter(c => c.value > 0)
 
-  // Gráfico de linha — projetos criados por mês (últimos 6)
   const byMonth = useMemo(() => {
     const months: Record<string, number> = {}
     const now = new Date()
     for (let i = 5; i >= 0; i--) {
       const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
-      const key = d.toLocaleDateString('pt-BR', { month: 'short', year: '2-digit' })
-      months[key] = 0
+      months[d.toLocaleDateString('pt-BR', { month: 'short', year: '2-digit' })] = 0
     }
     projects.forEach(p => {
-      const d = new Date(p.created_at)
-      const key = d.toLocaleDateString('pt-BR', { month: 'short', year: '2-digit' })
+      const key = new Date(p.created_at).toLocaleDateString('pt-BR', { month: 'short', year: '2-digit' })
       if (key in months) months[key]++
     })
     return Object.entries(months).map(([name, value]) => ({ name, value }))
   }, [projects])
 
+  const iconColors = { blue: 'text-blue-400', green: 'text-green-400', yellow: 'text-yellow-400', orange: 'text-orange-400' }
   const statCards = [
-    { label: 'Total de Projetos', value: totalProjects,  icon: FolderKanban, color: 'blue'   as const },
-    { label: 'Projetos Ativos',   value: activeProjects, icon: CheckCircle,  color: 'green'  as const },
-    { label: 'Total de Clientes', value: totalClients,   icon: Users,        color: 'yellow' as const },
-    { label: 'Próximos Prazos',   value: upcoming.length, icon: Clock,       color: 'orange' as const },
+    { label: 'Total de Projetos', value: projects.length, icon: FolderKanban, color: 'blue'   as const },
+    { label: 'Projetos Ativos',   value: activeProjects,  icon: CheckCircle,  color: 'green'  as const },
+    { label: 'Total de Clientes', value: clients.length,  icon: Users,        color: 'yellow' as const },
+    { label: 'Próximos Prazos',   value: upcoming.length, icon: Clock,        color: 'orange' as const },
   ]
 
-  const iconColors = { blue: 'text-blue-400', green: 'text-green-400', yellow: 'text-yellow-400', orange: 'text-orange-400' }
+  if (loading) return (
+    <div className="p-6 flex items-center justify-center h-64">
+      <p className="text-[#8a9bb0]">Carregando...</p>
+    </div>
+  )
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Dashboard</h1>
           <p className="text-[#8a9bb0] text-sm mt-0.5">Olá, {user?.name} — visão geral dos seus projetos</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="secondary" size="sm" onClick={() => navigate('/projects/new')}>
-            <Plus size={14} /> Novo Projeto
-          </Button>
-          <Button variant="secondary" size="sm" onClick={() => navigate('/clients/new')}>
-            <Plus size={14} /> Novo Cliente
-          </Button>
-          <Button size="sm" onClick={() => navigate('/calculator')}>
-            <Calculator size={14} /> Calculadora
-          </Button>
+          <Button variant="secondary" size="sm" onClick={() => navigate('/projects/new')}><Plus size={14} /> Novo Projeto</Button>
+          <Button variant="secondary" size="sm" onClick={() => navigate('/clients/new')}><Plus size={14} /> Novo Cliente</Button>
+          <Button size="sm" onClick={() => navigate('/calculator')}><Calculator size={14} /> Calculadora</Button>
         </div>
       </div>
 
-      {/* Stat cards */}
       <div className="grid grid-cols-4 gap-4">
         {statCards.map(({ label, value, icon: Icon, color }) => (
           <Card key={label} color={color} className="p-5">
@@ -96,17 +89,13 @@ export default function Dashboard() {
                 <p className="text-[#8a9bb0] text-xs font-medium uppercase tracking-wide">{label}</p>
                 <p className="text-3xl font-bold text-white mt-1">{value}</p>
               </div>
-              <div className={`${iconColors[color]} bg-current/10 p-2 rounded-xl bg-opacity-10`} style={{ background: 'rgba(255,255,255,0.05)' }}>
-                <Icon size={20} className={iconColors[color]} />
-              </div>
+              <Icon size={20} className={iconColors[color]} />
             </div>
           </Card>
         ))}
       </div>
 
-      {/* Charts */}
       <div className="grid grid-cols-3 gap-4">
-        {/* Line chart */}
         <Card className="p-5 col-span-2">
           <h3 className="text-white font-semibold mb-4">Projetos por Mês</h3>
           <ResponsiveContainer width="100%" height={180}>
@@ -119,8 +108,6 @@ export default function Dashboard() {
             </LineChart>
           </ResponsiveContainer>
         </Card>
-
-        {/* Pie chart */}
         <Card className="p-5">
           <h3 className="text-white font-semibold mb-4">Por Cliente</h3>
           {byClient.length > 0 ? (
@@ -132,14 +119,11 @@ export default function Dashboard() {
                 <Tooltip contentStyle={{ background: '#162032', border: '1px solid #2a3f5f', borderRadius: 12, color: '#e2e8f0' }} />
               </PieChart>
             </ResponsiveContainer>
-          ) : (
-            <div className="flex items-center justify-center h-[180px] text-[#8a9bb0] text-sm">Sem dados</div>
-          )}
+          ) : <div className="flex items-center justify-center h-[180px] text-[#8a9bb0] text-sm">Sem dados</div>}
         </Card>
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        {/* Bar chart */}
         <Card className="p-5 col-span-2">
           <h3 className="text-white font-semibold mb-4">Projetos por Status</h3>
           <ResponsiveContainer width="100%" height={160}>
@@ -154,13 +138,9 @@ export default function Dashboard() {
             </BarChart>
           </ResponsiveContainer>
         </Card>
-
-        {/* Upcoming deadlines */}
         <Card className="p-5">
           <h3 className="text-white font-semibold mb-4">Próximos Prazos</h3>
-          {upcoming.length === 0 ? (
-            <p className="text-[#8a9bb0] text-sm">Nenhum prazo próximo</p>
-          ) : (
+          {upcoming.length === 0 ? <p className="text-[#8a9bb0] text-sm">Nenhum prazo próximo</p> : (
             <div className="space-y-3">
               {upcoming.map(p => (
                 <div key={p.id} onClick={() => navigate(`/projects/${p.id}`)} className="cursor-pointer hover:opacity-80 transition-opacity">
@@ -173,7 +153,6 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      {/* Recent projects */}
       <Card className="p-5">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-white font-semibold">Projetos Recentes</h3>
@@ -188,24 +167,17 @@ export default function Dashboard() {
           <table className="w-full text-sm">
             <thead>
               <tr className="text-[#8a9bb0] text-xs uppercase tracking-wide border-b border-[#2a3f5f]">
-                <th className="text-left pb-2">Projeto</th>
-                <th className="text-left pb-2">Cliente</th>
-                <th className="text-left pb-2">Status</th>
-                <th className="text-left pb-2">Prazo</th>
+                <th className="text-left pb-2">Projeto</th><th className="text-left pb-2">Cliente</th>
+                <th className="text-left pb-2">Status</th><th className="text-left pb-2">Prazo</th>
                 <th className="text-right pb-2">Valor</th>
               </tr>
             </thead>
             <tbody>
               {recent.map(p => (
-                <tr key={p.id} onClick={() => navigate(`/projects/${p.id}`)}
-                  className="border-b border-[#2a3f5f]/50 last:border-0 hover:bg-white/5 cursor-pointer transition-colors">
+                <tr key={p.id} onClick={() => navigate(`/projects/${p.id}`)} className="border-b border-[#2a3f5f]/50 last:border-0 hover:bg-white/5 cursor-pointer transition-colors">
                   <td className="py-3 text-white font-medium">{p.name}</td>
                   <td className="py-3 text-[#8a9bb0]">{p.client_name ?? '—'}</td>
-                  <td className="py-3">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium ${statusColor(p.status)}`}>
-                      {p.status}
-                    </span>
-                  </td>
+                  <td className="py-3"><span className={`inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium ${statusColor(p.status)}`}>{p.status}</span></td>
                   <td className="py-3 text-[#8a9bb0]">{p.deadline ? formatDate(p.deadline) : '—'}</td>
                   <td className="py-3 text-right text-[#8a9bb0]">{p.value ? formatCurrency(p.value) : '—'}</td>
                 </tr>

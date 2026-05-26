@@ -1,28 +1,33 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Plus, Search, Pencil, Trash2 } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
-import { clientApi } from '@/lib/storage'
+import { clientApi } from '@/lib/api'
 import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
+import type { Client } from '@/types'
 
 export default function ClientList() {
   const { user } = useAuth()
   const navigate = useNavigate()
+  const [clients, setClients] = useState<Client[]>([])
+  const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
-  const [refresh, setRefresh] = useState(0)
 
-  const clients = useMemo(() => clientApi.list(user!.id), [user, refresh])
+  useEffect(() => {
+    clientApi.list(user!.id).then(c => { setClients(c); setLoading(false) })
+  }, [user])
+
   const filtered = useMemo(() =>
     clients.filter(c => c.name.toLowerCase().includes(search.toLowerCase())),
     [clients, search]
   )
 
-  function handleDelete(id: number, name: string) {
+  async function handleDelete(id: number, name: string) {
     if (!confirm(`Excluir cliente "${name}"?`)) return
-    const ok = clientApi.delete(id)
+    const ok = await clientApi.delete(id)
     if (!ok) alert('Este cliente possui projetos vinculados e não pode ser excluído.')
-    else setRefresh(r => r + 1)
+    else setClients(c => c.filter(x => x.id !== id))
   }
 
   return (
@@ -38,18 +43,15 @@ export default function ClientList() {
       <Card className="p-4">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8a9bb0]" />
-          <input
-            type="text"
-            placeholder="Buscar por nome..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            className="w-full bg-[#0D1B2A] border border-[#2a3f5f] rounded-xl pl-9 pr-3 py-2 text-sm text-[#e2e8f0] placeholder-[#8a9bb0] focus:outline-none focus:border-blue-500 transition-all"
-          />
+          <input type="text" placeholder="Buscar por nome..." value={search} onChange={e => setSearch(e.target.value)}
+            className="w-full bg-[#0D1B2A] border border-[#2a3f5f] rounded-xl pl-9 pr-3 py-2 text-sm text-[#e2e8f0] placeholder-[#8a9bb0] focus:outline-none focus:border-blue-500 transition-all" />
         </div>
       </Card>
 
       <Card>
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div className="text-center py-12 text-[#8a9bb0]">Carregando...</div>
+        ) : filtered.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-[#8a9bb0] text-sm mb-3">Nenhum cliente encontrado</p>
             <Button size="sm" onClick={() => navigate('/clients/new')}><Plus size={14} /> Adicionar cliente</Button>

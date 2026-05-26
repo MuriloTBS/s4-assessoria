@@ -49,3 +49,4 @@ coverage/
 # Supabase local
 supabase/.temp/
 supabase/.branches/
+.vercel
