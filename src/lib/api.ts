@@ -90,11 +90,16 @@ export const projectApi = {
 // Steps
 export const stepApi = {
   async create(data: Omit<import('@/types').ProjectStep, 'id'>) {
-    return request<OracleStep>('/s4_project_steps/', { method: 'POST', body: JSON.stringify(data) }).then(mapStep)
+    const { completed, ...rest } = data
+    return request<OracleStep>('/s4_project_steps/', {
+      method: 'POST',
+      body: JSON.stringify({ ...rest, completed: completed ? 1 : 0 }),
+    }).then(mapStep)
   },
   async update(id: number, data: Partial<import('@/types').ProjectStep>) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id: _id, ...body } = data as any
+    if (typeof body.completed === 'boolean') body.completed = body.completed ? 1 : 0
     return request<OracleStep>(`/s4_project_steps/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapStep)
   },
   async delete(id: number) {
