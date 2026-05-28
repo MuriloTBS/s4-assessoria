@@ -12,18 +12,31 @@ export default function Login() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
+  function validate(): string | null {
+    if (!email.trim()) return 'Informe o email.'
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Email inválido.'
+    if (password.length < 6) return 'A senha deve ter pelo menos 6 caracteres.'
+    if (mode === 'register') {
+      if (!name.trim()) return 'Informe seu nome.'
+      if (name.trim().length < 2) return 'Nome muito curto.'
+      if (password.length > 128) return 'Senha muito longa.'
+    }
+    return null
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
+    const validationError = validate()
+    if (validationError) { setError(validationError); return }
     setError('')
     setLoading(true)
     try {
       if (mode === 'login') {
-        const ok = await login(email, password)
+        const ok = await login(email.trim().toLowerCase(), password)
         if (ok) navigate('/')
         else setError('Email ou senha incorretos.')
       } else {
-        if (!name.trim()) { setError('Informe seu nome.'); return }
-        await register(name, email, password)
+        await register(name.trim(), email.trim().toLowerCase(), password)
         navigate('/')
       }
     } catch {
@@ -62,7 +75,7 @@ export default function Login() {
             </div>
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-[#e2e8f0]">Senha</label>
-              <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required
+              <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required minLength={6} maxLength={128} autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
                 className="bg-[#0D1B2A] border border-[#2a3f5f] rounded-xl px-3 py-2.5 text-sm text-[#e2e8f0] placeholder-[#8a9bb0] focus:outline-none focus:border-blue-500 transition-all" />
             </div>
 

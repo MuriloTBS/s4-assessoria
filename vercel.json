@@ -1,6 +1,18 @@
 {
   "routes": [
     {
+      "src": "/(.*)",
+      "headers": {
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+        "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload"
+      },
+      "continue": true
+    },
+    {
       "src": "/api/(.*)",
       "dest": "https://g6602a8de4565f4-s4db.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/$1"
     },

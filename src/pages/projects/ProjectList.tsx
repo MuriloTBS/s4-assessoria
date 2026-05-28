@@ -79,7 +79,7 @@ export default function ProjectList() {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-sm min-w-[600px]">
               <thead>
                 <tr className="text-[#8a9bb0] text-xs uppercase tracking-wide border-b border-[#2a3f5f]">
                   <th className="text-left px-5 py-3">Projeto</th><th className="text-left px-5 py-3">Cliente</th>

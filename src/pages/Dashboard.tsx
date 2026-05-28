@@ -74,14 +74,14 @@ export default function Dashboard() {
           <h1 className="text-2xl font-bold text-white">Dashboard</h1>
           <p className="text-[#8a9bb0] text-sm mt-0.5">Olá, {user?.name} — visão geral dos seus projetos</p>
         </div>
-        <div className="flex gap-2">
-          <Button variant="secondary" size="sm" onClick={() => navigate('/projects/new')}><Plus size={14} /> Novo Projeto</Button>
-          <Button variant="secondary" size="sm" onClick={() => navigate('/clients/new')}><Plus size={14} /> Novo Cliente</Button>
-          <Button size="sm" onClick={() => navigate('/calculator')}><Calculator size={14} /> Calculadora</Button>
+        <div className="flex gap-2 flex-wrap">
+          <Button variant="secondary" size="sm" onClick={() => navigate('/projects/new')}><Plus size={14} /> <span className="hidden sm:inline">Novo </span>Projeto</Button>
+          <Button variant="secondary" size="sm" onClick={() => navigate('/clients/new')}><Plus size={14} /> <span className="hidden sm:inline">Novo </span>Cliente</Button>
+          <Button size="sm" onClick={() => navigate('/calculator')}><Calculator size={14} /> <span className="hidden sm:inline">Calculadora</span></Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {statCards.map(({ label, value, icon: Icon, color }) => (
           <Card key={label} color={color} className="p-5">
             <div className="flex items-start justify-between">
@@ -95,8 +95,8 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
-        <Card className="p-5 col-span-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card className="p-5 md:col-span-2">
           <h3 className="text-white font-semibold mb-4">Projetos por Mês</h3>
           <ResponsiveContainer width="100%" height={180}>
             <LineChart data={byMonth}>
@@ -123,8 +123,8 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
-        <Card className="p-5 col-span-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card className="p-5 md:col-span-2">
           <h3 className="text-white font-semibold mb-4">Projetos por Status</h3>
           <ResponsiveContainer width="100%" height={160}>
             <BarChart data={byStatus} barSize={32}>
@@ -164,7 +164,8 @@ export default function Dashboard() {
             <Button size="sm" onClick={() => navigate('/projects/new')}><Plus size={14} /> Criar primeiro projeto</Button>
           </div>
         ) : (
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto -mx-1">
+          <table className="w-full text-sm min-w-[540px]">
             <thead>
               <tr className="text-[#8a9bb0] text-xs uppercase tracking-wide border-b border-[#2a3f5f]">
                 <th className="text-left pb-2">Projeto</th><th className="text-left pb-2">Cliente</th>
@@ -184,6 +185,7 @@ export default function Dashboard() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </Card>
     </div>
