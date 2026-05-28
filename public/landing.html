@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="S4 Assessoria — Soluções integradas em marketing, gestão corporativa, tecnologia e conformidade FEBRABAN para negócios seguros, eficientes e competitivos." />
+  <meta name="keywords" content="assessoria empresarial, consultoria, marketing digital, gestão corporativa, FEBRABAN, tecnologia, Brasília" />
+  <meta property="og:title" content="S4 Assessoria — Marketing, Gestão, Tecnologia e FEBRABAN" />
+  <meta property="og:description" content="Potencialize sua empresa com soluções estratégicas integradas." />
+  <meta property="og:type" content="website" />
+  <title>S4 Assessoria — Marketing, Gestão, Tecnologia e FEBRABAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0D1B2A;
+      --navy-mid:   #1B3A6B;
+      --navy-light: #243B55;
+      --teal:       #06B6D4;
+      --teal-dark:  #0891B2;
+      --teal-light: #67E8F9;
+      --slate:      #475569;
+      --slate-light:#94A3B8;
+      --bg-light:   #F1F5F9;
+      --bg-card:    #FFFFFF;
+      --text-dark:  #0F172A;
+      --text-mid:   #334155;
+      --radius:     12px;
+      --shadow:     0 4px 24px rgba(0,0,0,.10);
+      --shadow-lg:  0 12px 48px rgba(0,0,0,.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    img { display: block; max-width: 100%; }
+
+    /* ── HEADER ─────────────────────────────── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,27,42,.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .header-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 24px;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1.4rem; color: #fff;
+      letter-spacing: -.5px;
+    }
+
+    .logo-badge {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--teal), var(--navy-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 800; color: #fff;
+    }
+
+    nav { display: flex; align-items: center; gap: 6px; }
+
+    nav a {
+      color: rgba(255,255,255,.75); font-size: .9rem; font-weight: 500;
+      padding: 8px 14px; border-radius: 8px;
+      transition: color .2s, background .2s;
+    }
+
+    nav a:hover { color: #fff; background: rgba(255,255,255,.08); }
+
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+
+    .btn-phone {
+      display: flex; align-items: center; gap: 6px;
+      color: var(--teal-light); font-size: .85rem; font-weight: 600;
+      padding: 8px 14px; border-radius: 8px;
+      border: 1px solid rgba(6,182,212,.35);
+      transition: background .2s;
+    }
+
+    .btn-phone:hover { background: rgba(6,182,212,.1); }
+
+    .btn-wa-header {
+      display: flex; align-items: center; gap: 7px;
+      background: #25D366; color: #fff;
+      font-size: .85rem; font-weight: 600;
+      padding: 9px 16px; border-radius: 8px;
+      transition: background .2s, transform .15s;
+    }
+
+    .btn-wa-header:hover { background: #1ebe5d; transform: translateY(-1px); }
+
+    .btn-sistema {
+      display: flex; align-items: center; gap: 7px;
+      background: var(--teal); color: #fff;
+      font-size: .85rem; font-weight: 600;
+      padding: 9px 16px; border-radius: 8px;
+      transition: background .2s, transform .15s;
+    }
+
+    .btn-sistema:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 8px;
+    }
+
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: rgba(255,255,255,.8); border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+
+    /* ── HERO ────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 55%, #1a4472 100%);
+      padding: 140px 24px 100px;
+      position: relative; overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(6,182,212,.18) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(27,58,107,.6) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+      position: relative; z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(6,182,212,.15); border: 1px solid rgba(6,182,212,.35);
+      color: var(--teal-light); font-size: .8rem; font-weight: 600;
+      padding: 6px 14px; border-radius: 100px; margin-bottom: 24px;
+      letter-spacing: .5px; text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 800; color: #fff; line-height: 1.2;
+      margin-bottom: 20px; letter-spacing: -.5px;
+    }
+
+    .hero h1 span { color: var(--teal-light); }
+
+    .hero p {
+      color: rgba(255,255,255,.72); font-size: 1.1rem;
+      margin-bottom: 36px; max-width: 520px; line-height: 1.7;
+    }
+
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #25D366; color: #fff;
+      font-weight: 700; font-size: 1rem;
+      padding: 15px 28px; border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(37,211,102,.35);
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+
+    .btn-primary:hover {
+      background: #1ebe5d; transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(37,211,102,.4);
+    }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.25);
+      color: #fff; font-weight: 600; font-size: 1rem;
+      padding: 15px 28px; border-radius: 10px;
+      transition: background .2s, border-color .2s;
+    }
+
+    .btn-secondary:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.5); }
+
+    /* hero visual */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+    }
+
+    .hero-card-stack { position: relative; width: 360px; height: 340px; }
+
+    .hero-card {
+      position: absolute;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius); padding: 22px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-card-main {
+      width: 320px; top: 30px; left: 20px;
+      background: rgba(255,255,255,.09);
+    }
+
+    .hero-card-stat {
+      background: rgba(6,182,212,.15);
+      border-color: rgba(6,182,212,.3);
+      bottom: 10px; right: -10px;
+      padding: 16px 20px; min-width: 180px;
+    }
+
+    .kpi-row { display: flex; gap: 18px; margin-top: 14px; }
+
+    .kpi {
+      flex: 1; background: rgba(255,255,255,.07);
+      border-radius: 8px; padding: 12px;
+      text-align: center;
+    }
+
+    .kpi-value { font-size: 1.4rem; font-weight: 800; color: var(--teal-light); }
+    .kpi-label { font-size: .7rem; color: rgba(255,255,255,.55); margin-top: 2px; }
+
+    .card-title-sm { font-size: .75rem; font-weight: 600; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .5px; }
+    .card-value-lg { font-size: 1.6rem; font-weight: 800; color: #fff; margin-top: 4px; }
+
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .75rem; font-weight: 600; padding: 5px 10px; border-radius: 100px;
+    }
+
+    .pill-green { background: rgba(34,197,94,.2); color: #4ade80; }
+    .pill-teal  { background: rgba(6,182,212,.2); color: var(--teal-light); }
+
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    /* hero stats bar */
+    .hero-stats {
+      max-width: 1200px; margin: 56px auto 0;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: rgba(255,255,255,.1);
+      border-radius: var(--radius); overflow: hidden;
+      position: relative; z-index: 1;
+    }
+
+    .hero-stat {
+      background: rgba(255,255,255,.05);
+      padding: 22px 24px; text-align: center;
+      transition: background .2s;
+    }
+
+    .hero-stat:hover { background: rgba(255,255,255,.1); }
+    .hero-stat-value { font-size: 1.8rem; font-weight: 800; color: var(--teal-light); }
+    .hero-stat-label { font-size: .8rem; color: rgba(255,255,255,.55); margin-top: 4px; }
+
+    /* ── SECTION BASE ────────────────────────── */
+    section { padding: 96px 24px; }
+
+    .section-label {
+      display: inline-block;
+      font-size: .78rem; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--teal-dark);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; color: var(--text-dark);
+      line-height: 1.2; letter-spacing: -.5px;
+    }
+
+    .section-sub {
+      color: var(--slate); font-size: 1.05rem;
+      margin-top: 14px; max-width: 560px; line-height: 1.7;
+    }
+
+    .section-header { margin-bottom: 56px; }
+    .section-header.centered { text-align: center; }
+    .section-header.centered .section-sub { margin: 14px auto 0; }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* ── SERVICES ────────────────────────────── */
+    #servicos { background: var(--bg-light); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: #fff; border-radius: var(--radius);
+      padding: 32px 26px; border: 1px solid #E2E8F0;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      position: relative; overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--navy-mid));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .3s;
+    }
+
+    .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; font-size: 1.5rem;
+    }
+
+    .icon-blue   { background: rgba(27,58,107,.1); color: var(--navy-mid); }
+    .icon-teal   { background: rgba(6,182,212,.1); color: var(--teal-dark); }
+    .icon-green  { background: rgba(34,197,94,.1); color: #16a34a; }
+    .icon-purple { background: rgba(139,92,246,.1); color: #7c3aed; }
+
+    .service-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; }
+    .service-card p  { font-size: .9rem; color: var(--slate); line-height: 1.65; }
+
+    .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+
+    .tag {
+      font-size: .72rem; font-weight: 600; padding: 4px 10px;
+      border-radius: 100px; background: var(--bg-light); color: var(--slate);
+    }
+
+    /* ── DIFERENCIAIS ────────────────────────── */
+    #diferenciais {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      position: relative; overflow: hidden;
+    }
+
+    #diferenciais::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 70% 50%, rgba(6,182,212,.12) 0%, transparent 60%);
+    }
+
+    #diferenciais .section-label { color: var(--teal-light); }
+    #diferenciais .section-title { color: #fff; }
+    #diferenciais .section-sub   { color: rgba(255,255,255,.65); }
+
+    .diff-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+      position: relative; z-index: 1;
+    }
+
+    .diff-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 28px 26px;
+      display: flex; gap: 18px; align-items: flex-start;
+      transition: background .25s;
+    }
+
+    .diff-card:hover { background: rgba(255,255,255,.1); }
+
+    .diff-icon {
+      width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(6,182,212,.2); border: 1px solid rgba(6,182,212,.3);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+
+    .diff-card h3 { font-size: .95rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .diff-card p  { font-size: .875rem; color: rgba(255,255,255,.6); line-height: 1.6; }
+
+    /* ── PROCESSO ────────────────────────────── */
+    #processo { background: #fff; }
+
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      position: relative;
+    }
+
+    .steps-grid::before {
+      content: '';
+      position: absolute; top: 26px; left: 12.5%; right: 12.5%;
+      height: 2px; background: linear-gradient(90deg, var(--teal), var(--navy-mid));
+      z-index: 0;
+    }
+
+    .step {
+      text-align: center; padding: 0 16px;
+      position: relative; z-index: 1;
+    }
+
+    .step-num {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--navy-mid));
+      color: #fff; font-weight: 800; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 16px rgba(6,182,212,.35);
+    }
+
+    .step h3 { font-size: .95rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+    .step p  { font-size: .85rem; color: var(--slate); line-height: 1.6; }
+
+    /* ── DEPOIMENTOS ─────────────────────────── */
+    #depoimentos { background: var(--bg-light); }
+
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+
+    .testimonial-card {
+      background: #fff; border-radius: var(--radius);
+      padding: 28px; border: 1px solid #E2E8F0;
+      transition: box-shadow .25s;
+    }
+
+    .testimonial-card:hover { box-shadow: var(--shadow); }
+
+    .stars { display: flex; gap: 3px; margin-bottom: 16px; }
+    .star { color: #F59E0B; font-size: 1rem; }
+
+    .testimonial-card blockquote {
+      font-size: .95rem; color: var(--text-mid);
+      line-height: 1.75; font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-author {
+      display: flex; align-items: center; gap: 12px;
+      padding-top: 16px; border-top: 1px solid #F1F5F9;
+    }
+
+    .author-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .9rem; color: #fff; flex-shrink: 0;
+    }
+
+    .av-blue   { background: linear-gradient(135deg, var(--navy-mid), var(--teal)); }
+    .av-teal   { background: linear-gradient(135deg, var(--teal), #0ea5e9); }
+    .av-purple { background: linear-gradient(135deg, #7c3aed, #6366f1); }
+
+    .author-name  { font-size: .9rem; font-weight: 700; color: var(--text-dark); }
+    .author-role  { font-size: .8rem; color: var(--slate); }
+
+    /* ── CONTACT ─────────────────────────────── */
+    #contato {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    }
+
+    #contato .section-label { color: var(--teal-light); }
+    #contato .section-title { color: #fff; }
+    #contato .section-sub   { color: rgba(255,255,255,.65); }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start;
+    }
+
+    .contact-info { color: rgba(255,255,255,.8); }
+
+    .contact-channel {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 20px; border-radius: var(--radius);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 14px;
+      text-decoration: none; color: inherit;
+      transition: background .2s, transform .15s;
+    }
+
+    .contact-channel:hover { background: rgba(255,255,255,.12); transform: translateX(4px); }
+
+    .channel-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+
+    .ch-green  { background: rgba(37,211,102,.2); }
+    .ch-teal   { background: rgba(6,182,212,.2); }
+
+    .channel-label { font-size: .75rem; color: rgba(255,255,255,.5); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+    .channel-value { font-size: 1rem; color: #fff; font-weight: 600; margin-top: 2px; }
+
+    .contact-note {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .8rem; color: rgba(255,255,255,.5);
+      margin-top: 20px;
+    }
+
+    /* form */
+    .contact-form {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius); padding: 36px;
+    }
+
+    .form-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .form-sub   { font-size: .875rem; color: rgba(255,255,255,.55); margin-bottom: 24px; }
+
+    .form-group { margin-bottom: 16px; }
+
+    .form-group label {
+      display: block; font-size: .82rem; font-weight: 600;
+      color: rgba(255,255,255,.7); margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,.06);
+      border: 1.5px solid rgba(255,255,255,.15);
+      border-radius: 8px; padding: 12px 14px;
+      color: #fff; font-family: inherit; font-size: .9rem;
+      outline: none; transition: border-color .2s;
+      resize: vertical;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,.3); }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--teal); }
+
+    .form-group select option { background: var(--navy); }
+
+    .btn-submit {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--teal), var(--navy-mid));
+      color: #fff; font-weight: 700; font-size: 1rem;
+      border: none; border-radius: 10px; cursor: pointer;
+      transition: opacity .2s, transform .15s;
+      font-family: inherit;
+    }
+
+    .btn-submit:hover { opacity: .9; transform: translateY(-1px); }
+
+    .form-success {
+      display: none; text-align: center;
+      padding: 32px; color: #4ade80;
+    }
+
+    .form-success .success-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .form-success h3 { color: #fff; margin-bottom: 8px; }
+    .form-success p  { color: rgba(255,255,255,.6); font-size: .9rem; }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      background: #060E17;
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 52px 24px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px;
+    }
+
+    .footer-brand p { font-size: .875rem; color: rgba(255,255,255,.45); line-height: 1.7; margin-top: 14px; max-width: 260px; }
+
+    .footer-col h4 { font-size: .8rem; font-weight: 700; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 16px; }
+
+    .footer-col a {
+      display: block; font-size: .875rem; color: rgba(255,255,255,.55);
+      margin-bottom: 10px; transition: color .2s;
+    }
+
+    .footer-col a:hover { color: var(--teal-light); }
+
+    .footer-bottom {
+      max-width: 1200px; margin: 40px auto 0;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,.07);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+
+    .footer-bottom p { font-size: .8rem; color: rgba(255,255,255,.3); }
+
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: .8rem; color: rgba(255,255,255,.35); transition: color .2s; }
+    .footer-links a:hover { color: rgba(255,255,255,.7); }
+
+    /* ── WHATSAPP FLOAT ──────────────────────── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25D366; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,.5);
+      transition: transform .2s, box-shadow .2s;
+      animation: pulse-wa 2.5s infinite;
+    }
+
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(37,211,102,.6); animation: none; }
+
+    @keyframes pulse-wa {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,.5); }
+      50%       { box-shadow: 0 4px 32px rgba(37,211,102,.8); }
+    }
+
+    /* ── SVG ICONS ───────────────────────────── */
+    .icon { display: inline-block; vertical-align: middle; }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 1024px) {
+      .services-grid     { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner      { grid-template-columns: 1fr 1fr; }
+      .hero-visual       { display: none; }
+      .hero-grid         { grid-template-columns: 1fr; }
+      .hero              { padding: 120px 24px 72px; }
+      .hero h1           { font-size: 2rem; }
+      .hero p            { font-size: 1rem; }
+      .hero-stats        { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid        { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid::before { display: none; }
+      .step              { margin-bottom: 32px; }
+    }
+
+    @media (max-width: 768px) {
+      section         { padding: 72px 20px; }
+      nav             { display: none; }
+      .hamburger      { display: flex; }
+      .btn-phone      { display: none; }
+      .btn-sistema    { display: none; }
+
+      .mobile-menu {
+        display: none;
+        position: fixed; inset: 0; top: 68px; z-index: 99;
+        background: rgba(13,27,42,.98);
+        flex-direction: column; align-items: center; justify-content: center;
+        gap: 12px; padding: 32px 24px;
+      }
+
+      .mobile-menu.open { display: flex; }
+
+      .mobile-menu a {
+        font-size: 1.1rem; font-weight: 600; color: rgba(255,255,255,.85);
+        padding: 14px 32px; border-radius: 10px; width: 100%; text-align: center;
+        border: 1px solid rgba(255,255,255,.1);
+        transition: background .2s;
+      }
+
+      .mobile-menu a:hover { background: rgba(255,255,255,.1); }
+
+      .hero              { padding: 108px 20px 56px; }
+      .hero h1           { font-size: 1.75rem; }
+      .hero-ctas         { flex-direction: column; }
+      .btn-primary,
+      .btn-secondary     { justify-content: center; }
+      .hero-stats        { grid-template-columns: repeat(2, 1fr); }
+
+      .services-grid     { grid-template-columns: 1fr; }
+      .diff-grid         { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .contact-grid      { grid-template-columns: 1fr; gap: 36px; }
+      .steps-grid        { grid-template-columns: 1fr; }
+      .footer-inner      { grid-template-columns: 1fr; }
+      .footer-bottom     { flex-direction: column; text-align: center; }
+
+      .wa-float          { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-badge">S4</div>
+      S4 Assessoria
+    </a>
+
+    <nav>
+      <a href="#servicos">Serviços</a>
+      <a href="#diferenciais">Quem Somos</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:+5561999791595" class="btn-phone">
+        <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.59 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        61 99979-1595
+      </a>
+      <a href="https://wa.me/5561999791595?text=Olá%2C+vim+pela+landing+page!" target="_blank" rel="noopener" class="btn-wa-header">
+        <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        WhatsApp
+      </a>
+      <a href="/login" class="btn-sistema">
+        <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Área do Cliente
+      </a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#servicos" onclick="closeMenu()">Serviços</a>
+  <a href="#diferenciais" onclick="closeMenu()">Quem Somos</a>
+  <a href="#depoimentos" onclick="closeMenu()">Depoimentos</a>
+  <a href="#contato" onclick="closeMenu()">Contato</a>
+  <a href="tel:+5561999791595" style="color:#67E8F9;border-color:rgba(6,182,212,.3)">📞 61 99979-1595</a>
+  <a href="https://wa.me/5561999791595?text=Olá%2C+vim+pela+landing+page!" target="_blank" style="background:#25D366;border-color:#25D366;color:#fff">WhatsApp</a>
+  <a href="/login" style="background:rgba(6,182,212,.2);border-color:rgba(6,182,212,.4);color:#67E8F9">Área do Cliente</a>
+</div>
+
+<!-- ══ HERO ═════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-grid container">
+    <div>
+      <div class="hero-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Assessoria Empresarial de Alto Impacto
+      </div>
+      <h1>Potencialize sua empresa com <span>marketing, gestão, tecnologia</span> e conformidade FEBRABAN.</h1>
+      <p>A S4 Assessoria integra soluções estratégicas para negócios seguros, eficientes e competitivos. Do planejamento à execução, seu crescimento é nossa missão.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/5561999791595?text=Olá%2C+vim+pela+landing+page+e+gostaria+de+falar+com+um+especialista!" target="_blank" rel="noopener" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Falar com especialista
+        </a>
+        <a href="#servicos" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          Conhecer serviços
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hero-card hero-card-main">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <span class="card-title-sm">Crescimento Mensal</span>
+            <span class="pill pill-green"><span class="dot"></span>+28%</span>
+          </div>
+          <div class="card-value-lg">R$ 1.2M</div>
+          <div class="kpi-row">
+            <div class="kpi"><div class="kpi-value">97%</div><div class="kpi-label">Satisfação</div></div>
+            <div class="kpi"><div class="kpi-value">4.9★</div><div class="kpi-label">Avaliação</div></div>
+            <div class="kpi"><div class="kpi-value">150+</div><div class="kpi-label">Clientes</div></div>
+          </div>
+        </div>
+        <div class="hero-card hero-card-stat">
+          <div style="display:flex;gap:8px;flex-direction:column">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:1.2rem">🏦</span>
+              <div>
+                <div style="font-size:.72rem;color:rgba(255,255,255,.5);font-weight:600">FEBRABAN</div>
+                <div style="font-size:.88rem;color:#fff;font-weight:700">Conformidade 100%</div>
+              </div>
+            </div>
+            <span class="pill pill-teal"><span class="dot"></span> Certificado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stats container">
+    <div class="hero-stat"><div class="hero-stat-value">150+</div><div class="hero-stat-label">Empresas atendidas</div></div>
+    <div class="hero-stat"><div class="hero-stat-value">97%</div><div class="hero-stat-label">Taxa de satisfação</div></div>
+    <div class="hero-stat"><div class="hero-stat-value">10+</div><div class="hero-stat-label">Anos de mercado</div></div>
+    <div class="hero-stat"><div class="hero-stat-value">4</div><div class="hero-stat-label">Pilares integrados</div></div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══════════════════════════════════════════ -->
+<section id="servicos">
+  <div class="container">
+    <div class="section-header centered">
+      <span class="section-label">Nossos Serviços</span>
+      <h2 class="section-title">Soluções que unem estratégia,<br>tecnologia e conformidade</h2>
+      <p class="section-sub">Quatro pilares integrados para transformar sua empresa em um negócio competitivo, seguro e preparado para o futuro.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon icon-blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>Marketing Digital</h3>
+        <p>Estratégias orientadas a resultados: branding, tráfego pago, geração de leads qualificados e presença digital sólida para sua empresa.</p>
+        <div class="service-tags">
+          <span class="tag">Tráfego Pago</span>
+          <span class="tag">Branding</span>
+          <span class="tag">SEO</span>
+          <span class="tag">Leads</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon icon-teal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>Gestão Corporativa</h3>
+        <p>Planejamento estratégico, reestruturação administrativa, definição de KPIs e governança para maximizar a eficiência do seu negócio.</p>
+        <div class="service-tags">
+          <span class="tag">Planejamento</span>
+          <span class="tag">KPIs</span>
+          <span class="tag">Governança</span>
+          <span class="tag">OKRs</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon icon-green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>Tecnologia</h3>
+        <p>Automação de processos, implantação de ERP/CRM, segurança da informação e transformação digital para empresas de qualquer porte.</p>
+        <div class="service-tags">
+          <span class="tag">ERP/CRM</span>
+          <span class="tag">Automação</span>
+          <span class="tag">Segurança</span>
+          <span class="tag">Cloud</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon icon-purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Soluções FEBRABAN</h3>
+        <p>Adequação às normas bancárias, segurança de pagamentos, prevenção a fraudes e conformidade regulatória para instituições financeiras.</p>
+        <div class="service-tags">
+          <span class="tag">Compliance</span>
+          <span class="tag">Fraudes</span>
+          <span class="tag">Pagamentos</span>
+          <span class="tag">Regulatório</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DIFERENCIAIS ══════════════════════════════════════ -->
+<section id="diferenciais">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:center">
+      <div>
+        <span class="section-label">Por que a S4?</span>
+        <h2 class="section-title" style="color:#fff">Nossa abordagem faz a diferença nos seus resultados</h2>
+        <p class="section-sub">Combinamos experiência de mercado com metodologias modernas para entregar soluções que realmente funcionam.</p>
+        <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px">
+          <a href="https://wa.me/5561999791595?text=Olá%2C+quero+saber+mais+sobre+os+serviços+da+S4+Assessoria!" target="_blank" rel="noopener" class="btn-primary" style="width:fit-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Agendar diagnóstico gratuito
+          </a>
+        </div>
+      </div>
+
+      <div class="diff-grid">
+        <div class="diff-card">
+          <div class="diff-icon">🎯</div>
+          <div>
+            <h3>Atendimento Personalizado</h3>
+            <p>Cada cliente tem um plano sob medida. Não trabalhamos com soluções genéricas — entendemos o seu contexto antes de propor qualquer ação.</p>
+          </div>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon">🔗</div>
+          <div>
+            <h3>Soluções Integradas</h3>
+            <p>Marketing, gestão, tecnologia e compliance trabalhando juntos. Uma visão unificada que gera resultados maiores e mais sustentáveis.</p>
+          </div>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon">🏦</div>
+          <div>
+            <h3>Expertise FEBRABAN</h3>
+            <p>Conhecimento profundo das normas do setor bancário e financeiro, garantindo conformidade total e redução de riscos regulatórios.</p>
+          </div>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon">👥</div>
+          <div>
+            <h3>Time Multidisciplinar</h3>
+            <p>Especialistas em marketing, gestão, TI e compliance trabalhando de forma colaborativa para entregar resultados excepcionais.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESSO ══════════════════════════════════════════ -->
+<section id="processo">
+  <div class="container">
+    <div class="section-header centered">
+      <span class="section-label">Como Trabalhamos</span>
+      <h2 class="section-title">Do diagnóstico à transformação</h2>
+      <p class="section-sub">Um processo claro, colaborativo e focado em resultados mensuráveis para o seu negócio.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Diagnóstico</h3>
+        <p>Analisamos profundamente sua empresa — processos, desafios, mercado e oportunidades para entender onde você está.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Estratégia</h3>
+        <p>Desenvolvemos um plano personalizado com metas claras, prazos definidos e indicadores de sucesso mensuráveis.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Execução</h3>
+        <p>Implementamos as soluções com acompanhamento próximo, ajustando a rota conforme os resultados evoluem.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Resultados</h3>
+        <p>Relatórios transparentes e reuniões periódicas para garantir que cada investimento gere o retorno esperado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DEPOIMENTOS ═══════════════════════════════════════ -->
+<section id="depoimentos">
+  <div class="container">
+    <div class="section-header centered">
+      <span class="section-label">Depoimentos</span>
+      <h2 class="section-title">O que nossos clientes dizem</h2>
+      <p class="section-sub">Resultados reais de empresas que transformaram seus negócios com a S4 Assessoria.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <blockquote>"A S4 foi fundamental para nossa adequação às normas FEBRABAN. Em menos de 3 meses, passamos por auditorias sem nenhuma não conformidade. O conhecimento técnico da equipe é impressionante e o suporte foi constante durante todo o processo."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar av-blue">RC</div>
+          <div>
+            <div class="author-name">Ricardo Carvalho</div>
+            <div class="author-role">CEO — FinBank Soluções Financeiras</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <blockquote>"Triplicamos o volume de leads qualificados em 4 meses com a estratégia de marketing da S4. O diferencial foi a visão integrada — eles não entregaram só campanhas, entregaram um ecossistema de crescimento que hoje opera de forma autônoma."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar av-teal">AS</div>
+          <div>
+            <div class="author-name">Ana Silva</div>
+            <div class="author-role">Diretora Comercial — GrupoMax Varejo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <blockquote>"A reestruturação de gestão que a S4 conduziu na nossa indústria foi transformadora. Implementamos OKRs, dashboards em tempo real e automatizamos 60% dos nossos processos operacionais. O ROI foi visível já no primeiro trimestre."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar av-purple">MO</div>
+          <div>
+            <div class="author-name">Marcos Oliveira</div>
+            <div class="author-role">Diretor Industrial — TechParts Indústria</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTATO ═══════════════════════════════════════════ -->
+<section id="contato">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <span class="section-label">Fale Conosco</span>
+        <h2 class="section-title">Pronto para transformar sua empresa?</h2>
+        <p class="section-sub">Entre em contato agora e receba um diagnóstico gratuito. Nossa equipe responde em até 2 horas.</p>
+
+        <div style="margin-top:36px">
+          <a href="https://wa.me/5561999791595?text=Olá%2C+vim+pela+landing+page+e+gostaria+de+um+diagnóstico+gratuito!" target="_blank" rel="noopener" class="contact-channel">
+            <div class="channel-icon ch-green">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </div>
+            <div>
+              <div class="channel-label">WhatsApp</div>
+              <div class="channel-value">(61) 99979-1595</div>
+            </div>
+          </a>
+
+          <a href="tel:+5561999791595" class="contact-channel">
+            <div class="channel-icon ch-teal">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-light)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.59 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="channel-label">Telefone / Ligação direta</div>
+              <div class="channel-value">(61) 99979-1595</div>
+            </div>
+          </a>
+        </div>
+
+        <p class="contact-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Contato seguro. Suas informações não são compartilhadas.
+        </p>
+      </div>
+
+      <div class="contact-form">
+        <div id="formContent">
+          <div class="form-title">Solicite um diagnóstico gratuito</div>
+          <div class="form-sub">Preencha o formulário e retornaremos em até 2 horas úteis.</div>
+
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+              <label for="nome">Nome completo *</label>
+              <input type="text" id="nome" placeholder="Seu nome" required />
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail *</label>
+              <input type="email" id="email" placeholder="seu@email.com.br" required />
+            </div>
+            <div class="form-group">
+              <label for="telefone">Telefone / WhatsApp</label>
+              <input type="tel" id="telefone" placeholder="(61) 99999-9999" />
+            </div>
+            <div class="form-group">
+              <label for="segmento">Segmento da empresa</label>
+              <select id="segmento">
+                <option value="">Selecione seu segmento</option>
+                <option>Banco / Fintech</option>
+                <option>Varejo</option>
+                <option>Indústria</option>
+                <option>Serviços</option>
+                <option>Tecnologia</option>
+                <option>Saúde</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="mensagem">Como podemos ajudar? *</label>
+              <textarea id="mensagem" rows="3" placeholder="Descreva brevemente seu desafio ou objetivo..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Solicitar diagnóstico gratuito →</button>
+          </form>
+        </div>
+
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">✅</div>
+          <h3>Mensagem enviada!</h3>
+          <p>Em breve nossa equipe entrará em contato.<br>Ou fale agora pelo WhatsApp:</p>
+          <a href="https://wa.me/5561999791595?text=Olá%2C+acabei+de+preencher+o+formulário+e+gostaria+de+agilizar+o+contato!" target="_blank" rel="noopener" class="btn-primary" style="margin-top:16px;justify-content:center">
+            Falar agora no WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo" style="font-size:1.2rem">
+        <div class="logo-badge" style="width:32px;height:32px;font-size:.8rem">S4</div>
+        S4 Assessoria
+      </a>
+      <p>Soluções estratégicas integradas para negócios seguros, eficientes e competitivos. Marketing, gestão, tecnologia e conformidade FEBRABAN em um só lugar.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Serviços</h4>
+      <a href="#servicos">Marketing Digital</a>
+      <a href="#servicos">Gestão Corporativa</a>
+      <a href="#servicos">Tecnologia</a>
+      <a href="#servicos">Soluções FEBRABAN</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <a href="#diferenciais">Quem somos</a>
+      <a href="#processo">Como trabalhamos</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="/login">Área do Cliente</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <a href="tel:+5561999791595">(61) 99979-1595</a>
+      <a href="https://wa.me/5561999791595" target="_blank">WhatsApp</a>
+      <a href="#contato">Formulário</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> S4 Assessoria. Todos os direitos reservados.</p>
+    <div class="footer-links">
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WHATSAPP FLOAT ════════════════════════════════════ -->
+<a href="https://wa.me/5561999791595?text=Olá%2C+vim+pela+landing+page!" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<script>
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const spans = hamburger.querySelectorAll('span');
+    if (mobileMenu.classList.contains('open')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px,5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
+  });
+
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+  }
+
+  // Close menu on outside click
+  document.addEventListener('click', e => {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-submit');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }, 900);
+  }
+
+  // Header scroll effect
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    header.style.boxShadow = window.scrollY > 20
+      ? '0 4px 24px rgba(0,0,0,.3)'
+      : 'none';
+  });
+
+  // Responsive diff-grid and contact-grid for mobile
+  function adjustLayout() {
+    const diffGrid = document.querySelector('.diff-grid');
+    if (diffGrid) {
+      diffGrid.style.gridTemplateColumns = window.innerWidth < 768 ? '1fr' : 'repeat(2,1fr)';
+    }
+    const diffSection = document.querySelector('#diferenciais .container > div');
+    if (diffSection) {
+      diffSection.style.gridTemplateColumns = window.innerWidth < 768 ? '1fr' : '1fr 1.4fr';
+    }
+  }
+
+  adjustLayout();
+  window.addEventListener('resize', adjustLayout);
+</script>
+</body>
+</html>
