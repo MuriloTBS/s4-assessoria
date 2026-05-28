@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="S4 Assessoria — Certificado FEBRABAN FBB100. Soluções em marketing, gestão, tecnologia e conformidade bancária para empresas que buscam crescimento com segurança." />
-  <meta name="keywords" content="FEBRABAN FBB100, assessoria empresarial, consultoria financeira, marketing digital, gestão corporativa, conformidade bancária, Brasília" />
-  <meta property="og:title" content="S4 Assessoria — Certificado FEBRABAN FBB100" />
-  <meta property="og:description" content="A única assessoria empresarial da região com certificação FEBRABAN FBB100. Transforme seu negócio com quem conhece os padrões mais exigentes do mercado." />
-  <title>S4 Assessoria — Certificado FEBRABAN FBB100</title>
+  <meta name="description" content="S4 Assessoria — Assessoria Corporativa Especializada. Soluções em marketing, gestão, tecnologia e compliance empresarial para empresas que buscam crescimento com segurança." />
+  <meta name="keywords" content="S4 Assessoria, assessoria empresarial, consultoria financeira, marketing digital, gestão corporativa, compliance empresarial, Brasília" />
+  <meta property="og:title" content="S4 Assessoria — Assessoria Corporativa Especializada" />
+  <meta property="og:description" content="A única assessoria empresarial da região com certificação S4 Assessoria. Transforme seu negócio com quem conhece os padrões mais exigentes do mercado." />
+  <title>S4 Assessoria — Assessoria Corporativa Especializada</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
@@ -497,6 +497,29 @@ footer{background:var(--ink);padding:60px 24px 32px}
 .wa-float:hover{transform:scale(1.1);animation:none;box-shadow:0 8px 32px rgba(37,211,102,.65)}
 @keyframes wa-pulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.55)}50%{box-shadow:0 4px 36px rgba(37,211,102,.85)}}
 
+
+/* ── DASH CARD HERO ─────────────────────────────────── */
+.dash-card-hero{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;padding:24px;
+  backdrop-filter:blur(12px);
+  width:100%;max-width:420px;
+}
+.dch-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.dch-title{font-size:.82rem;font-weight:700;color:rgba(255,255,255,.65)}
+.dch-badge{font-size:.75rem;font-weight:700;color:#4ade80;background:rgba(34,197,94,.15);padding:4px 10px;border-radius:100px}
+.dch-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.dch-metric{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px;text-align:center}
+.dch-val{font-size:1.25rem;font-weight:900;color:var(--teal-light);line-height:1}
+.dch-lbl{font-size:.66rem;color:rgba(255,255,255,.4);margin-top:3px;line-height:1.3}
+.dch-bar-row{display:flex;flex-direction:column;gap:10px}
+.dch-bar-item{display:flex;align-items:center;gap:10px}
+.dch-bar-label{font-size:.75rem;color:rgba(255,255,255,.55);width:72px;flex-shrink:0}
+.dch-bar-track{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden}
+.dch-bar-fill{height:100%;border-radius:100px;transition:width 1s ease}
+.dch-bar-pct{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.55);width:32px;text-align:right}
+
 /* ── RESPONSIVE ───────────────────────────────────────── */
 @media(max-width:1024px){
   .hero-inner{grid-template-columns:1fr;gap:48px}
@@ -539,10 +562,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
     <a href="#" class="logo">
       <div class="logo-icon">S4</div>
       S4 Assessoria
-      <span class="cert-pill-hdr">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-        FBB100
-      </span>
+
     </a>
 
     <nav>
@@ -577,7 +597,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
 <nav class="mob-nav" id="mobNav">
   <a href="#problema" onclick="closeMob()">Desafios</a>
   <a href="#servicos" onclick="closeMob()">Serviços</a>
-  <a href="#certificacao" onclick="closeMob()">Certificação FEBRABAN</a>
+  <a href="#certificacao" onclick="closeMob()">Especialização</a>
   <a href="#depoimentos" onclick="closeMob()">Cases</a>
   <a href="#contato" onclick="closeMob()">Contato</a>
   <a href="tel:+5561999791595" style="color:#4DD9E8;border-color:rgba(0,188,212,.3)">📞 (61) 99979-1595</a>
@@ -592,7 +612,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
       <div class="badge-row">
         <div class="badge-cert">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Certificado FEBRABAN FBB100
+          Assessoria Corporativa Especializada
         </div>
         <div class="badge-live">
           <span class="live-dot"></span>
@@ -600,9 +620,9 @@ footer{background:var(--ink);padding:60px 24px 32px}
         </div>
       </div>
 
-      <h1>A assessoria com<br><span class="hl">certificação FEBRABAN</span><br>que transforma<br>empresas em <span class="hl2">resultados.</span></h1>
+      <h1>A assessoria corporativa<br>que <span class="hl">potencializa</span><br>sua empresa e gera<br><span class="hl2">resultados reais.</span></h1>
 
-      <p class="hero-sub">Marketing, gestão corporativa, tecnologia e conformidade bancária integrados. Com o <strong style="color:#fff">Certificado FBB100</strong>, entregamos soluções que respeitam os padrões mais rigorosos do mercado financeiro.</p>
+      <p class="hero-sub">Marketing, gestão corporativa, tecnologia e compliance integrados em uma assessoria 100% focada nos seus resultados. Do planejamento à execução, somos o parceiro estratégico da sua empresa.</p>
 
       <div class="hero-cta-row">
         <a href="https://wa.me/5561999791595?text=Olá%2C+quero+um+diagnóstico+gratuito+com+a+S4+Assessoria!" target="_blank" rel="noopener" class="btn-cta-main">
@@ -611,7 +631,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
         </a>
         <a href="#certificacao" class="btn-cta-sec">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Ver certificação FBB100
+          Ver assessoria corporativa
         </a>
       </div>
 
@@ -628,7 +648,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
         <div class="trust-sep"></div>
         <div class="trust-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          Certificado FEBRABAN
+          Assessoria Corporativa
         </div>
       </div>
     </div>
@@ -637,11 +657,11 @@ footer{background:var(--ink);padding:60px 24px 32px}
       <div class="cert-showcase">
         <div class="cert-seal">
           <div class="cert-seal-inner">
-            <div class="cert-seal-code">FBB100</div>
-            <div class="cert-seal-name">FEBRABAN</div>
+            <div class="cert-seal-code">S4</div>
+            <div class="cert-seal-name">Assessoria</div>
           </div>
         </div>
-        <div class="cert-title">Certificado FEBRABAN FBB100</div>
+        <div class="cert-title">Assessoria Corporativa Especializada</div>
         <div class="cert-sub">Certificação que comprova domínio das normas e padrões do sistema financeiro brasileiro</div>
         <div class="cert-stats">
           <div class="cert-stat"><div class="cert-stat-val">150+</div><div class="cert-stat-lbl">Clientes atendidos</div></div>
@@ -655,7 +675,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
   <div class="hero-bar container">
     <div class="hero-bar-item"><div class="hbi-val">150+</div><div class="hbi-lbl">Empresas transformadas</div></div>
     <div class="hero-bar-item"><div class="hbi-val">97%</div><div class="hbi-lbl">Taxa de satisfação</div></div>
-    <div class="hero-bar-item"><div class="hbi-val">FBB100</div><div class="hbi-lbl">Certificação FEBRABAN</div></div>
+    <div class="hero-bar-item"><div class="hbi-val">4</div><div class="hbi-lbl">Pilares integrados</div></div>
     <div class="hero-bar-item"><div class="hbi-val">2h</div><div class="hbi-lbl">Tempo de resposta</div></div>
   </div>
 </section>
@@ -667,7 +687,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
     <div class="trust-badges">
       <div class="trust-badge">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E9A800" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        FEBRABAN FBB100
+        S4 Assessoria
       </div>
       <div class="trust-badge">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1650B8" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -706,8 +726,8 @@ footer{background:var(--ink);padding:60px 24px 32px}
       </div>
       <div class="pain-card">
         <div class="pain-emoji">🏦</div>
-        <h3>Exposição ao risco regulatório FEBRABAN</h3>
-        <p>Seu negócio opera no setor financeiro mas não tem certeza se está em conformidade com as normas bancárias e de segurança de pagamentos.</p>
+        <h3>Tecnologia desatualizada travando o crescimento</h3>
+        <p>Seu negócio opera no setor financeiro mas não tem certeza se está em conformidade com as normas regulatórias e de conformidade.</p>
       </div>
     </div>
   </div>
@@ -782,12 +802,12 @@ footer{background:var(--ink);padding:60px 24px 32px}
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <div class="svc-head">
-            <h3>Soluções FEBRABAN <span style="font-size:.7rem;background:rgba(233,168,0,.15);color:#B8860B;padding:2px 7px;border-radius:100px;font-weight:800;vertical-align:middle">FBB100</span></h3>
+            <h3>Compliance & Regulatório</h3>
             <p>Conformidade bancária com quem tem a certificação que o mercado exige.</p>
           </div>
         </div>
         <div class="svc-list">
-          <div class="svc-item">Adequação às normas FEBRABAN</div>
+          <div class="svc-item">Adequação às normas regulatórias</div>
           <div class="svc-item">Segurança de pagamentos e PIX</div>
           <div class="svc-item">Prevenção e mitigação de fraudes</div>
           <div class="svc-item">Compliance e auditoria regulatória</div>
@@ -798,51 +818,54 @@ footer{background:var(--ink);padding:60px 24px 32px}
   </div>
 </section>
 
-<!-- ══ CERTIFICATION ══════════════════════════════════════ -->
-<section id="certificacao">
-  <div class="cert-section-inner container">
-    <div class="cert-content">
-      <span class="sec-label light">Nossa Certificação</span>
-      <h2 class="sec-title light">FEBRABAN FBB100 —<br>o padrão mais rigoroso<br>do setor financeiro.</h2>
-      <p class="sec-sub light">A certificação FBB100 da FEBRABAN (Federação Brasileira de Bancos) atesta conhecimento avançado em normas, segurança e operações do sistema bancário brasileiro. É exigida pelos maiores bancos e fintechs do país.</p>
-
-      <div class="cert-points">
-        <div class="cert-point">
-          <div class="cert-point-icon">🏛️</div>
-          <div>
-            <h4>Reconhecido por bancos e fintechs</h4>
-            <p>Certificação emitida pela FEBRABAN, entidade representativa do setor bancário com mais de 50 anos de atuação no Brasil.</p>
+<!-- ══ METODOLOGIA ══════════════════════════════════════ -->
+<section id="certificacao" style="background:linear-gradient(155deg,var(--navy) 0%,#0A2040 50%,var(--ink) 100%);position:relative;overflow:hidden;padding:96px 24px">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 800px 500px at 100% 50%,rgba(0,188,212,.07) 0%,transparent 60%),radial-gradient(ellipse 600px 600px at 0% 50%,rgba(22,80,184,.08) 0%,transparent 60%);pointer-events:none"></div>
+  <div class="container" style="position:relative;z-index:1">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
+      <div>
+        <span class="sec-label light">Nossa Abordagem</span>
+        <h2 class="sec-title light">Metodologia que gera<br>resultados mensuráveis.</h2>
+        <p class="sec-sub light">Combinamos diagnóstico profundo, estratégia personalizada e execução disciplinada. Cada projeto tem indicadores claros e acompanhamento contínuo.</p>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:32px">
+          <div style="display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:18px 20px">
+            <div style="width:36px;height:36px;border-radius:8px;flex-shrink:0;background:rgba(0,188,212,.15);border:1px solid rgba(0,188,212,.25);display:flex;align-items:center;justify-content:center;font-size:1rem">🎯</div>
+            <div><h4 style="font-size:.92rem;font-weight:700;color:#fff;margin-bottom:3px">Diagnóstico antes da solução</h4><p style="font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.55">Entendemos sua empresa antes de propor qualquer ação. Sem receitas prontas.</p></div>
           </div>
-        </div>
-        <div class="cert-point">
-          <div class="cert-point-icon">🛡️</div>
-          <div>
-            <h4>Garantia de conformidade regulatória</h4>
-            <p>Assegura que os serviços prestados estão alinhados com as normas do Banco Central, LGPD e regulamentações financeiras vigentes.</p>
+          <div style="display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:18px 20px">
+            <div style="width:36px;height:36px;border-radius:8px;flex-shrink:0;background:rgba(0,188,212,.15);border:1px solid rgba(0,188,212,.25);display:flex;align-items:center;justify-content:center;font-size:1rem">📊</div>
+            <div><h4 style="font-size:.92rem;font-weight:700;color:#fff;margin-bottom:3px">Métricas e indicadores claros</h4><p style="font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.55">Definimos KPIs no início e reportamos resultados com transparência em cada etapa.</p></div>
           </div>
-        </div>
-        <div class="cert-point">
-          <div class="cert-point-icon">📋</div>
-          <div>
-            <h4>Acesso a metodologias exclusivas</h4>
-            <p>Frameworks e práticas desenvolvidos especificamente para o setor financeiro, aplicados diretamente na sua empresa.</p>
+          <div style="display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:18px 20px">
+            <div style="width:36px;height:36px;border-radius:8px;flex-shrink:0;background:rgba(0,188,212,.15);border:1px solid rgba(0,188,212,.25);display:flex;align-items:center;justify-content:center;font-size:1rem">🔗</div>
+            <div><h4 style="font-size:.92rem;font-weight:700;color:#fff;margin-bottom:3px">Visão integrada dos 4 pilares</h4><p style="font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.55">Marketing, gestão, tecnologia e compliance atuando juntos para resultados exponenciais.</p></div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="cert-big-card">
-      <div class="cert-big-seal">
-        <div class="seal-code">FBB100</div>
-        <div class="seal-abbrev">FEBRABAN</div>
-      </div>
-      <div class="cert-big-name">Certificado FEBRABAN FBB100</div>
-      <div class="cert-big-desc">Certificação de Conhecimentos Bancários — nível avançado em normas, operações e conformidade do sistema financeiro nacional.</div>
-      <div class="cert-big-grid">
-        <div class="cert-big-stat"><div class="cert-big-stat-val">FEBRABAN</div><div class="cert-big-stat-lbl">Instituição certificadora</div></div>
-        <div class="cert-big-stat"><div class="cert-big-stat-val">FBB100</div><div class="cert-big-stat-lbl">Código da certificação</div></div>
-        <div class="cert-big-stat"><div class="cert-big-stat-val">Nível</div><div class="cert-big-stat-lbl">Avançado / Especialista</div></div>
-        <div class="cert-big-stat"><div class="cert-big-stat-val">Ativo</div><div class="cert-big-stat-lbl">Status da certificação</div></div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:40px 32px;text-align:center">
+        <div style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#1650B8,#4DD9E8);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:0 8px 32px rgba(22,80,184,.4)">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div style="font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:8px">Assessoria de Alta Performance</div>
+        <div style="font-size:.88rem;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:28px">3 anos entregando resultados reais para empresas de todos os segmentos com um time multidisciplinar dedicado ao seu crescimento.</div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px">
+            <div style="font-size:1.4rem;font-weight:900;color:#4DD9E8">150+</div>
+            <div style="font-size:.72rem;color:rgba(255,255,255,.45);margin-top:3px">Empresas atendidas</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px">
+            <div style="font-size:1.4rem;font-weight:900;color:#4DD9E8">97%</div>
+            <div style="font-size:.72rem;color:rgba(255,255,255,.45);margin-top:3px">Satisfação</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px">
+            <div style="font-size:1.4rem;font-weight:900;color:#4DD9E8">3 anos</div>
+            <div style="font-size:.72rem;color:rgba(255,255,255,.45);margin-top:3px">No mercado</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px">
+            <div style="font-size:1.4rem;font-weight:900;color:#4DD9E8">4</div>
+            <div style="font-size:.72rem;color:rgba(255,255,255,.45);margin-top:3px">Pilares integrados</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -863,9 +886,9 @@ footer{background:var(--ink);padding:60px 24px 32px}
         <p>Média de triplicação do volume de leads em 4 meses com nossas estratégias de marketing integrado.</p>
       </div>
       <div class="result-card">
-        <div class="result-num col-gold">0</div>
-        <h3>Não conformidades FEBRABAN</h3>
-        <p>100% dos clientes assessorados por nós passaram por auditorias FEBRABAN sem nenhuma não conformidade.</p>
+        <div class="result-num col-gold">90<span class="suffix">d</span></div>
+        <h3>Para ver resultados concretos</h3>
+        <p>Em até 90 dias nossos clientes já percebem melhoras mensuráveis em receita, eficiência ou geração de leads.</p>
       </div>
       <div class="result-card">
         <div class="result-num col-teal">60<span class="suffix">%</span></div>
@@ -886,7 +909,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
     <div class="test-grid">
       <div class="test-card">
         <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <blockquote>"A S4 foi decisiva na nossa adequação FEBRABAN. Passamos por auditoria sem uma única não conformidade. A segurança que a certificação FBB100 deles transmite é real — percebemos em cada entregável."</blockquote>
+        <blockquote>"A S4 estruturou nossa gestão do zero — OKRs, dashboards, processos. Em 90 dias tínhamos clareza total sobre onde cada real estava sendo investido e qual retorno estava gerando. Transformação real."</blockquote>
         <div class="test-author">
           <div class="av av-b">RC</div>
           <div>
@@ -931,11 +954,11 @@ footer{background:var(--ink);padding:60px 24px 32px}
     <div class="faq-grid">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          O que é a certificação FEBRABAN FBB100 e por que importa?
+          O que é a certificação S4 Assessoria e por que importa?
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a">
-          <div class="faq-a-inner">A certificação FBB100 da FEBRABAN atesta conhecimento avançado nas normas e operações do sistema financeiro brasileiro. É exigida pelos maiores bancos e fintechs do país, e demonstra que o profissional ou empresa está apto a lidar com conformidade regulatória, segurança de pagamentos e prevenção a fraudes no mais alto padrão do setor.</div>
+          <div class="faq-a-inner">A S4 é uma assessoria corporativa especializada, não uma agência. Trabalhamos com visão integrada — marketing, gestão, tecnologia e compliance atuando juntos para entregar resultados reais e mensuráveis para o seu negócio.</div>
         </div>
       </div>
       <div class="faq-item">
@@ -944,7 +967,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a">
-          <div class="faq-a-inner">Depende do serviço. Em marketing digital, os primeiros resultados de tráfego aparecem em 30 dias; leads qualificados em 60-90 dias. Em gestão, melhorias operacionais são visíveis em 45-60 dias. Para adequação FEBRABAN, o processo de conformidade completo leva de 60 a 120 dias dependendo do tamanho da empresa.</div>
+          <div class="faq-a-inner">Depende do serviço. Em marketing digital, os primeiros resultados de tráfego aparecem em 30 dias; leads qualificados em 60-90 dias. Em gestão, melhorias operacionais são visíveis em 45-60 dias. Para compliance e reestruturação de processos, os primeiros marcos aparecem em 45-60 dias.</div>
         </div>
       </div>
       <div class="faq-item">
@@ -953,7 +976,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a">
-          <div class="faq-a-inner">Sim. Atendemos empresas de todos os segmentos para os pilares de marketing, gestão e tecnologia. Para as soluções FEBRABAN, nosso foco são bancos, fintechs, cooperativas de crédito, seguradoras e empresas que processam pagamentos ou operam no ecossistema financeiro regulado.</div>
+          <div class="faq-a-inner">Sim. Atendemos empresas de todos os segmentos para os pilares de marketing, gestão e tecnologia. Para compliance e regulatório, atendemos empresas de qualquer segmento que precisam adequar processos e governança corporativa.</div>
         </div>
       </div>
       <div class="faq-item">
@@ -974,7 +997,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
   <div class="container">
     <div class="cta-badge">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Certificado FEBRABAN FBB100
+      Assessoria Corporativa Especializada
     </div>
     <h2 class="cta-final-title">Pronto para transformar<br>sua empresa com quem<br>tem a certificação certa?</h2>
     <p class="cta-final-sub">Diagnóstico gratuito, sem compromisso. Nossa equipe certificada analisa seu negócio e apresenta um plano personalizado.</p>
@@ -988,7 +1011,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
         Ligar agora
       </a>
     </div>
-    <p class="cta-note">✓ Sem compromisso &nbsp;·&nbsp; ✓ Resposta em até 2h &nbsp;·&nbsp; ✓ Certificado FEBRABAN FBB100</p>
+    <p class="cta-note">✓ Sem compromisso &nbsp;·&nbsp; ✓ Resposta em até 2h &nbsp;·&nbsp; ✓ Assessoria Corporativa Especializada</p>
   </div>
 </section>
 
@@ -1066,20 +1089,20 @@ footer{background:var(--ink);padding:60px 24px 32px}
       <a href="#" class="logo" style="font-size:1.2rem">
         <div class="logo-icon" style="width:32px;height:32px;font-size:.8rem">S4</div>
         S4 Assessoria
-        <span class="cert-pill-hdr" style="font-size:.65rem">FBB100</span>
+
       </a>
-      <p>Assessoria empresarial certificada FEBRABAN FBB100. Marketing, gestão, tecnologia e conformidade bancária integrados para resultados reais.</p>
+      <p>Assessoria empresarial certificada S4 Assessoria. Marketing, gestão, tecnologia e compliance empresarial integrados para resultados reais.</p>
     </div>
     <div class="ft-col">
       <h4>Serviços</h4>
       <a href="#servicos">Marketing Digital</a>
       <a href="#servicos">Gestão Corporativa</a>
       <a href="#servicos">Tecnologia</a>
-      <a href="#servicos">Soluções FEBRABAN</a>
+      <a href="#servicos">Compliance & Regulatório</a>
     </div>
     <div class="ft-col">
       <h4>Empresa</h4>
-      <a href="#certificacao">Certificação FBB100</a>
+      <a href="#certificacao">Nossa Abordagem</a>
       <a href="#resultados">Resultados</a>
       <a href="#depoimentos">Cases</a>
       <a href="/login">Área do Cliente</a>
@@ -1092,7 +1115,7 @@ footer{background:var(--ink);padding:60px 24px 32px}
     </div>
   </div>
   <div class="ft-bottom">
-    <p>© <span id="yr"></span> S4 Assessoria. Todos os direitos reservados. | Certificado FEBRABAN FBB100</p>
+    <p>© <span id="yr"></span> S4 Assessoria. Todos os direitos reservados. | Assessoria Corporativa Especializada</p>
     <div class="ft-links">
       <a href="#">Política de Privacidade</a>
       <a href="#">Termos de Uso</a>
