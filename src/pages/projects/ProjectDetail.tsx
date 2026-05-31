@@ -22,7 +22,12 @@ export default function ProjectDetail() {
   useEffect(() => { load() }, [load])
 
   if (loading) return <div className="p-6 text-[#8a9bb0]">Carregando...</div>
-  if (!project) return <div className="p-6"><p className="text-[#8a9bb0]">Projeto não encontrado.</p><Button size="sm" className="mt-3" onClick={() => navigate('/projects')}>Voltar</Button></div>
+  if (!project) return (
+    <div className="p-6">
+      <p className="text-[#8a9bb0]">Projeto não encontrado.</p>
+      <Button size="sm" className="mt-3" onClick={() => navigate('/projects')}>Voltar</Button>
+    </div>
+  )
 
   const steps = project.steps ?? []
   const done = steps.filter((s: ProjectStep) => s.completed).length
@@ -53,27 +58,45 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="p-6 space-y-6 max-w-4xl">
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-white">{project.name}</h1>
-          <div className="flex items-center gap-3 mt-1">
+    <div className="p-4 sm:p-6 space-y-5 max-w-4xl">
+      {/* Header */}
+      <div className="flex flex-wrap gap-3 items-start justify-between">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-bold text-white break-words">{project.name}</h1>
+          <div className="flex flex-wrap items-center gap-2 mt-1">
             <span className="text-[#8a9bb0] text-sm">{project.client_name}</span>
             <span className={`inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium ${statusColor(project.status)}`}>{project.status}</span>
           </div>
         </div>
-        <Button variant="secondary" size="sm" onClick={() => navigate(`/projects/${id}/edit`)}><Pencil size={14} /> Editar</Button>
+        <Button variant="secondary" size="sm" onClick={() => navigate(`/projects/${id}/edit`)}>
+          <Pencil size={14} /> Editar
+        </Button>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
-        <Card className="p-4"><p className="text-[#8a9bb0] text-xs uppercase tracking-wide mb-1">Valor</p><p className="text-white font-semibold">{project.value ? formatCurrency(project.value) : '—'}</p></Card>
-        <Card className="p-4"><p className="text-[#8a9bb0] text-xs uppercase tracking-wide mb-1">Prazo</p><p className="text-white font-semibold">{project.deadline ? formatDate(project.deadline) : '—'}</p></Card>
-        <Card className="p-4"><p className="text-[#8a9bb0] text-xs uppercase tracking-wide mb-1">Progresso</p><p className="text-white font-semibold">{pct}% <span className="text-[#8a9bb0] font-normal text-xs">({done}/{steps.length})</span></p></Card>
+      {/* Stats */}
+      <div className="grid grid-cols-3 gap-3">
+        <Card className="p-3 sm:p-4">
+          <p className="text-[#8a9bb0] text-xs uppercase tracking-wide mb-1">Valor</p>
+          <p className="text-white font-semibold text-sm sm:text-base truncate">{project.value ? formatCurrency(project.value) : '—'}</p>
+        </Card>
+        <Card className="p-3 sm:p-4">
+          <p className="text-[#8a9bb0] text-xs uppercase tracking-wide mb-1">Prazo</p>
+          <p className="text-white font-semibold text-sm sm:text-base">{project.deadline ? formatDate(project.deadline) : '—'}</p>
+        </Card>
+        <Card className="p-3 sm:p-4">
+          <p className="text-[#8a9bb0] text-xs uppercase tracking-wide mb-1">Progresso</p>
+          <p className="text-white font-semibold text-sm sm:text-base">{pct}% <span className="text-[#8a9bb0] font-normal text-xs">({done}/{steps.length})</span></p>
+        </Card>
       </div>
 
-      {steps.length > 0 && <div className="w-full bg-[#2a3f5f] rounded-full h-2"><div className="bg-blue-500 h-2 rounded-full transition-all" style={{ width: `${pct}%` }} /></div>}
+      {steps.length > 0 && (
+        <div className="w-full bg-[#2a3f5f] rounded-full h-2">
+          <div className="bg-blue-500 h-2 rounded-full transition-all" style={{ width: `${pct}%` }} />
+        </div>
+      )}
 
-      <div className="grid grid-cols-2 gap-4">
+      {/* Main grid — stacks on mobile */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <Card className="p-5">
           <h3 className="text-white font-semibold mb-4">Etapas do Projeto</h3>
           <div className="space-y-2 mb-4">
@@ -84,14 +107,19 @@ export default function ProjectDetail() {
                   {s.completed ? <CheckSquare size={16} className="text-green-400" /> : <Square size={16} />}
                 </button>
                 {editingStep?.id === s.id ? (
-                  <input value={editingStep.title} onChange={e => setEditingStep({ ...editingStep, title: e.target.value })}
-                    onBlur={saveEditStep} onKeyDown={e => e.key === 'Enter' && saveEditStep()} autoFocus
+                  <input value={editingStep.title}
+                    onChange={e => setEditingStep({ ...editingStep, title: e.target.value })}
+                    onBlur={saveEditStep}
+                    onKeyDown={e => e.key === 'Enter' && saveEditStep()}
+                    autoFocus
                     className="flex-1 bg-[#0D1B2A] border border-blue-500 rounded-lg px-2 py-1 text-sm text-white focus:outline-none" />
                 ) : (
-                  <span onDoubleClick={() => setEditingStep({ id: s.id, title: s.title })}
-                    className={`flex-1 text-sm ${s.completed ? 'line-through text-[#8a9bb0]' : 'text-[#e2e8f0]'}`}>{s.title}</span>
+                  <span
+                    onDoubleClick={() => setEditingStep({ id: s.id, title: s.title })}
+                    className={`flex-1 text-sm min-w-0 break-words ${s.completed ? 'line-through text-[#8a9bb0]' : 'text-[#e2e8f0]'}`}
+                  >{s.title}</span>
                 )}
-                <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                   <button onClick={() => setEditingStep({ id: s.id, title: s.title })} className="p-1 text-[#8a9bb0] hover:text-yellow-400"><Pencil size={12} /></button>
                   <button onClick={() => deleteStep(s.id)} className="p-1 text-[#8a9bb0] hover:text-red-400"><Trash2 size={12} /></button>
                 </div>
@@ -99,21 +127,36 @@ export default function ProjectDetail() {
             ))}
           </div>
           <div className="flex gap-2">
-            <input value={newStep} onChange={e => setNewStep(e.target.value)} onKeyDown={e => e.key === 'Enter' && addStep()}
-              placeholder="Nova etapa... (Enter)" className="flex-1 bg-[#0D1B2A] border border-[#2a3f5f] rounded-xl px-3 py-2 text-sm text-[#e2e8f0] placeholder-[#8a9bb0] focus:outline-none focus:border-blue-500 transition-all" />
+            <input
+              value={newStep}
+              onChange={e => setNewStep(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && addStep()}
+              placeholder="Nova etapa... (Enter)"
+              className="flex-1 min-w-0 bg-[#0D1B2A] border border-[#2a3f5f] rounded-xl px-3 py-2 text-sm text-[#e2e8f0] placeholder-[#8a9bb0] focus:outline-none focus:border-blue-500 transition-all"
+            />
             <Button size="sm" onClick={addStep}><Plus size={14} /></Button>
           </div>
         </Card>
 
         <div className="space-y-4">
-          <Card className="p-5"><h3 className="text-white font-semibold mb-3">Observações</h3><p className="text-[#8a9bb0] text-sm whitespace-pre-wrap">{project.notes || 'Nenhuma observação.'}</p></Card>
+          <Card className="p-5">
+            <h3 className="text-white font-semibold mb-3">Observações</h3>
+            <p className="text-[#8a9bb0] text-sm whitespace-pre-wrap break-words">{project.notes || 'Nenhuma observação.'}</p>
+          </Card>
           <Card className="p-5">
             <h3 className="text-white font-semibold mb-3">Links Úteis</h3>
             {project.useful_links ? (
-              <a href={project.useful_links} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm transition-colors"><ExternalLink size={14} />{project.useful_links}</a>
+              <a href={project.useful_links} target="_blank" rel="noreferrer"
+                className="flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm transition-colors break-all">
+                <ExternalLink size={14} className="shrink-0" />
+                {project.useful_links}
+              </a>
             ) : <p className="text-[#8a9bb0] text-sm">Nenhum link.</p>}
           </Card>
-          <Card className="p-5"><h3 className="text-white font-semibold mb-3">Descrição</h3><p className="text-[#8a9bb0] text-sm whitespace-pre-wrap">{project.description || 'Sem descrição.'}</p></Card>
+          <Card className="p-5">
+            <h3 className="text-white font-semibold mb-3">Descrição</h3>
+            <p className="text-[#8a9bb0] text-sm whitespace-pre-wrap break-words">{project.description || 'Sem descrição.'}</p>
+          </Card>
         </div>
       </div>
     </div>

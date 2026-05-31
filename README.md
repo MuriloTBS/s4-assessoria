@@ -64,7 +64,8 @@ Browser
 Vercel Edge
   ├── /assets/*      → arquivos estáticos (CSS, JS, fontes)
   ├── /api/*         → proxy reverso → Oracle ORDS
-  └── /*             → index.html (SPA fallback)
+  ├── / e /landing   → landing.html (página pública)
+  └── /*             → index.html (SPA fallback — app autenticado)
           │
           │  HTTPS
           ▼
@@ -147,6 +148,8 @@ Projeto-S4/
 
 ### Tabelas
 
+> **Nota:** o arquivo `database/migrations/001_create_tables.sql` é um schema de referência com nomes sem prefixo (`users`, `clients`, etc.). As tabelas reais no Oracle foram criadas com o prefixo `S4_` para evitar conflito com objetos reservados do schema `ADMIN`.
+
 #### `S4_USERS`
 | Coluna | Tipo | Descrição |
 |--------|------|-----------|
@@ -154,6 +157,7 @@ Projeto-S4/
 | `email` | VARCHAR2(255) NOT NULL UNIQUE | Email de login |
 | `name` | VARCHAR2(255) NOT NULL | Nome do usuário |
 | `password_hash` | VARCHAR2(255) NOT NULL | SHA-256 da senha |
+| `logo_url` | VARCHAR2(500) | URL do logo/avatar (campo reservado — não usado na UI atual) |
 | `created_at` | TIMESTAMP | Data de criação |
 | `updated_at` | TIMESTAMP | Última atualização |
 
@@ -403,9 +407,23 @@ O Vercel detecta automaticamente o projeto como Vite e:
 {
   "routes": [
     {
+      "src": "/(.*)",
+      "headers": {
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+        "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload"
+      },
+      "continue": true
+    },
+    {
       "src": "/api/(.*)",
       "dest": "https://g6602a8de4565f4-s4db.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/$1"
     },
+    { "src": "/", "dest": "/landing.html" },
+    { "src": "/landing", "dest": "/landing.html" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
@@ -414,9 +432,11 @@ O Vercel detecta automaticamente o projeto como Vite e:
 
 | Regra | Comportamento |
 |-------|--------------|
+| `/(.*) + continue: true` | Aplica headers de segurança HTTP em todas as respostas |
 | `/api/(.*)` | Proxy direto para Oracle ORDS |
+| `/` e `/landing` | Redireciona para `landing.html` (landing page pública) |
 | `handle: filesystem` | Serve assets estáticos do `dist/` |
-| `/(.*)` | SPA fallback — retorna `index.html` para todas as outras rotas |
+| `/(.*)` | SPA fallback — retorna `index.html` para todas as demais rotas |
 
 ### Primeiro deploy em um novo ambiente
 

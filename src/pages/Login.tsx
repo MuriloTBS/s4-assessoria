@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 
@@ -24,7 +24,7 @@ export default function Login() {
     return null
   }
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     const validationError = validate()
     if (validationError) { setError(validationError); return }
@@ -50,9 +50,10 @@ export default function Login() {
     <div className="min-h-screen bg-[#0D1B2A] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-blue-500 flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">S4</div>
-          <h1 className="text-2xl font-bold text-white">S4 Assessoria</h1>
-          <p className="text-[#8a9bb0] text-sm mt-1">Gestão de Projetos para Freelancers</p>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <img src="/logo-S4-00.jpeg" alt="S4" className="object-contain rounded-xl" style={{ height: '52px', width: '52px', mixBlendMode: 'screen' }} />
+            <img src="/LogoS4-04.jpg" alt="S4 Assessoria | Gestão e Tecnologia" className="object-contain" style={{ height: '36px', width: 'auto', mixBlendMode: 'screen' }} />
+          </div>
         </div>
 
         <div className="bg-[#162032] border border-[#2a3f5f] rounded-2xl p-6">
