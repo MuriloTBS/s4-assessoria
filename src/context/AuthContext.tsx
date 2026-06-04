@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from 'react'
 import { authApi, ADMIN_EMAIL } from '@/lib/api'
-import { hashPassword } from '@/lib/hash'
 import type { User } from '@/types'
 
 interface AuthContextType {
@@ -23,8 +22,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function login(email: string, password: string): Promise<'ok' | 'invalid' | 'pending'> {
     try {
-      const hash = await hashPassword(password)
-      const u = await authApi.login(email, hash)
+      const u = await authApi.login(email, password)
       sessionStorage.setItem('s4:user', JSON.stringify(u))
       setUser(u)
       return 'ok'
@@ -35,8 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function register(name: string, email: string, password: string) {
-    const hash = await hashPassword(password)
-    await authApi.register(name, email, hash)
+    await authApi.register(name, email, password)
   }
 
   function logout() {

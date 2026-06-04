@@ -1,4 +1,4 @@
-// Simple hash for password (browser-side, before sending to Oracle)
+/** @deprecated Hashing now happens server-side via Argon2+Pepper in api/auth/login.js */
 export async function hashPassword(password: string): Promise<string> {
   const encoder = new TextEncoder()
   const data = encoder.encode(password + 's4assessoria_salt')

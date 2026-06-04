@@ -17,65 +17,70 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 
 export const ADMIN_EMAIL = 'smnogueira@proton.me'
 
-// Auth — via AutoREST on s4_users (no custom module needed)
+// Auth — via serverless functions (Argon2 + Pepper, server-side)
 export const authApi = {
-  async login(email: string, passwordHash: string) {
-    const q = encodeURIComponent(JSON.stringify({ email, password_hash: passwordHash }))
-    const res = await request<{ items: OracleUser[] }>(`/s4_users/?q=${q}&limit=1`)
-    if (!res.items?.length) throw new Error('Credenciais inválidas')
-    const u = res.items[0]
-    if (u.logo_url === 'PENDING') throw new Error('PENDING')
-    return { id: u.id, email: u.email, name: u.name }
-  },
-  async register(name: string, email: string, passwordHash: string) {
-    const u = await request<OracleUser>('/s4_users/', {
+  async login(email: string, password: string) {
+    const res = await fetch('/api/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ name, email, password_hash: passwordHash, logo_url: 'PENDING', created_at: ts(), updated_at: ts() }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
     })
-    return { id: u.id, email: u.email, name: u.name }
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.error ?? 'invalid')
+    return { id: data.id, email: data.email, name: data.name }
+  },
+  async register(name: string, email: string, password: string) {
+    const res = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password }),
+    })
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.error ?? 'server_error')
+    return { id: data.id, email: data.email, name: data.name }
   },
 }
 
 // Admin
 export const adminApi = {
   async listUsers() {
-    const res = await request<{ items: OracleUser[] }>('/s4_users/?limit=200')
+    const res = await request<{ items: OracleUser[] }>('/users/?limit=200')
     return res.items.map(u => ({ id: u.id, name: u.name, email: u.email, status: u.logo_url === 'PENDING' ? 'pending' : 'active', created_at: u.created_at }))
   },
   async approveUser(id: number) {
-    return request(`/s4_users/${id}`, { method: 'PUT', body: JSON.stringify({ logo_url: null, updated_at: ts() }) })
+    return request(`/users/${id}`, { method: 'PUT', body: JSON.stringify({ logo_url: null, updated_at: ts() }) })
   },
   async deleteUser(id: number) {
-    return request(`/s4_users/${id}`, { method: 'DELETE' })
+    return request(`/users/${id}`, { method: 'DELETE' })
   },
   async deleteAllUsers(exceptId: number) {
-    const res = await request<{ items: OracleUser[] }>('/s4_users/?limit=200')
+    const res = await request<{ items: OracleUser[] }>('/users/?limit=200')
     const others = res.items.filter(u => u.id !== exceptId)
-    for (const u of others) await request(`/s4_users/${u.id}`, { method: 'DELETE' })
+    for (const u of others) await request(`/users/${u.id}`, { method: 'DELETE' })
   },
 }
 
 // Clients
 export const clientApi = {
   async list(userId: number) {
-    const res = await request<{ items: OracleClient[] }>(`/s4_clients/?q={"user_id":${userId}}&limit=200`)
+    const res = await request<{ items: OracleClient[] }>(`/clients/?q={"user_id":${userId}}&limit=200`)
     return res.items.map(mapClient)
   },
   async get(id: number) {
-    return request<OracleClient>(`/s4_clients/${id}`).then(mapClient)
+    return request<OracleClient>(`/clients/${id}`).then(mapClient)
   },
   async create(data: Omit<import('@/types').Client, 'id' | 'created_at'>) {
-    return request<OracleClient>('/s4_clients/', { method: 'POST', body: JSON.stringify({ ...data, created_at: ts(), updated_at: ts() }) }).then(mapClient)
+    return request<OracleClient>('/clients/', { method: 'POST', body: JSON.stringify({ ...data, created_at: ts(), updated_at: ts() }) }).then(mapClient)
   },
   async update(id: number, data: Partial<import('@/types').Client>) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id: _id, created_at: _ca, ...body } = data as any
-    return request<OracleClient>(`/s4_clients/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapClient)
+    return request<OracleClient>(`/clients/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapClient)
   },
   async delete(id: number) {
-    const projects = await request<{ items: { id: number }[] }>(`/s4_projects/?q={"client_id":${id}}&limit=1`)
+    const projects = await request<{ items: { id: number }[] }>(`/projects/?q={"client_id":${id}}&limit=1`)
     if (projects.items.length > 0) return false
-    await request(`/s4_clients/${id}`, { method: 'DELETE' })
+    await request(`/clients/${id}`, { method: 'DELETE' })
     return true
   },
 }
@@ -84,30 +89,30 @@ export const clientApi = {
 export const projectApi = {
   async list(userId: number) {
     const [projRes, clientRes] = await Promise.all([
-      request<{ items: OracleProject[] }>(`/s4_projects/?q={"user_id":${userId}}&limit=200&orderby=deadline`),
-      request<{ items: OracleClient[] }>(`/s4_clients/?q={"user_id":${userId}}&limit=200`),
+      request<{ items: OracleProject[] }>(`/projects/?q={"user_id":${userId}}&limit=200&orderby=deadline`),
+      request<{ items: OracleClient[] }>(`/clients/?q={"user_id":${userId}}&limit=200`),
     ])
     const clientMap = Object.fromEntries(clientRes.items.map(c => [c.id, c.name]))
     return projRes.items.map(p => ({ ...mapProject(p), client_name: clientMap[p.client_id] }))
   },
   async get(id: number) {
     const [proj, stepsRes] = await Promise.all([
-      request<OracleProject>(`/s4_projects/${id}`),
-      request<{ items: OracleStep[] }>(`/s4_project_steps/?q={"project_id":${id}}&limit=200&orderby=position`),
+      request<OracleProject>(`/projects/${id}`),
+      request<{ items: OracleStep[] }>(`/steps/?q={"project_id":${id}}&limit=200&orderby=position`),
     ])
-    const clientRes = await request<OracleClient>(`/s4_clients/${proj.client_id}`)
+    const clientRes = await request<OracleClient>(`/clients/${proj.client_id}`)
     return { ...mapProject(proj), client_name: clientRes.name, steps: stepsRes.items.map(mapStep) }
   },
   async create(data: Omit<import('@/types').Project, 'id' | 'created_at' | 'steps' | 'client_name'>) {
-    return request<OracleProject>('/s4_projects/', { method: 'POST', body: JSON.stringify({ ...data, created_at: ts(), updated_at: ts() }) }).then(mapProject)
+    return request<OracleProject>('/projects/', { method: 'POST', body: JSON.stringify({ ...data, created_at: ts(), updated_at: ts() }) }).then(mapProject)
   },
   async update(id: number, data: Partial<import('@/types').Project>) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id: _id, created_at: _ca, steps: _s, client_name: _cn, ...body } = data as any
-    return request<OracleProject>(`/s4_projects/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapProject)
+    return request<OracleProject>(`/projects/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapProject)
   },
   async delete(id: number) {
-    await request(`/s4_projects/${id}`, { method: 'DELETE' })
+    await request(`/projects/${id}`, { method: 'DELETE' })
   },
 }
 
@@ -115,7 +120,7 @@ export const projectApi = {
 export const stepApi = {
   async create(data: Omit<import('@/types').ProjectStep, 'id'>) {
     const { completed, ...rest } = data
-    return request<OracleStep>('/s4_project_steps/', {
+    return request<OracleStep>('/steps/', {
       method: 'POST',
       body: JSON.stringify({ ...rest, completed: completed ? 1 : 0, created_at: ts(), updated_at: ts() }),
     }).then(mapStep)
@@ -124,26 +129,26 @@ export const stepApi = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id: _id, ...body } = data as any
     if (typeof body.completed === 'boolean') body.completed = body.completed ? 1 : 0
-    return request<OracleStep>(`/s4_project_steps/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapStep)
+    return request<OracleStep>(`/steps/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapStep)
   },
   async delete(id: number) {
-    await request(`/s4_project_steps/${id}`, { method: 'DELETE' })
+    await request(`/steps/${id}`, { method: 'DELETE' })
   },
 }
 
 // Parameters
 export const paramsApi = {
   async get(userId: number): Promise<import('@/types').Parameters> {
-    const res = await request<{ items: OracleParams[] }>(`/s4_parameters/?q={"user_id":${userId}}&limit=1`)
+    const res = await request<{ items: OracleParams[] }>(`/parameters/?q={"user_id":${userId}}&limit=1`)
     if (res.items.length === 0) return { id: 0, user_id: userId, hourly_rate: 100, default_margin: 20, default_complexity: 'Médio' }
     return mapParams(res.items[0])
   },
   async save(data: import('@/types').Parameters): Promise<import('@/types').Parameters> {
     const { id, ...body } = data
     if (id === 0) {
-      return request<OracleParams>('/s4_parameters/', { method: 'POST', body: JSON.stringify({ ...body, created_at: ts(), updated_at: ts() }) }).then(mapParams)
+      return request<OracleParams>('/parameters/', { method: 'POST', body: JSON.stringify({ ...body, created_at: ts(), updated_at: ts() }) }).then(mapParams)
     }
-    return request<OracleParams>(`/s4_parameters/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapParams)
+    return request<OracleParams>(`/parameters/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapParams)
   },
 }
 

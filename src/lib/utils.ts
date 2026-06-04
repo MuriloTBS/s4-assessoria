@@ -8,7 +8,7 @@ export function formatCurrency(value: number) {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)
 }
 
-export function formatDate(date: string) {
+export function formatDate(date?: string) {
   if (!date) return '—'
   return new Date(date + 'T00:00:00').toLocaleDateString('pt-BR')
 }

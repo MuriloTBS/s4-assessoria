@@ -1,28 +1,18 @@
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 import { FolderKanban, CheckCircle, Users, Clock, Plus, Calculator } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
-import { projectApi, clientApi } from '@/lib/api'
+import { useDashboardData } from '@/hooks/useDashboardData'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import { formatDate, formatCurrency, statusColor } from '@/lib/utils'
-import type { Project, Client } from '@/types'
-
-const CHART_COLORS = ['#3b82f6', '#22c55e', '#f59e0b', '#ef4444', '#f97316']
+import { CHART_COLORS } from '@/lib/constants'
 
 export default function Dashboard() {
   const { user } = useAuth()
   const navigate = useNavigate()
-  const [projects, setProjects] = useState<Project[]>([])
-  const [clients, setClients] = useState<Client[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    Promise.all([projectApi.list(user!.id), clientApi.list(user!.id)])
-      .then(([p, c]) => { setProjects(p); setClients(c) })
-      .finally(() => setLoading(false))
-  }, [user])
+  const { projects, clients, loading } = useDashboardData(user!.id)
 
   const activeProjects = projects.filter(p => p.status === 'Em andamento').length
   const upcoming = projects.filter(p => p.deadline && new Date(p.deadline) >= new Date()).slice(0, 3)

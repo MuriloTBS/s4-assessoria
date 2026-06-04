@@ -12,6 +12,13 @@
       },
       "continue": true
     },
+    { "src": "/api/auth/login",        "dest": "/api/auth/login.js" },
+    { "src": "/api/auth/register",     "dest": "/api/auth/register.js" },
+    { "src": "/api/projects(.*)",      "dest": "/api/services/projects.js" },
+    { "src": "/api/clients(.*)",       "dest": "/api/services/clients.js" },
+    { "src": "/api/users(.*)",         "dest": "/api/services/users.js" },
+    { "src": "/api/parameters(.*)",    "dest": "/api/services/parameters.js" },
+    { "src": "/api/steps(.*)",         "dest": "/api/services/steps.js" },
     {
       "src": "/api/(.*)",
       "dest": "https://g6602a8de4565f4-s4db.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/$1"
