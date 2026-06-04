@@ -10,7 +10,7 @@ export default async function handler(request) {
     method: request.method,
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
   }
-  if (request.method !== 'GET' && request.method !== 'HEAD') {
+  if (request.method !== 'GET' && request.method !== 'HEAD' && request.method !== 'DELETE') {
     init.body = await request.text()
   }
 

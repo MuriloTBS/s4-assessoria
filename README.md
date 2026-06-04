@@ -1,8 +1,9 @@
-# S4 Assessoria — Sistema de Gestão para Freelancers
+# S4 Assessoria | Gestão e Tecnologia para PMEs
 
-Sistema web completo para gerenciamento de projetos, clientes e precificação, desenvolvido para freelancers e consultores independentes.
+Sistema web completo para gerenciamento de projetos, clientes e precificação, desenvolvido para consultores e PMEs.
 
-**URL de Produção:** https://s4-assessoria.vercel.app
+**URL de Produção:** https://s4assessoria.com.br  
+**URL alternativa:** https://www.s4assessoria.com.br
 
 ---
 
@@ -15,7 +16,8 @@ Sistema web completo para gerenciamento de projetos, clientes e precificação, 
 - [Banco de Dados](#banco-de-dados)
 - [API REST (ORDS)](#api-rest-ords)
 - [Funcionalidades](#funcionalidades)
-- [Autenticação](#autenticação)
+- [Autenticação e Controle de Acesso](#autenticação-e-controle-de-acesso)
+- [Painel Admin](#painel-admin)
 - [Instalação e Desenvolvimento Local](#instalação-e-desenvolvimento-local)
 - [Deploy](#deploy)
 - [Variáveis de Ambiente](#variáveis-de-ambiente)
@@ -114,10 +116,12 @@ Projeto-S4/
 │   │       └── Textarea.tsx
 │   │
 │   └── pages/
-│       ├── Login.tsx              # Login + cadastro
+│       ├── Login.tsx              # Login + cadastro (com fluxo de aprovação)
 │       ├── Dashboard.tsx          # Métricas + gráficos
 │       ├── Calculator.tsx         # Calculadora de precificação
 │       ├── Parameters.tsx         # Parâmetros padrão da calculadora
+│       ├── admin/
+│       │   └── AdminPanel.tsx     # Painel admin — aprovar/excluir contas
 │       ├── clients/
 │       │   ├── ClientList.tsx     # Listagem de clientes
 │       │   └── ClientForm.tsx     # Criar / editar cliente
@@ -333,23 +337,64 @@ Configura os valores padrão usados na Calculadora:
 
 ---
 
-## Autenticação
+## Autenticação e Controle de Acesso
 
 O sistema usa autenticação própria sem serviço externo:
 
-1. **Registro:** usuário informa nome, email e senha
+1. **Registro:** usuário informa nome, email e senha — conta criada com status `PENDING` (campo `logo_url = 'PENDING'`)
 2. **Hash:** a senha é hasheada no browser com SHA-256 + salt via Web Crypto API
    ```typescript
-   // src/lib/hash.ts
-   // salt fixo: 's4assessoria_salt'
+   // src/lib/hash.ts — salt fixo: 's4assessoria_salt'
    crypto.subtle.digest('SHA-256', encode(password + 's4assessoria_salt'))
    ```
 3. **Armazenamento:** apenas o hash é enviado e salvo no Oracle — a senha nunca trafega em texto claro
-4. **Login:** o hash é recalculado no browser e comparado via filtro QBE no Oracle
-5. **Sessão:** dados do usuário (`id`, `name`, `email`) ficam em `sessionStorage` — limpam ao fechar o browser
+4. **Login:** retorna `'ok'` | `'pending'` | `'invalid'`
+   - `pending` → conta aguarda aprovação do admin
+   - `ok` → sessão iniciada
+5. **Sessão:** dados do usuário ficam em `sessionStorage` — limpam ao fechar o browser
 6. **Rotas protegidas:** `ProtectedRoute` redireciona para `/login` se não há sessão ativa
 
+### Redefinição de senha
+
+Não há fluxo de "esqueci a senha" na UI. Para redefinir:
+1. Gere o hash da nova senha localmente:
+   ```bash
+   node -e "const c=require('crypto'); console.log(c.createHash('sha256').update('NOVA_SENHA'+'s4assessoria_salt').digest('hex'))"
+   ```
+2. Atualize via ORDS:
+   ```bash
+   curl -X PUT https://g6602a8de4565f4-s4db.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/s4_users/{ID} \
+     -H "Content-Type: application/json" \
+     -d '{"email":"seu@email.com","name":"Seu Nome","password_hash":"HASH_GERADO","created_at":"DATA_ORIGINAL"}'
+   ```
+
 > **Nota de segurança:** os endpoints Oracle são públicos (sem OAuth ORDS) por ser uma ferramenta pessoal. Em produção escalável, recomenda-se autenticação ORDS com JWT.
+
+---
+
+## Painel Admin
+
+Acessível em `/admin` — visível apenas para o usuário com email `smnogueira@proton.me` (constante `ADMIN_EMAIL` em `src/lib/api.ts`).
+
+### Funcionalidades
+
+| Ação | Descrição |
+|------|-----------|
+| **Ver contas pendentes** | Usuários cadastrados aguardando aprovação |
+| **Aprovar conta** | Define `logo_url = null`, liberando acesso ao sistema |
+| **Excluir conta** | Remove o usuário do banco (DELETE via ORDS) |
+| **Excluir todas as contas** | Remove todos os usuários exceto o admin |
+
+### Como funciona o status de aprovação
+
+O campo `logo_url` da tabela `S4_USERS` é reaproveitado como marcador de status:
+
+| Valor de `logo_url` | Significado |
+|---------------------|-------------|
+| `'PENDING'` | Conta aguardando aprovação do admin |
+| `null` (ou vazio) | Conta ativa — acesso liberado |
+
+> Este é um reaproveitamento de campo para evitar migração de schema. Em uma versão futura, recomenda-se adicionar uma coluna `status VARCHAR2(20)` dedicada.
 
 ---
 
@@ -479,3 +524,6 @@ A sessão expira ao fechar o browser — comportamento seguro para uma ferrament
 
 ### Por que enviar timestamps do frontend?
 O Oracle ORDS AutoREST envia `NULL` explícito para colunas ausentes no body do POST, sobrescrevendo o `DEFAULT CURRENT_TIMESTAMP` definido na tabela. Enviar `created_at` e `updated_at` direto do frontend (`new Date().toISOString()`) contorna esse comportamento sem precisar alterar o schema ou criar triggers.
+
+### Por que o proxy Vercel não envia body em requisições DELETE?
+O ORDS rejeita DELETE com body vazio (`""`) — interpreta como body malformado e retorna erro. O proxy em `api/[...path].js` só inclui `body` para métodos POST e PUT, nunca para DELETE.

@@ -11,6 +11,7 @@ import ClientList from '@/pages/clients/ClientList'
 import ClientForm from '@/pages/clients/ClientForm'
 import Calculator from '@/pages/Calculator'
 import Parameters from '@/pages/Parameters'
+import AdminPanel from '@/pages/admin/AdminPanel'
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
               <Route path="/clients/:id/edit" element={<ClientForm />} />
               <Route path="/calculator" element={<Calculator />} />
               <Route path="/parameters" element={<Parameters />} />
+              <Route path="/admin" element={<AdminPanel />} />
             </Route>
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />

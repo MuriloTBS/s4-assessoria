@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, FolderKanban, Users, Calculator, Settings, LogOut, ChevronRight, X } from 'lucide-react'
+import { LayoutDashboard, FolderKanban, Users, Calculator, Settings, LogOut, ChevronRight, X, ShieldAlert } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { cn } from '@/lib/utils'
 
@@ -16,7 +16,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ onClose }: SidebarProps) {
-  const { user, logout } = useAuth()
+  const { user, logout, isAdmin } = useAuth()
   const navigate = useNavigate()
 
   function handleLogout() {
@@ -68,6 +68,23 @@ export default function Sidebar({ onClose }: SidebarProps) {
           </NavLink>
         ))}
       </nav>
+
+      {/* Admin link */}
+      {isAdmin && (
+        <NavLink
+          to="/admin"
+          onClick={handleNav}
+          className={({ isActive }) => cn(
+            'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group mt-2 border',
+            isActive
+              ? 'bg-red-500/20 text-red-400 border-red-500/30'
+              : 'text-red-400/70 border-red-500/20 hover:bg-red-500/10 hover:text-red-400',
+          )}
+        >
+          <ShieldAlert size={18} />
+          <span className="flex-1">Admin</span>
+        </NavLink>
+      )}
 
       {/* User */}
       <div className="px-3 pb-4 border-t border-[#2a3f5f] pt-4">

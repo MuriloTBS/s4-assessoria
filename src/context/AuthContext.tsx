@@ -1,11 +1,12 @@
 import { createContext, useContext, useState, type ReactNode } from 'react'
-import { authApi } from '@/lib/api'
+import { authApi, ADMIN_EMAIL } from '@/lib/api'
 import { hashPassword } from '@/lib/hash'
 import type { User } from '@/types'
 
 interface AuthContextType {
   user: User | null
-  login: (email: string, password: string) => Promise<boolean>
+  isAdmin: boolean
+  login: (email: string, password: string) => Promise<'ok' | 'invalid' | 'pending'>
   register: (name: string, email: string, password: string) => Promise<void>
   logout: () => void
 }
@@ -18,24 +19,24 @@ function getStoredUser(): User | null {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(getStoredUser())
+  const isAdmin = user?.email === ADMIN_EMAIL
 
-  async function login(email: string, password: string) {
+  async function login(email: string, password: string): Promise<'ok' | 'invalid' | 'pending'> {
     try {
       const hash = await hashPassword(password)
       const u = await authApi.login(email, hash)
       sessionStorage.setItem('s4:user', JSON.stringify(u))
       setUser(u)
-      return true
-    } catch {
-      return false
+      return 'ok'
+    } catch (err: unknown) {
+      if (err instanceof Error && err.message === 'PENDING') return 'pending'
+      return 'invalid'
     }
   }
 
   async function register(name: string, email: string, password: string) {
     const hash = await hashPassword(password)
-    const u = await authApi.register(name, email, hash)
-    sessionStorage.setItem('s4:user', JSON.stringify(u))
-    setUser(u)
+    await authApi.register(name, email, hash)
   }
 
   function logout() {
@@ -43,7 +44,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null)
   }
 
-  return <AuthContext.Provider value={{ user, login, register, logout }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, isAdmin, login, register, logout }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => useContext(AuthContext)

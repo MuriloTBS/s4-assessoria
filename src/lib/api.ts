@@ -11,8 +11,11 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     const err = await res.json().catch(() => ({ error: res.statusText }))
     throw new Error(err.error || `HTTP ${res.status}`)
   }
-  return res.json()
+  const text = await res.text()
+  return text ? JSON.parse(text) : ({} as T)
 }
+
+export const ADMIN_EMAIL = 'smnogueira@proton.me'
 
 // Auth — via AutoREST on s4_users (no custom module needed)
 export const authApi = {
@@ -21,14 +24,34 @@ export const authApi = {
     const res = await request<{ items: OracleUser[] }>(`/s4_users/?q=${q}&limit=1`)
     if (!res.items?.length) throw new Error('Credenciais inválidas')
     const u = res.items[0]
+    if (u.logo_url === 'PENDING') throw new Error('PENDING')
     return { id: u.id, email: u.email, name: u.name }
   },
   async register(name: string, email: string, passwordHash: string) {
     const u = await request<OracleUser>('/s4_users/', {
       method: 'POST',
-      body: JSON.stringify({ name, email, password_hash: passwordHash, created_at: ts(), updated_at: ts() }),
+      body: JSON.stringify({ name, email, password_hash: passwordHash, logo_url: 'PENDING', created_at: ts(), updated_at: ts() }),
     })
     return { id: u.id, email: u.email, name: u.name }
+  },
+}
+
+// Admin
+export const adminApi = {
+  async listUsers() {
+    const res = await request<{ items: OracleUser[] }>('/s4_users/?limit=200')
+    return res.items.map(u => ({ id: u.id, name: u.name, email: u.email, status: u.logo_url === 'PENDING' ? 'pending' : 'active', created_at: u.created_at }))
+  },
+  async approveUser(id: number) {
+    return request(`/s4_users/${id}`, { method: 'PUT', body: JSON.stringify({ logo_url: null, updated_at: ts() }) })
+  },
+  async deleteUser(id: number) {
+    return request(`/s4_users/${id}`, { method: 'DELETE' })
+  },
+  async deleteAllUsers(exceptId: number) {
+    const res = await request<{ items: OracleUser[] }>('/s4_users/?limit=200')
+    const others = res.items.filter(u => u.id !== exceptId)
+    for (const u of others) await request(`/s4_users/${u.id}`, { method: 'DELETE' })
   },
 }
 
@@ -125,7 +148,7 @@ export const paramsApi = {
 }
 
 // Oracle ORDS types (AutoREST returns lowercase column names)
-interface OracleUser { id: number; email: string; name: string; password_hash: string; created_at: string }
+interface OracleUser { id: number; email: string; name: string; password_hash: string; logo_url?: string; created_at: string }
 interface OracleClient { id: number; user_id: number; name: string; email?: string; phone?: string; company?: string; notes?: string; created_at: string }
 interface OracleProject { id: number; user_id: number; client_id: number; name: string; description?: string; status: string; value?: number; deadline?: string; useful_links?: string; notes?: string; created_at: string }
 interface OracleStep { id: number; project_id: number; title: string; completed: number; position: number }

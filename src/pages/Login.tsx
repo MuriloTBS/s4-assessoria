@@ -32,12 +32,16 @@ export default function Login() {
     setLoading(true)
     try {
       if (mode === 'login') {
-        const ok = await login(email.trim().toLowerCase(), password)
-        if (ok) navigate('/')
+        const result = await login(email.trim().toLowerCase(), password)
+        if (result === 'ok') navigate('/')
+        else if (result === 'pending') setError('Conta aguardando aprovação do administrador.')
         else setError('Email ou senha incorretos.')
       } else {
         await register(name.trim(), email.trim().toLowerCase(), password)
-        navigate('/')
+        setError('✓ Conta criada! Aguarde aprovação do administrador para acessar.')
+        setMode('login')
+        setName('')
+        setPassword('')
       }
     } catch {
       setError('Erro de conexão. Tente novamente.')
@@ -81,7 +85,7 @@ export default function Login() {
             </div>
 
             {error && (
-              <p className="text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-xl px-3 py-2">{error}</p>
+              <p className={`text-sm rounded-xl px-3 py-2 ${error.startsWith('✓') ? 'text-green-400 bg-green-500/10 border border-green-500/20' : 'text-red-400 bg-red-500/10 border border-red-500/20'}`}>{error}</p>
             )}
 
             <button type="submit" disabled={loading}
