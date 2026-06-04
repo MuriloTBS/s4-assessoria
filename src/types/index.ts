@@ -2,7 +2,18 @@ export interface User {
   id: number
   email: string
   name: string
+  org_id?: number
   logo_url?: string
+}
+
+export interface Organization {
+  id: number
+  name: string
+  slug: string
+  plan: 'free' | 'pro' | 'owner'
+  status: 'active' | 'suspended'
+  owner_id: number
+  created_at: string
 }
 
 export interface Client {

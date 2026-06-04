@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom'
 import { useLoginForm } from '@/hooks/useLoginForm'
 
 export default function Login() {
-  const { mode, name, email, password, message, loading, setName, setEmail, setPassword, switchMode, handleSubmit } = useLoginForm()
+  const { mode, name, email, password, orgName, message, loading, setName, setEmail, setPassword, setOrgName, switchMode, handleSubmit } = useLoginForm()
 
   return (
     <div className="min-h-screen bg-[#0D1B2A] flex items-center justify-center p-4">
@@ -20,11 +21,18 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {mode === 'register' && (
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium text-[#e2e8f0]">Nome</label>
-                <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Seu nome" required
-                  className="bg-[#0D1B2A] border border-[#2a3f5f] rounded-xl px-3 py-2.5 text-sm text-[#e2e8f0] placeholder-[#8a9bb0] focus:outline-none focus:border-blue-500 transition-all" />
-              </div>
+              <>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium text-[#e2e8f0]">Nome</label>
+                  <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Seu nome" required
+                    className="bg-[#0D1B2A] border border-[#2a3f5f] rounded-xl px-3 py-2.5 text-sm text-[#e2e8f0] placeholder-[#8a9bb0] focus:outline-none focus:border-blue-500 transition-all" />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium text-[#e2e8f0]">Empresa <span className="text-[#8a9bb0] font-normal">(opcional)</span></label>
+                  <input type="text" value={orgName} onChange={e => setOrgName(e.target.value)} placeholder="Nome da sua empresa"
+                    className="bg-[#0D1B2A] border border-[#2a3f5f] rounded-xl px-3 py-2.5 text-sm text-[#e2e8f0] placeholder-[#8a9bb0] focus:outline-none focus:border-blue-500 transition-all" />
+                </div>
+              </>
             )}
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-[#e2e8f0]">Email</label>
@@ -52,12 +60,19 @@ export default function Login() {
             </button>
           </form>
 
-          <p className="text-center text-sm text-[#8a9bb0] mt-4">
-            {mode === 'login' ? 'Não tem conta?' : 'Já tem conta?'}{' '}
-            <button onClick={switchMode} className="text-blue-400 hover:text-blue-300 font-medium">
-              {mode === 'login' ? 'Criar conta' : 'Entrar'}
-            </button>
-          </p>
+          <div className="flex flex-col items-center gap-2 mt-4">
+            <p className="text-sm text-[#8a9bb0]">
+              {mode === 'login' ? 'Não tem conta?' : 'Já tem conta?'}{' '}
+              <button onClick={switchMode} className="text-blue-400 hover:text-blue-300 font-medium">
+                {mode === 'login' ? 'Criar conta' : 'Entrar'}
+              </button>
+            </p>
+            {mode === 'login' && (
+              <Link to="/forgot-password" className="text-xs text-[#8a9bb0] hover:text-[#e2e8f0] transition-colors">
+                Esqueci minha senha
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>

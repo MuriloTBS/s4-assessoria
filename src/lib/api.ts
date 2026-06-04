@@ -1,10 +1,15 @@
 // Oracle ORDS REST API — proxied via Vercel to avoid CORS
 const BASE = '/api'
 const ts = () => new Date().toISOString()
+const INTERNAL_KEY = import.meta.env.VITE_INTERNAL_API_KEY ?? ''
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-s4-internal-key': INTERNAL_KEY,
+      ...options?.headers,
+    },
     ...options,
   })
   if (!res.ok) {
@@ -29,15 +34,15 @@ export const authApi = {
     if (!res.ok) throw new Error(data.error ?? 'invalid')
     return { id: data.id, email: data.email, name: data.name }
   },
-  async register(name: string, email: string, password: string) {
+  async register(name: string, email: string, password: string, orgName?: string) {
     const res = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password, orgName }),
     })
     const data = await res.json()
     if (!res.ok) throw new Error(data.error ?? 'server_error')
-    return { id: data.id, email: data.email, name: data.name }
+    return { id: data.id, email: data.email, name: data.name, org_id: data.org_id }
   },
 }
 

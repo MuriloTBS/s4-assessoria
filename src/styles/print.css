@@ -1,0 +1,77 @@
+@media print {
+  /* Ocultar elementos de navegação */
+  aside,
+  header,
+  nav,
+  [class*="sidebar"],
+  [class*="Sidebar"],
+  button:not(.print-keep),
+  a[href]:not(.print-keep) {
+    display: none !important;
+  }
+
+  /* Layout de impressão */
+  body {
+    background: white !important;
+    color: black !important;
+    font-family: 'Inter', sans-serif;
+    font-size: 11pt;
+  }
+
+  /* Área de conteúdo ocupa tudo */
+  main,
+  [class*="main"],
+  .print-area {
+    margin: 0 !important;
+    padding: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Cards */
+  [class*="Card"],
+  [class*="card"] {
+    background: white !important;
+    border: 1px solid #ccc !important;
+    color: black !important;
+    break-inside: avoid;
+  }
+
+  /* Textos */
+  * {
+    color: black !important;
+    background: transparent !important;
+    border-color: #ccc !important;
+  }
+
+  /* Gráficos — ocultar em impressão */
+  .recharts-wrapper,
+  [class*="chart"],
+  [class*="Chart"] {
+    display: none !important;
+  }
+
+  /* Header da impressão com logo e data */
+  .print-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+  }
+
+  /* Paginação */
+  @page {
+    margin: 1.5cm;
+    size: A4;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  table {
+    page-break-inside: avoid;
+  }
+}

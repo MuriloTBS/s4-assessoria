@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
-import { FolderKanban, CheckCircle, Users, Clock, Plus, Calculator } from 'lucide-react'
+import { FolderKanban, CheckCircle, Users, Clock, Plus, Calculator, Printer } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { useDashboardData } from '@/hooks/useDashboardData'
 import Card from '@/components/ui/Card'
@@ -68,6 +68,7 @@ export default function Dashboard() {
           <Button variant="secondary" size="sm" onClick={() => navigate('/projects/new')}><Plus size={14} /> <span className="hidden sm:inline">Novo </span>Projeto</Button>
           <Button variant="secondary" size="sm" onClick={() => navigate('/clients/new')}><Plus size={14} /> <span className="hidden sm:inline">Novo </span>Cliente</Button>
           <Button size="sm" onClick={() => navigate('/calculator')}><Calculator size={14} /> <span className="hidden sm:inline">Calculadora</span></Button>
+          <Button variant="secondary" size="sm" onClick={() => window.print()}><Printer size={14} /> <span className="hidden sm:inline">PDF</span></Button>
         </div>
       </div>
 

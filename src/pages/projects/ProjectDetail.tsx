@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Pencil, Plus, Trash2, CheckSquare, Square, ExternalLink } from 'lucide-react'
+import { Pencil, Plus, Trash2, CheckSquare, Square, ExternalLink, Bell, Printer } from 'lucide-react'
 import { projectApi, stepApi } from '@/lib/api'
 import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
@@ -68,9 +68,23 @@ export default function ProjectDetail() {
             <span className={`inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium ${statusColor(project.status)}`}>{project.status}</span>
           </div>
         </div>
-        <Button variant="secondary" size="sm" onClick={() => navigate(`/projects/${id}/edit`)}>
-          <Pencil size={14} /> Editar
-        </Button>
+        <div className="flex gap-2">
+          {project.deadline && (
+            <a
+              href={`https://wa.me/5561999791595?text=${encodeURIComponent(`Lembrete: projeto "${project.name}" vence em ${new Date(project.deadline + 'T00:00:00').toLocaleDateString('pt-BR')}`)}`}
+              target="_blank" rel="noopener"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20 hover:bg-[#25D366]/20 transition-all"
+            >
+              <Bell size={12} /> WhatsApp
+            </a>
+          )}
+          <Button variant="secondary" size="sm" onClick={() => window.print()}>
+            <Printer size={14} /> PDF
+          </Button>
+          <Button variant="secondary" size="sm" onClick={() => navigate(`/projects/${id}/edit`)}>
+            <Pencil size={14} /> Editar
+          </Button>
+        </div>
       </div>
 
       {/* Stats */}

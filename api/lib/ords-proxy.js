@@ -1,4 +1,14 @@
 const ORDS = process.env.ORDS_BASE_URL
+const INTERNAL_KEY = process.env.INTERNAL_API_KEY
+
+/**
+ * Validate that the request originates from our own frontend (not direct external access).
+ * This adds a layer of protection over the public ORDS endpoint.
+ */
+export function validateInternalRequest(req) {
+  const key = req.headers['x-s4-internal-key']
+  return key && key === INTERNAL_KEY
+}
 
 /**
  * Forward a Vercel request to Oracle ORDS.
@@ -7,6 +17,10 @@ const ORDS = process.env.ORDS_BASE_URL
  * @param {Response} res - Vercel response object
  */
 export async function ordsProxy(req, ordsPath, res) {
+  if (!validateInternalRequest(req)) {
+    return res.status(403).json({ error: 'forbidden' })
+  }
+
   const url = ORDS + ordsPath
   const init = {
     method: req.method,

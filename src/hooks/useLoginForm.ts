@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 import { loginSchema, registerSchema } from '@/lib/schemas'
 
@@ -8,12 +8,20 @@ type Mode = 'login' | 'register'
 export function useLoginForm() {
   const { login, register } = useAuth()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [mode, setMode] = useState<Mode>('login')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [orgName, setOrgName] = useState('')
   const [message, setMessage] = useState<{ text: string; ok: boolean } | null>(null)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (searchParams.get('reset') === 'ok') {
+      setMessage({ text: '✓ Senha redefinida com sucesso. Faça login com a nova senha.', ok: true })
+    }
+  }, [searchParams])
 
   function switchMode() {
     setMode(m => m === 'login' ? 'register' : 'login')
@@ -40,7 +48,7 @@ export function useLoginForm() {
         else if (result === 'pending') setMessage({ text: 'Conta aguardando aprovação do administrador.', ok: false })
         else setMessage({ text: 'Email ou senha incorretos.', ok: false })
       } else {
-        await register(name.trim(), email.trim().toLowerCase(), password)
+        await register(name.trim(), email.trim().toLowerCase(), password, orgName.trim() || undefined)
         setMessage({ text: '✓ Conta criada! Aguarde aprovação do administrador para acessar.', ok: true })
         setMode('login')
         setName('')
@@ -53,5 +61,5 @@ export function useLoginForm() {
     }
   }
 
-  return { mode, name, email, password, message, loading, setName, setEmail, setPassword, switchMode, handleSubmit }
+  return { mode, name, email, password, orgName, message, loading, setName, setEmail, setPassword, setOrgName, switchMode, handleSubmit }
 }

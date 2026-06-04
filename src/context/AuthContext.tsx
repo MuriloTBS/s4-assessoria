@@ -6,7 +6,7 @@ interface AuthContextType {
   user: User | null
   isAdmin: boolean
   login: (email: string, password: string) => Promise<'ok' | 'invalid' | 'pending'>
-  register: (name: string, email: string, password: string) => Promise<void>
+  register: (name: string, email: string, password: string, orgName?: string) => Promise<void>
   logout: () => void
 }
 
@@ -32,8 +32,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  async function register(name: string, email: string, password: string) {
-    await authApi.register(name, email, password)
+  async function register(name: string, email: string, password: string, orgName?: string) {
+    await authApi.register(name, email, password, orgName)
   }
 
   function logout() {

@@ -12,6 +12,8 @@ import ClientForm from '@/pages/clients/ClientForm'
 import Calculator from '@/pages/Calculator'
 import Parameters from '@/pages/Parameters'
 import AdminPanel from '@/pages/admin/AdminPanel'
+import ForgotPassword from '@/pages/ForgotPassword'
+import ResetPassword from '@/pages/ResetPassword'
 
 export default function App() {
   return (
@@ -19,6 +21,8 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route element={<ProtectedRoute />}>
             <Route element={<Layout />}>
               <Route path="/" element={<Dashboard />} />
