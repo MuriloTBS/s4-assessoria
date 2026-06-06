@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
     branches: [main]
 
@@ -12,47 +12,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Lint
-        run: npm run lint
 
       - name: Type check
         run: npm run typecheck
 
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npx vitest run
+
       - name: Build
         run: npm run build
         env:
-          VITE_ORACLE_DB_URL: ${{ secrets.VITE_ORACLE_DB_URL }}
-          VITE_ORACLE_DB_USER: ${{ secrets.VITE_ORACLE_DB_USER }}
-
-  test:
-    name: Tests
-    runs-on: ubuntu-latest
-    needs: quality
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm test --if-present
+          VITE_INTERNAL_API_KEY: ci-placeholder
+          VITE_SENTRY_DSN: ''
+          # SENTRY_AUTH_TOKEN omitido — plugin desativa upload de source maps silenciosamente

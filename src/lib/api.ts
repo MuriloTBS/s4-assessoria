@@ -27,12 +27,21 @@ export const authApi = {
   async login(email: string, password: string) {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
+      credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     })
     const data = await res.json()
     if (!res.ok) throw new Error(data.error ?? 'invalid')
     return { id: data.id, email: data.email, name: data.name }
+  },
+  async me(): Promise<{ id: number; email: string; name: string }> {
+    const res = await fetch('/api/auth/me', { credentials: 'same-origin' })
+    if (!res.ok) throw new Error('unauthenticated')
+    return res.json()
+  },
+  async logout() {
+    await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' })
   },
   async register(name: string, email: string, password: string, orgName?: string) {
     const res = await fetch('/api/auth/register', {

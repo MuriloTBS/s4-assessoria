@@ -7,10 +7,9 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    sentryVitePlugin({
-      org: 's4-assessoria',
-      project: 'javascript-nextjs',
-    }),
+    process.env.SENTRY_AUTH_TOKEN
+      ? sentryVitePlugin({ org: 's4-assessoria', project: 'javascript-nextjs' })
+      : null,
   ],
   resolve: {
     alias: { '@': '/src' },
