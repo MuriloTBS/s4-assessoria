@@ -50,3 +50,6 @@ coverage/
 supabase/.temp/
 supabase/.branches/
 .vercel
+
+# Sentry Config File
+.env.sentry-build-plugin

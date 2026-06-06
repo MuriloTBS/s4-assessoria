@@ -4,6 +4,24 @@ import { createHash } from 'node:crypto'
 const ORDS = process.env.ORDS_BASE_URL
 const PEPPER = process.env.AUTH_PEPPER
 
+// In-memory rate limiter: max 10 attempts per IP per 15 minutes
+// Note: per-instance in serverless — provides basic protection, not a substitute for Redis-based limiting
+const attempts = new Map()
+const WINDOW_MS = 15 * 60 * 1000
+const MAX_ATTEMPTS = 10
+
+function isRateLimited(ip) {
+  const now = Date.now()
+  const record = attempts.get(ip) ?? { count: 0, windowStart: now }
+  if (now - record.windowStart > WINDOW_MS) {
+    record.count = 0
+    record.windowStart = now
+  }
+  record.count++
+  attempts.set(ip, record)
+  return record.count > MAX_ATTEMPTS
+}
+
 function sha256Legacy(password) {
   return createHash('sha256').update(password + 's4assessoria_salt').digest('hex')
 }
@@ -14,6 +32,11 @@ function isArgon2Hash(h) {
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
+
+  const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() ?? 'unknown'
+  if (isRateLimited(ip)) {
+    return res.status(429).json({ error: 'too_many_attempts' })
+  }
 
   const { email, password } = req.body
   if (!email || !password) return res.status(400).json({ error: 'invalid' })
