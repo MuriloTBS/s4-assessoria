@@ -5,6 +5,7 @@ import { projectApi, stepApi } from '@/lib/api'
 import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import { formatDate, formatCurrency, statusColor } from '@/lib/utils'
+import { WHATSAPP } from '@/lib/constants'
 import type { Project, ProjectStep } from '@/types'
 
 export default function ProjectDetail() {
@@ -71,7 +72,7 @@ export default function ProjectDetail() {
         <div className="flex gap-2">
           {project.deadline && (
             <a
-              href={`https://wa.me/5521999579161?text=${encodeURIComponent(`Lembrete: projeto "${project.name}" vence em ${new Date(project.deadline + 'T00:00:00').toLocaleDateString('pt-BR')}`)}`}
+              href={`https://wa.me/${WHATSAPP.number}?text=${encodeURIComponent(`Lembrete: projeto "${project.name}" vence em ${new Date(project.deadline + 'T00:00:00').toLocaleDateString('pt-BR')}`)}`}
               target="_blank" rel="noopener"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20 hover:bg-[#25D366]/20 transition-all"
             >

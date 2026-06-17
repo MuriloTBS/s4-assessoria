@@ -2,6 +2,11 @@ import type { ProjectStatus, Complexity } from '@/types'
 
 export const ADMIN_EMAIL = 'smnogueira@proton.me'
 
+export const WHATSAPP = {
+  number: '5521999579161',
+  display: '(21) 99957-9161',
+} as const
+
 export const STATUS_COLORS: Record<ProjectStatus, string> = {
   'Em andamento': 'bg-blue-500/20 text-blue-400 border border-blue-500/30',
   'Concluído':    'bg-green-500/20 text-green-400 border border-green-500/30',

@@ -485,6 +485,19 @@ footer{background:var(--navy);padding:60px 24px 32px}
 </style>
 </head>
 <body>
+<script>
+  /* === WhatsApp — altere apenas aqui === */
+  var S4_WA = '5521999579161';
+  var S4_WA_DISPLAY = '(21) 99957-9161';
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[href*="wa.me/"]').forEach(function (a) {
+      a.href = a.href.replace(/wa\.me\/\d+/, 'wa.me/' + S4_WA);
+    });
+    document.querySelectorAll('.ch-val').forEach(function (el) {
+      if (el.textContent.trim().startsWith('(21)')) el.textContent = S4_WA_DISPLAY;
+    });
+  });
+</script>
 
 <!-- ══ HEADER ══════════════════════════════════════════════ -->
 <header id="hdr">
