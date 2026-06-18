@@ -59,10 +59,10 @@ export const authApi = {
 export const adminApi = {
   async listUsers() {
     const res = await request<{ items: OracleUser[] }>('/users/?limit=200')
-    return res.items.map(u => ({ id: u.id, name: u.name, email: u.email, status: u.logo_url === 'PENDING' ? 'pending' : 'active', created_at: u.created_at }))
+    return res.items.map(u => ({ id: u.id, name: u.name, email: u.email, status: (u.account_status ?? (u.logo_url === 'PENDING' ? 'PENDING' : 'active')) === 'PENDING' ? 'pending' : 'active', created_at: u.created_at }))
   },
   async approveUser(id: number) {
-    return request(`/users/${id}`, { method: 'PUT', body: JSON.stringify({ logo_url: null, updated_at: ts() }) })
+    return request(`/users/${id}`, { method: 'PUT', body: JSON.stringify({ account_status: 'active', logo_url: null, updated_at: ts() }) })
   },
   async deleteUser(id: number) {
     return request(`/users/${id}`, { method: 'DELETE' })
@@ -167,7 +167,7 @@ export const paramsApi = {
 }
 
 // Oracle ORDS types (AutoREST returns lowercase column names)
-interface OracleUser { id: number; email: string; name: string; password_hash: string; logo_url?: string; created_at: string }
+interface OracleUser { id: number; email: string; name: string; password_hash: string; logo_url?: string; account_status?: string; created_at: string }
 interface OracleClient { id: number; user_id: number; name: string; email?: string; phone?: string; company?: string; notes?: string; created_at: string }
 interface OracleProject { id: number; user_id: number; client_id: number; name: string; description?: string; status: string; value?: number; deadline?: string; useful_links?: string; notes?: string; created_at: string }
 interface OracleStep { id: number; project_id: number; title: string; completed: number; position: number }

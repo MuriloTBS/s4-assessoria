@@ -63,7 +63,8 @@ export default async function handler(req, res) {
 
     const user = data.items[0]
 
-    if (user.logo_url === 'PENDING') return res.status(403).json({ error: 'PENDING' })
+    const isPending = (user.account_status ?? (user.logo_url === 'PENDING' ? 'PENDING' : 'active')) === 'PENDING'
+    if (isPending) return res.status(403).json({ error: 'PENDING' })
 
     const storedHash = user.password_hash
     let valid = false

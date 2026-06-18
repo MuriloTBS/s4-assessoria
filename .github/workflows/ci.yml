@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, staging]
   pull_request:
     branches: [main]
 
@@ -38,8 +38,23 @@ jobs:
           VITE_SENTRY_DSN: ''
           # SENTRY_AUTH_TOKEN omitido — plugin desativa upload de source maps silenciosamente
 
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: quality
+    if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy preview
+        run: npx vercel --token=${{ secrets.VERCEL_TOKEN }} --yes
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
   deploy:
-    name: Deploy to Vercel
+    name: Deploy to Production
     runs-on: ubuntu-latest
     needs: quality
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'

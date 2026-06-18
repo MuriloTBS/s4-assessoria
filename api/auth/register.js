@@ -42,6 +42,7 @@ export default async function handler(req, res) {
       email: email.toLowerCase().trim(),
       password_hash: passwordHash,
       logo_url: 'PENDING',
+      account_status: 'PENDING',
       created_at: ts(),
       updated_at: ts(),
     }
