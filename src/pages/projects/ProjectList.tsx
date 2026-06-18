@@ -42,7 +42,6 @@ export default function ProjectList() {
       const matchClient = !clientFilter || p.client_id === Number(clientFilter)
       return matchSearch && matchStatus && matchClient
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projects, search, statusFilter, clientFilter])
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))

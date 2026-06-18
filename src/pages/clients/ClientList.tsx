@@ -32,7 +32,6 @@ export default function ClientList() {
   const filtered = useMemo(() => {
     setPage(1)
     return clients.filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clients, search])
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
