@@ -71,17 +71,18 @@ export async function ordsProxy(req, ordsPath, res) {
 
   const token = await getOrdsToken()
   const url = ORDS + ordsPath
-  const hasBody = req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'DELETE'
+  const sendBody = req.method !== 'GET' && req.method !== 'HEAD'
   const init = {
     method: req.method,
     headers: {
+      'Content-Type': 'application/json',
       Accept: 'application/json',
-      ...(hasBody ? { 'Content-Type': 'application/json' } : {}),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   }
-  if (hasBody) {
-    init.body = JSON.stringify(req.body)
+  if (sendBody) {
+    // ORDS exige body JSON em DELETE também (comportamento não-padrão do AutoREST)
+    init.body = JSON.stringify(req.body ?? {})
   }
 
   try {
