@@ -1,0 +1,42 @@
+name: Health Monitor
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+
+    steps:
+      - name: Check API health
+        id: health
+        run: |
+          HTTP=$(curl -s -o /tmp/body.json -w "%{http_code}" \
+            --max-time 10 \
+            "https://s4assessoria.com.br/api/health")
+          BODY=$(cat /tmp/body.json)
+          echo "status=$HTTP" >> "$GITHUB_OUTPUT"
+          echo "body=$BODY"   >> "$GITHUB_OUTPUT"
+          echo "HTTP: $HTTP — Body: $BODY"
+
+      - name: Send alert on failure
+        if: steps.health.outputs.status != '200'
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          TIMESTAMP=$(TZ=America/Sao_Paulo date '+%d/%m/%Y %H:%M')
+          STATUS="${{ steps.health.outputs.status }}"
+          BODY="${{ steps.health.outputs.body }}"
+
+          curl -s -X POST https://api.resend.com/emails \
+            -H "Authorization: Bearer $RESEND_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"from\": \"S4 Monitor <contato@s4assessoria.com.br>\",
+              \"to\": [\"sergiomurilonogueira@gmail.com\"],
+              \"subject\": \"🚨 S4 Assessoria — API indisponível (HTTP $STATUS)\",
+              \"html\": \"<div style='font-family:sans-serif;padding:24px;background:#0D1B2A;color:#e2e8f0;border-radius:12px'><h2 style='color:#f87171;margin:0 0 12px'>🚨 S4 Assessoria fora do ar</h2><p><strong>Status HTTP:</strong> $STATUS</p><p><strong>Detalhes:</strong> $BODY</p><p><strong>Detectado em:</strong> $TIMESTAMP (Brasília)</p><hr style='border-color:#2a3f5f;margin:16px 0'><p style='font-size:12px;color:#8a9bb0'>Verificado pelo GitHub Actions · <a href='https://s4assessoria.com.br' style='color:#60a5fa'>s4assessoria.com.br</a></p></div>\"
+            }"
