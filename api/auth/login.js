@@ -56,8 +56,8 @@ export default async function handler(req, res) {
   if (!email || !password) return res.status(400).json({ error: 'invalid' })
 
   try {
-    const token = await getOrdsToken()
-    const authHeader = token ? { Authorization: `Bearer ${token}` } : {}
+    const ordsToken = await getOrdsToken()
+    const authHeader = ordsToken ? { Authorization: `Bearer ${ordsToken}` } : {}
     const q = encodeURIComponent(JSON.stringify({ email: email.toLowerCase().trim() }))
     const ordsRes = await fetch(`${ORDS}/s4_users/?q=${q}&limit=1`, { headers: authHeader })
     const data = await ordsRes.json()
