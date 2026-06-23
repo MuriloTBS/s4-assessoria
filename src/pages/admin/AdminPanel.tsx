@@ -5,6 +5,7 @@ import { useAuth } from '@/context/AuthContext'
 import { useAdminUsers } from '@/hooks/useAdminUsers'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
+import SystemStatus from '@/components/admin/SystemStatus'
 
 function DeleteAllModal({ onConfirm, onCancel, working }: {
   onConfirm: () => void
@@ -78,6 +79,8 @@ export default function AdminPanel() {
       )}
 
       <div className="p-4 sm:p-6 space-y-6 max-w-3xl">
+        <SystemStatus />
+
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">

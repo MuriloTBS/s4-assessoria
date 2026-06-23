@@ -1,6 +1,7 @@
 import { hash as argon2Hash, verify as argon2Verify } from '@node-rs/argon2'
 import { createHash } from 'node:crypto'
 import { createHmac } from 'node:crypto'
+import { getOrdsToken } from '../_lib/ords-proxy.js'
 
 const ORDS = process.env.ORDS_BASE_URL
 const PEPPER = process.env.AUTH_PEPPER
@@ -55,8 +56,10 @@ export default async function handler(req, res) {
   if (!email || !password) return res.status(400).json({ error: 'invalid' })
 
   try {
+    const token = await getOrdsToken()
+    const authHeader = token ? { Authorization: `Bearer ${token}` } : {}
     const q = encodeURIComponent(JSON.stringify({ email: email.toLowerCase().trim() }))
-    const ordsRes = await fetch(`${ORDS}/s4_users/?q=${q}&limit=1`)
+    const ordsRes = await fetch(`${ORDS}/s4_users/?q=${q}&limit=1`, { headers: authHeader })
     const data = await ordsRes.json()
 
     if (!data.items?.length) return res.status(401).json({ error: 'invalid' })
@@ -78,7 +81,7 @@ export default async function handler(req, res) {
         const newHash = await argon2Hash(password + PEPPER)
         await fetch(`${ORDS}/s4_users/${user.id}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', ...authHeader },
           body: JSON.stringify({
             email: user.email,
             name: user.name,

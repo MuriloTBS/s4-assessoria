@@ -1,4 +1,5 @@
 import { Resend } from 'resend'
+import { getOrdsToken } from '../_lib/ords-proxy.js'
 
 const ORDS = process.env.ORDS_BASE_URL
 
@@ -10,13 +11,33 @@ function daysUntil(deadline) {
   return Math.round((d - now) / (1000 * 60 * 60 * 24))
 }
 
+async function checkOrdsHealth(authHeader) {
+  const start = Date.now()
+  try {
+    const r = await fetch(`${ORDS}/s4_users/?limit=1`, { headers: authHeader })
+    return { ok: r.ok, latency: Date.now() - start, status: r.status }
+  } catch (e) {
+    return { ok: false, latency: Date.now() - start, error: e?.message }
+  }
+}
+
 export default async function handler(req, res) {
-  // Can be called via cron (GET) or manually for one project (POST with projectId)
   const resend = new Resend(process.env.RESEND_API_KEY)
+
+  // Obtain Bearer token once for all ORDS calls in this invocation
+  const token = await getOrdsToken()
+  const authHeader = token ? { Authorization: `Bearer ${token}` } : {}
+
+  // Health check — runs on every cron execution, reports failures to Sentry
+  const health = await checkOrdsHealth(authHeader)
+  if (!health.ok) {
+    console.error('[S4-HEALTH] ORDS unavailable', JSON.stringify(health))
+    return res.status(503).json({ error: 'ords_unavailable', health })
+  }
 
   try {
     // Fetch all active projects with deadlines
-    const projRes = await fetch(`${ORDS}/s4_projects/?q={"status":"Em andamento"}&limit=200`)
+    const projRes = await fetch(`${ORDS}/s4_projects/?q={"status":"Em andamento"}&limit=200`, { headers: authHeader })
     const projData = await projRes.json()
     const projects = projData.items ?? []
 
@@ -26,13 +47,13 @@ export default async function handler(req, res) {
       return days >= 0 && days <= 3
     })
 
-    if (alerts.length === 0) return res.status(200).json({ sent: 0 })
+    if (alerts.length === 0) return res.status(200).json({ sent: 0, health })
 
     // Get unique user emails
     const userIds = [...new Set(alerts.map(p => p.user_id))]
     const users = {}
     for (const uid of userIds) {
-      const uRes = await fetch(`${ORDS}/s4_users/${uid}`)
+      const uRes = await fetch(`${ORDS}/s4_users/${uid}`, { headers: authHeader })
       if (uRes.ok) {
         const u = await uRes.json()
         users[uid] = u
@@ -71,8 +92,9 @@ export default async function handler(req, res) {
       sent++
     }
 
-    return res.status(200).json({ sent, total: alerts.length })
+    return res.status(200).json({ sent, total: alerts.length, health })
   } catch (err) {
+    console.error('[S4-DEADLINE] Unexpected error', err?.message)
     return res.status(500).json({ error: 'server_error', detail: err?.message })
   }
 }
