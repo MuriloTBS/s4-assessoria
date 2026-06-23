@@ -7,7 +7,7 @@ const ORDS = process.env.ORDS_BASE_URL
 const PEPPER = process.env.AUTH_PEPPER
 const SESSION_SECRET = process.env.SESSION_SECRET
 const WINDOW_SECS = 15 * 60
-const MAX_ATTEMPTS = 5  // reduzido de 10 → 5 para limitar força bruta mesmo sem KV
+const MAX_ATTEMPTS = 10
 
 // Rate limiting global via Vercel KV; fallback em memória por instância
 const memFallback = new Map()
