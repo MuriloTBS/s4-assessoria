@@ -71,15 +71,16 @@ export async function ordsProxy(req, ordsPath, res) {
 
   const token = await getOrdsToken()
   const url = ORDS + ordsPath
+  const hasBody = req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'DELETE'
   const init = {
     method: req.method,
     headers: {
-      'Content-Type': 'application/json',
       Accept: 'application/json',
+      ...(hasBody ? { 'Content-Type': 'application/json' } : {}),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   }
-  if (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'DELETE') {
+  if (hasBody) {
     init.body = JSON.stringify(req.body)
   }
 
