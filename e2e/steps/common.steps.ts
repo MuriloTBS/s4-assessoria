@@ -8,8 +8,8 @@ Given('estou na página de login', async ({ page }) => {
 
 Given('estou autenticado no sistema', async ({ page }) => {
   await page.goto('/login')
-  await page.fill('input[type="email"]', 'smnogueira@proton.me')
-  await page.fill('input[type="password"]', 'Sm711669!')
+  await page.fill('input[type="email"]', 'e2e@s4assessoria.com.br')
+  await page.fill('input[type="password"]', 'E2eTest123!')
   await page.click('button[type="submit"]')
   await page.waitForURL('/')
 })
@@ -32,7 +32,12 @@ When('clico em Entrar', async ({ page }) => {
 })
 
 When('clico em {string}', async ({ page }, text: string) => {
-  await page.getByText(text).first().click()
+  const btn = page.getByRole('button', { name: text, exact: false })
+  if (await btn.count() > 0) {
+    await btn.first().click()
+  } else {
+    await page.getByText(text).first().click()
+  }
 })
 
 Then('vejo a mensagem {string}', async ({ page }, text: string) => {
