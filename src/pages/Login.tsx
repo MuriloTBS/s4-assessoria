@@ -2,7 +2,12 @@ import { Link } from 'react-router-dom'
 import { useLoginForm } from '@/hooks/useLoginForm'
 
 export default function Login() {
-  const { mode, name, email, password, orgName, message, loading, setName, setEmail, setPassword, setOrgName, switchMode, handleSubmit } = useLoginForm()
+  const {
+    mode, name, email, password, orgName, consentAccepted,
+    message, loading,
+    setName, setEmail, setPassword, setOrgName, setConsentAccepted,
+    switchMode, handleSubmit,
+  } = useLoginForm()
 
   return (
     <div className="min-h-screen bg-[#0D1B2A] flex items-center justify-center p-4">
@@ -34,6 +39,7 @@ export default function Login() {
                 </div>
               </>
             )}
+
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-[#e2e8f0]">Email</label>
               <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="seu@email.com" required
@@ -45,6 +51,24 @@ export default function Login() {
                 autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
                 className="bg-[#0D1B2A] border border-[#2a3f5f] rounded-xl px-3 py-2.5 text-sm text-[#e2e8f0] placeholder-[#8a9bb0] focus:outline-none focus:border-blue-500 transition-all" />
             </div>
+
+            {mode === 'register' && (
+              <label className="flex items-start gap-2.5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={consentAccepted}
+                  onChange={e => setConsentAccepted(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 rounded border-[#2a3f5f] bg-[#0D1B2A] accent-blue-500 cursor-pointer"
+                />
+                <span className="text-xs text-[#8a9bb0] leading-relaxed">
+                  Li e concordo com a{' '}
+                  <Link to="/privacidade" target="_blank" className="text-blue-400 hover:text-blue-300 underline underline-offset-2">
+                    Política de Privacidade
+                  </Link>{' '}
+                  e autorizo o tratamento dos meus dados para uso da plataforma, conforme a LGPD (Lei 13.709/2018).
+                </span>
+              </label>
+            )}
 
             {message && (
               <p className={`text-sm rounded-xl px-3 py-2 ${message.ok
@@ -74,6 +98,14 @@ export default function Login() {
             )}
           </div>
         </div>
+
+        <p className="text-center text-xs text-[#8a9bb0] mt-4">
+          <Link to="/privacidade" className="hover:text-[#e2e8f0] transition-colors">
+            Política de Privacidade
+          </Link>
+          {' · '}
+          <span>LGPD Lei 13.709/2018</span>
+        </p>
       </div>
     </div>
   )

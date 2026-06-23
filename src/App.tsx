@@ -16,6 +16,7 @@ const ClientForm = lazy(() => import('@/pages/clients/ClientForm'))
 const Calculator = lazy(() => import('@/pages/Calculator'))
 const Parameters = lazy(() => import('@/pages/Parameters'))
 const AdminPanel = lazy(() => import('@/pages/admin/AdminPanel'))
+const PrivacyPolicy = lazy(() => import('@/pages/PrivacyPolicy'))
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Suspense fallback={null}>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/privacidade" element={<PrivacyPolicy />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route element={<ProtectedRoute />}>
