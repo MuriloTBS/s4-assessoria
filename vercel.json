@@ -19,6 +19,11 @@
     { "src": "/api/auth/forgot-password",  "dest": "/api/auth/forgot-password.js" },
     { "src": "/api/auth/reset-password",   "dest": "/api/auth/reset-password.js" },
     { "src": "/api/notifications/deadline",    "dest": "/api/notifications/deadline.js" },
+    { "src": "/api/projects(.*)",              "dest": "/api/services/projects.js" },
+    { "src": "/api/clients(.*)",               "dest": "/api/services/clients.js" },
+    { "src": "/api/users(.*)",                 "dest": "/api/services/users.js" },
+    { "src": "/api/parameters(.*)",            "dest": "/api/services/parameters.js" },
+    { "src": "/api/steps(.*)",                 "dest": "/api/services/steps.js" },
     {
       "src": "/",
       "dest": "/landing.html"
