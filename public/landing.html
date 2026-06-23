@@ -282,32 +282,25 @@ footer{background:#020810;padding:72px 48px 32px;border-top:1px solid var(--bord
   .ham{display:flex}
   #hdr{padding:0 16px;height:60px}
 
-  /* ── HERO: remove 100vh + flex, usar altura proporcional à imagem ── */
-  .hero{min-height:auto;display:block}
-  .hero-img-wrap{
-    display:block;
-    height:58vw;     /* proporção da imagem 16:9 ≈ 56.25vw */
-    min-height:auto;
-    max-height:320px;
-  }
+  /* ── HERO ──
+     flex:none impede o img-wrap de crescer (flex:1 no base)
+     min-height:auto sobrescreve 60vh do base
+     height:56.25vw = proporção exata 16:9 da hero.png
+     min-height:100vh removido do .hero para não criar vazio
+  ── */
+  .hero{min-height:auto}
+  .hero-img-wrap{flex:none;height:56.25vw;min-height:auto;max-height:300px}
   .hero-img-wrap img{object-position:left top}
-  .hero-overlay{
-    background:linear-gradient(to bottom,
-      rgba(5,11,24,.6) 0%,
-      transparent 30%,
-      transparent 60%,
-      rgba(5,11,24,.92) 100%);
+  .hero-overlay{background:linear-gradient(to bottom,rgba(5,11,24,.65) 0%,transparent 35%,transparent 60%,rgba(5,11,24,.95) 100%)}
+
+  /* hero-ctas sempre visível — não depende de IntersectionObserver */
+  .hero-ctas,.hero-ctas.reveal,.hero-ctas.reveal.in{
+    opacity:1;transform:none;
+    padding:20px 18px 30px;gap:12px;
   }
-  .hero-ctas{padding:20px 18px 32px;gap:12px}
   .hero-cta-row{flex-direction:column;align-items:stretch;gap:10px}
-  .btn-primary,.btn-outline{
-    width:100%;justify-content:center;
-    font-size:.95rem;padding:14px 20px;border-radius:10px;
-  }
-  .hero-trust{
-    display:grid;grid-template-columns:1fr 1fr;
-    gap:8px 16px;padding:0 2px;
-  }
+  .btn-primary,.btn-outline{width:100%;justify-content:center;font-size:.95rem;padding:14px 20px;border-radius:10px}
+  .hero-trust{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px}
   .trust-item{font-size:.78rem}
 
   /* ── typography ── */
@@ -323,10 +316,10 @@ footer{background:#020810;padding:72px 48px 32px;border-top:1px solid var(--bord
   .dif-grid{gap:36px}
 
   /* ── cards ── */
-  .qs-card{padding:14px 12px;gap:10px}
+  .qs-card{padding:13px 12px;gap:10px}
   .qs-card h4{font-size:.82rem}
   .qs-side{padding:18px}
-  .qs-side img{margin-bottom:12px;aspect-ratio:auto;max-height:180px}
+  .qs-side img{margin-bottom:12px;max-height:180px;aspect-ratio:auto}
   .qs-tagline{font-size:.875rem}
   .qs-mini-stats{gap:12px;padding-top:14px;margin-top:14px}
   .qs-stat-val{font-size:1.2rem}
@@ -347,10 +340,7 @@ footer{background:#020810;padding:72px 48px 32px;border-top:1px solid var(--bord
 
   /* ── CTA final ── */
   .cta-btns{flex-direction:column;align-items:stretch;gap:10px}
-  .cta-btns .btn-primary,.cta-btns .btn-outline{
-    width:100%;justify-content:center;
-    font-size:.95rem !important;padding:14px 20px !important;
-  }
+  .cta-btns .btn-primary,.cta-btns .btn-outline{width:100%;justify-content:center;font-size:.95rem !important;padding:14px 20px !important}
   #cta-final{padding:60px 18px}
   .cta-title{font-size:clamp(1.5rem,5.5vw,2rem)}
   .cta-sub{font-size:.9rem;margin-bottom:32px}
@@ -361,16 +351,14 @@ footer{background:#020810;padding:72px 48px 32px;border-top:1px solid var(--bord
   footer{padding:44px 18px 24px}
   .ft-col h4{margin-bottom:12px}
 
-  /* ── animations: sem translateX para evitar overflow horizontal ── */
+  /* ── animations ── */
   .reveal-l{transform:translateY(20px)}
   .reveal-r{transform:translateY(20px)}
-
-  /* ── wa float ── */
   .wa-float{width:50px;height:50px;bottom:18px;right:14px}
 }
 @media(max-width:390px){
   .qs-cards{grid-template-columns:1fr}
-  .hero-img-wrap{height:62vw;max-height:280px}
+  .hero-img-wrap{height:62vw;max-height:260px}
 }
 </style>
 </head>
