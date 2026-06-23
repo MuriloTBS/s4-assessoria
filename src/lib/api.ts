@@ -61,7 +61,11 @@ export const adminApi = {
     return res.items.map(u => ({ id: u.id, name: u.name, email: u.email, status: (u.account_status ?? (u.logo_url === 'PENDING' ? 'PENDING' : 'active')) === 'PENDING' ? 'pending' : 'active', created_at: u.created_at }))
   },
   async approveUser(id: number) {
-    return request(`/users/${id}`, { method: 'PUT', body: JSON.stringify({ account_status: 'active', logo_url: null, updated_at: ts() }) })
+    const user = await request<OracleUser>(`/users/${id}`)
+    return request(`/users/${id}`, { method: 'PUT', body: JSON.stringify({
+      name: user.name, email: user.email, password_hash: user.password_hash,
+      logo_url: null, account_status: 'active', created_at: user.created_at, updated_at: ts(),
+    }) })
   },
   async deleteUser(id: number) {
     return request(`/users/${id}`, { method: 'DELETE' })
@@ -87,7 +91,7 @@ export const clientApi = {
   },
   async update(id: number, data: Partial<import('@/types').Client>) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id: _id, created_at: _ca, ...body } = data as any
+    const { id: _id, ...body } = data as any
     return request<OracleClient>(`/clients/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapClient)
   },
   async delete(id: number) {
@@ -121,7 +125,7 @@ export const projectApi = {
   },
   async update(id: number, data: Partial<import('@/types').Project>) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id: _id, created_at: _ca, steps: _s, client_name: _cn, ...body } = data as any
+    const { id: _id, steps: _s, client_name: _cn, ...body } = data as any
     return request<OracleProject>(`/projects/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapProject)
   },
   async delete(id: number) {
@@ -139,10 +143,11 @@ export const stepApi = {
     }).then(mapStep)
   },
   async update(id: number, data: Partial<import('@/types').ProjectStep>) {
+    const current = await request<OracleStep>(`/steps/${id}`)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id: _id, ...body } = data as any
-    if (typeof body.completed === 'boolean') body.completed = body.completed ? 1 : 0
-    return request<OracleStep>(`/steps/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapStep)
+    const { id: _id, ...rest } = data as any
+    if (typeof rest.completed === 'boolean') rest.completed = rest.completed ? 1 : 0
+    return request<OracleStep>(`/steps/${id}`, { method: 'PUT', body: JSON.stringify({ ...current, ...rest }) }).then(mapStep)
   },
   async delete(id: number) {
     await request(`/steps/${id}`, { method: 'DELETE' })
@@ -161,7 +166,8 @@ export const paramsApi = {
     if (id === 0) {
       return request<OracleParams>('/parameters/', { method: 'POST', body: JSON.stringify({ ...body, created_at: ts(), updated_at: ts() }) }).then(mapParams)
     }
-    return request<OracleParams>(`/parameters/${id}`, { method: 'PUT', body: JSON.stringify(body) }).then(mapParams)
+    const current = await request<OracleParams>(`/parameters/${id}`)
+    return request<OracleParams>(`/parameters/${id}`, { method: 'PUT', body: JSON.stringify({ ...current, ...body, updated_at: ts() }) }).then(mapParams)
   },
 }
 
@@ -169,8 +175,8 @@ export const paramsApi = {
 interface OracleUser { id: number; email: string; name: string; password_hash: string; logo_url?: string; account_status?: string; created_at: string }
 interface OracleClient { id: number; user_id: number; name: string; email?: string; phone?: string; company?: string; notes?: string; created_at: string }
 interface OracleProject { id: number; user_id: number; client_id: number; name: string; description?: string; status: string; value?: number; deadline?: string; useful_links?: string; notes?: string; created_at: string }
-interface OracleStep { id: number; project_id: number; title: string; completed: number; position: number }
-interface OracleParams { id: number; user_id: number; hourly_rate: number; default_margin: number; default_complexity: string }
+interface OracleStep { id: number; project_id: number; title: string; completed: number; position: number; created_at?: string }
+interface OracleParams { id: number; user_id: number; hourly_rate: number; default_margin: number; default_complexity: string; created_at?: string }
 
 function mapClient(c: OracleClient): import('@/types').Client {
   return { id: c.id, user_id: c.user_id, name: c.name, email: c.email, phone: c.phone, company: c.company, notes: c.notes, created_at: c.created_at }
