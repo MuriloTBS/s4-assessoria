@@ -54,3 +54,6 @@ supabase/.branches/
 # Sentry Config File
 .env.sentry-build-plugin
 .env*
+.features-gen/
+playwright-report/
+test-results/

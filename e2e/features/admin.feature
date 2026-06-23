@@ -5,7 +5,7 @@ Feature: Painel Admin
 
   Scenario: Admin vê painel de administração
     Given estou autenticado como administrador
-    When acesso /admin
+    When acesso a página do admin
     Then vejo o título "Painel Admin"
 
   Scenario: Cadastro gera conta pendente

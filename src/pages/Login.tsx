@@ -24,7 +24,7 @@ export default function Login() {
             {mode === 'login' ? 'Entrar na conta' : 'Criar conta'}
           </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} noValidate className="space-y-4">
             {mode === 'register' && (
               <>
                 <div className="flex flex-col gap-1.5">

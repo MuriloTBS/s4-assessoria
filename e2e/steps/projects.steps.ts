@@ -1,11 +1,12 @@
-import { When, Then } from 'playwright-bdd'
+import { createBdd } from 'playwright-bdd'
+const { When, Then } = createBdd()
 import { expect } from '@playwright/test'
 
 When('acesso a página de projetos', async ({ page }) => {
   await page.goto('/projects')
 })
 
-When('acesso /admin', async ({ page }) => {
+When('acesso a página do admin', async ({ page }) => {
   await page.goto('/admin')
 })
 
