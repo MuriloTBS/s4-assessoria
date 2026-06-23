@@ -1,13 +1,12 @@
 // Oracle ORDS REST API — proxied via Vercel to avoid CORS
 const BASE = '/api'
 const ts = () => new Date().toISOString()
-const INTERNAL_KEY = import.meta.env.VITE_INTERNAL_API_KEY ?? ''
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
-      'x-s4-internal-key': INTERNAL_KEY,
       ...options?.headers,
     },
     ...options,

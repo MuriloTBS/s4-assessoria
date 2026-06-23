@@ -7,13 +7,14 @@ const ORDS = process.env.ORDS_BASE_URL
 const PEPPER = process.env.AUTH_PEPPER
 const SESSION_SECRET = process.env.SESSION_SECRET
 const WINDOW_SECS = 15 * 60
-const MAX_ATTEMPTS = 10
+const MAX_ATTEMPTS = 5  // reduzido de 10 → 5 para limitar força bruta mesmo sem KV
 
-// Rate limiting com Vercel KV (com fallback em memória para desenvolvimento)
+// Rate limiting global via Vercel KV; fallback em memória por instância
 const memFallback = new Map()
 
-async function isRateLimited(ip) {
-  const key = `rl:login:${ip}`
+async function isRateLimited(ip, email) {
+  // Chave combina IP + email normalizado — evita bypass por rotação de email
+  const key = `rl:login:${ip}:${email.toLowerCase().trim()}`
   try {
     const { kv } = await import('@vercel/kv')
     const count = await kv.incr(key)
@@ -21,11 +22,13 @@ async function isRateLimited(ip) {
     return count > MAX_ATTEMPTS
   } catch {
     // KV não configurado — fallback em memória (por instância serverless)
+    // AVISO: sem Vercel KV, rate limiting não é global entre instâncias.
+    // Crie um KV store em vercel.com/dashboard → Storage para corrigir.
     const now = Date.now()
-    const rec = memFallback.get(ip) ?? { count: 0, windowStart: now }
+    const rec = memFallback.get(key) ?? { count: 0, windowStart: now }
     if (now - rec.windowStart > WINDOW_SECS * 1000) { rec.count = 0; rec.windowStart = now }
     rec.count++
-    memFallback.set(ip, rec)
+    memFallback.set(key, rec)
     return rec.count > MAX_ATTEMPTS
   }
 }
@@ -48,12 +51,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
   const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() ?? 'unknown'
-  if (await isRateLimited(ip)) {
-    return res.status(429).json({ error: 'too_many_attempts' })
-  }
 
   const { email, password } = req.body
   if (!email || !password) return res.status(400).json({ error: 'invalid' })
+
+  if (await isRateLimited(ip, email)) {
+    return res.status(429).json({ error: 'too_many_attempts' })
+  }
 
   try {
     const ordsToken = await getOrdsToken()

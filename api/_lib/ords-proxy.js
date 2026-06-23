@@ -1,12 +1,13 @@
+import { createHmac } from 'node:crypto'
+
 const ORDS = process.env.ORDS_BASE_URL
 const CLIENT_ID = process.env.ORDS_CLIENT_ID
 const CLIENT_SECRET = process.env.ORDS_CLIENT_SECRET
 const INTERNAL_KEY = process.env.INTERNAL_API_KEY
+const SESSION_SECRET = process.env.SESSION_SECRET
 
-// Derives https://host/ords/oauth/token from https://host/ords/schema
 const TOKEN_URL = ORDS ? ORDS.replace(/\/ords\/[^/]+.*$/, '/ords/oauth/token') : null
 
-// In-memory token cache (lives for the duration of a warm serverless instance)
 let _token = null
 let _tokenExpiry = 0
 
@@ -27,7 +28,6 @@ export async function getOrdsToken() {
     if (!res.ok) return null
     const data = await res.json()
     _token = data.access_token
-    // Expire 60s early to avoid edge-case clock skew rejections
     _tokenExpiry = Date.now() + Math.max(0, (data.expires_in - 60) * 1000)
     return _token
   } catch {
@@ -35,13 +35,37 @@ export async function getOrdsToken() {
   }
 }
 
-export function validateInternalRequest(req) {
-  const key = req.headers['x-s4-internal-key']
-  return key && key === INTERNAL_KEY
+// Validates a user session cookie — same logic as api/auth/me.js
+function verifySessionCookie(cookieHeader) {
+  if (!cookieHeader || !SESSION_SECRET) return false
+  const match = cookieHeader.split(';').map(c => c.trim()).find(c => c.startsWith('s4_session='))
+  if (!match) return false
+  const [payload, sig] = match.slice('s4_session='.length).split('.')
+  if (!payload || !sig) return false
+  const expected = createHmac('sha256', SESSION_SECRET).update(payload).digest('base64url')
+  if (sig !== expected) return false
+  try {
+    const { iat } = JSON.parse(Buffer.from(payload, 'base64url').toString())
+    return Date.now() - iat < 86400 * 1000
+  } catch {
+    return false
+  }
 }
 
+// Accepts:
+// - Valid s4_session cookie   → user requests from the browser (no key in bundle)
+// - x-s4-internal-key header → service calls (health check, cron) — server-side only
+export function validateRequest(req) {
+  const serviceKey = req.headers['x-s4-internal-key']
+  if (serviceKey && serviceKey === INTERNAL_KEY) return true
+  return verifySessionCookie(req.headers.cookie)
+}
+
+// Keep old name as alias so existing service files don't need changes
+export { validateRequest as validateInternalRequest }
+
 export async function ordsProxy(req, ordsPath, res) {
-  if (!validateInternalRequest(req)) {
+  if (!validateRequest(req)) {
     return res.status(403).json({ error: 'forbidden' })
   }
 
