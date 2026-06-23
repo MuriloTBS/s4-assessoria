@@ -1,1089 +1,657 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="S4 Assessoria | Gestão e Tecnologia para PMEs. Processo que gera resultado. Diagnóstico gratuito de 30 minutos." />
-  <meta property="og:title" content="S4 Assessoria | Processo que gera resultado." />
-  <meta property="og:description" content="Consultoria de gestão para PMEs — do improviso ao processo previsível. Diagnóstico gratuito em 30 minutos." />
-  <title>S4 Assessoria | Processo que gera resultado.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="S4 Assessoria – Gestão e Tecnologia. Transformamos gestão em resultados com estratégia, tecnologia e processos para empresas que querem crescer com eficiência e previsibilidade."/>
+<meta property="og:title" content="S4 Assessoria | Gestão e Tecnologia"/>
+<meta property="og:description" content="Tecnologia, processos e estratégia para gerar resultados reais."/>
+<title>S4 Assessoria | Gestão e Tecnologia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0F1F3D;
-  --navy-light:#1A3A6B;
-  --green:#00C17C;
-  --green-dark:#00A368;
-  --gold:#B8975A;
-  --gold-light:#C9A84C;
-  --ivory:#F7F5F0;
-  --graphite:#2D3748;
-  --slate:#64748B;
-  --slate-light:#94A3B8;
-  --border:#E2E8F0;
-  --white:#FFFFFF;
-  --r:12px;
-  --shadow:0 4px 24px rgba(0,0,0,.08);
-  --shadow-xl:0 20px 60px rgba(0,0,0,.14);
+  --blue:#0066FF;--blue-dark:#0052CC;--blue-glow:rgba(0,102,255,.35);
+  --bg:#050B18;--bg2:#0A1224;--card:#0F172A;
+  --text:#FFFFFF;--text2:#CBD5E1;--text3:rgba(255,255,255,.45);
+  --border:rgba(255,255,255,.08);--border2:rgba(0,102,255,.25);
+  --r:14px;--r2:20px;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--white);color:var(--navy);-webkit-font-smoothing:antialiased;line-height:1.6}
-h1,h2,h3,h4{font-family:'Manrope',sans-serif}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Poppins',sans-serif}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 button{font-family:inherit;cursor:pointer}
 
-/* ── HEADER ─────────────────────────────────────────── */
-header{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  background:rgba(15,31,61,.96);backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(255,255,255,.07);
-  transition:box-shadow .3s;
+/* ── HEADER ── */
+#hdr{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  transition:background .4s,backdrop-filter .4s,box-shadow .4s;
+  padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;
 }
-header.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.4)}
-.hdr{
-  max-width:1240px;margin:0 auto;padding:0 24px;
-  height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+#hdr.clear{background:transparent}
+#hdr.solid{background:rgba(5,11,24,.92);backdrop-filter:blur(20px);box-shadow:0 1px 0 var(--border)}
+.logo{display:flex;align-items:center;gap:10px}
+.logo img{height:36px;width:auto;object-fit:contain;mix-blend-mode:screen}
+nav{display:flex;align-items:center;gap:4px}
+nav a{color:var(--text2);font-size:.875rem;font-weight:500;padding:8px 14px;border-radius:8px;transition:color .2s,background .2s}
+nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.hdr-cta{
+  display:flex;align-items:center;gap:8px;
+  background:var(--blue);color:#fff;font-size:.875rem;font-weight:600;
+  padding:10px 20px;border-radius:10px;font-family:'Poppins',sans-serif;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  box-shadow:0 4px 16px var(--blue-glow);
 }
-.logo{display:flex;align-items:center;gap:10px;font-family:'Manrope',sans-serif;font-weight:800;font-size:1.25rem;color:#fff;letter-spacing:-.3px}
-.logo-sub{font-size:.58rem;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase;margin-top:1px}
-nav{display:flex;align-items:center;gap:2px}
-nav a{color:rgba(255,255,255,.65);font-size:.88rem;font-weight:500;padding:8px 13px;border-radius:8px;transition:color .2s,background .2s}
-nav a:hover{color:#fff;background:rgba(255,255,255,.07)}
-.hdr-actions{display:flex;align-items:center;gap:8px}
-.btn-social-hdr{
-  display:flex;align-items:center;gap:6px;
-  color:rgba(255,255,255,.55);font-size:.8rem;font-weight:500;
-  padding:6px 10px;border-radius:7px;border:1px solid rgba(255,255,255,.1);
-  transition:color .2s,border-color .2s;
+.hdr-cta:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 6px 24px var(--blue-glow)}
+.hdr-login{
+  display:flex;align-items:center;gap:6px;color:var(--text3);font-size:.8rem;font-weight:500;
+  padding:9px 14px;border:1px solid var(--border);border-radius:9px;transition:color .2s,border-color .2s;
 }
-.btn-social-hdr:hover{color:#fff;border-color:rgba(255,255,255,.3)}
-.btn-wa-hdr{
-  display:flex;align-items:center;gap:7px;
-  background:#25D366;color:#fff;font-size:.85rem;font-weight:700;
-  padding:9px 16px;border-radius:9px;font-family:'Manrope',sans-serif;
-  transition:transform .15s,background .2s;
-}
-.btn-wa-hdr:hover{background:#1ebe5d;transform:translateY(-1px)}
-.btn-area{
-  display:flex;align-items:center;gap:6px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-  color:rgba(255,255,255,.75);font-size:.82rem;font-weight:600;
-  padding:8px 14px;border-radius:8px;transition:background .2s;
-}
-.btn-area:hover{background:rgba(255,255,255,.12)}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:8px;cursor:pointer}
-.hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,.8);border-radius:2px;transition:.3s}
-.mob-nav{display:none;position:fixed;inset:0;top:68px;z-index:199;background:rgba(15,31,61,.98);flex-direction:column;align-items:stretch;padding:28px 24px;gap:10px}
-.mob-nav.open{display:flex}
-.mob-nav a{font-size:1rem;font-weight:600;color:rgba(255,255,255,.85);padding:15px 20px;border-radius:10px;border:1px solid rgba(255,255,255,.08);text-align:center;transition:background .2s}
-.mob-nav a:hover{background:rgba(255,255,255,.07)}
+.hdr-login:hover{color:#fff;border-color:rgba(255,255,255,.2)}
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:8px;cursor:pointer}
+.ham span{display:block;width:22px;height:2px;background:rgba(255,255,255,.7);border-radius:2px;transition:.3s}
+.mob-menu{display:none;position:fixed;inset:0;top:72px;z-index:299;background:rgba(5,11,24,.98);flex-direction:column;padding:32px 24px;gap:10px}
+.mob-menu.open{display:flex}
+.mob-menu a{font-size:1rem;font-weight:600;color:var(--text2);padding:16px;border:1px solid var(--border);border-radius:var(--r);text-align:center;transition:background .2s}
+.mob-menu a:hover{background:rgba(255,255,255,.05)}
+.mob-menu .mob-cta{background:var(--blue);border-color:var(--blue);color:#fff}
 
-/* ── HERO ─────────────────────────────────────────────── */
-.hero{
-  background:linear-gradient(150deg,var(--navy) 0%,#0D2347 55%,#0A3060 100%);
-  padding:140px 24px 90px;position:relative;overflow:hidden;
-}
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 800px 500px at 85% -5%,rgba(0,193,124,.1) 0%,transparent 65%),
-    radial-gradient(ellipse 600px 700px at -5% 100%,rgba(15,31,61,.6) 0%,transparent 60%);
+/* ── HERO ── */
+.hero{position:relative;width:100vw;min-height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.hero-img-wrap{position:relative;width:100%;flex:1;min-height:60vh}
+.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(5,11,24,.5) 0%,transparent 25%,transparent 60%,rgba(5,11,24,.85) 100%);
   pointer-events:none;
 }
-.hero::after{
-  content:'';position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(0,193,124,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,193,124,.035) 1px,transparent 1px);
-  background-size:64px 64px;pointer-events:none;
+.hero-ctas{
+  background:linear-gradient(to bottom,rgba(5,11,24,.85),var(--bg2));
+  padding:36px 48px 52px;display:flex;flex-direction:column;align-items:center;gap:20px;
 }
-.hero-inner{max-width:1240px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
-.badge-row{display:flex;align-items:center;gap:10px;margin-bottom:28px;flex-wrap:wrap}
-.badge-main{
-  display:flex;align-items:center;gap:8px;
-  background:rgba(0,193,124,.15);border:1px solid rgba(0,193,124,.35);
-  color:#5EFAC3;font-size:.75rem;font-weight:700;
-  padding:6px 14px;border-radius:100px;letter-spacing:.5px;text-transform:uppercase;
-}
-.badge-live{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.45);font-size:.75rem}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-dot 2s infinite}
-@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(0,193,124,.4)}50%{box-shadow:0 0 0 6px rgba(0,193,124,0)}}
-.hero h1{font-size:clamp(2rem,4vw,3.4rem);font-weight:800;color:#fff;line-height:1.08;letter-spacing:-.8px;margin-bottom:22px}
-.hero h1 .hl{color:var(--green)}
-.hero h1 .hl2{color:var(--gold-light)}
-.hero-sub{color:rgba(255,255,255,.65);font-size:1.08rem;line-height:1.78;margin-bottom:36px;max-width:490px}
-.hero-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.hero-cta-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
 .btn-primary{
-  display:inline-flex;align-items:center;gap:9px;
-  background:#25D366;color:#fff;font-weight:800;font-size:1rem;
-  padding:16px 28px;border-radius:11px;font-family:'Manrope',sans-serif;
-  box-shadow:0 6px 24px rgba(37,211,102,.4);
-  transition:transform .15s,box-shadow .2s,background .2s;
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--blue);color:#fff;font-weight:700;font-size:1rem;
+  padding:16px 32px;border-radius:12px;font-family:'Poppins',sans-serif;
+  box-shadow:0 8px 32px var(--blue-glow);transition:transform .15s,box-shadow .2s,background .2s;
 }
-.btn-primary:hover{background:#1ebe5d;transform:translateY(-2px);box-shadow:0 10px 32px rgba(37,211,102,.5)}
-.btn-secondary{
-  display:inline-flex;align-items:center;gap:8px;
-  background:transparent;border:1.5px solid rgba(255,255,255,.2);
-  color:rgba(255,255,255,.85);font-weight:600;font-size:1rem;
-  padding:15px 26px;border-radius:11px;font-family:'Manrope',sans-serif;
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 12px 40px var(--blue-glow)}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:10px;
+  background:transparent;border:1.5px solid rgba(255,255,255,.25);
+  color:#fff;font-weight:600;font-size:1rem;
+  padding:15px 30px;border-radius:12px;font-family:'Poppins',sans-serif;
   transition:background .2s,border-color .2s;
 }
-.btn-secondary:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.4)}
-.hero-trust{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.trust-item{display:flex;align-items:center;gap:7px;font-size:.82rem;color:rgba(255,255,255,.45)}
-.trust-item svg{flex-shrink:0}
-.trust-sep{width:1px;height:16px;background:rgba(255,255,255,.12)}
+.btn-outline:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4)}
+.hero-trust{display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:.82rem;color:var(--text2)}
+.trust-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
 
-/* hero right card */
-.hero-card{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:20px;padding:36px;
-  backdrop-filter:blur(12px);width:100%;max-width:420px;
+/* ── SECTION BASE ── */
+.sec{padding:100px 48px}
+.container{max-width:1200px;margin:0 auto}
+.sec-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--blue);margin-bottom:14px;
 }
-.hero-card-title{font-size:1.1rem;font-weight:800;color:#fff;text-align:center;margin-bottom:6px}
-.hero-card-sub{font-size:.85rem;color:rgba(255,255,255,.5);text-align:center;margin-bottom:24px;line-height:1.6}
-.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-.hero-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 10px;text-align:center}
-.hero-stat-val{font-size:1.4rem;font-weight:800;color:var(--gold-light);font-family:'Manrope',sans-serif;line-height:1}
-.hero-stat-lbl{font-size:.67rem;color:rgba(255,255,255,.4);margin-top:4px;line-height:1.3}
-.hero-card-cta{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  background:var(--green);color:#fff;font-weight:700;font-size:.9rem;
-  padding:14px;border-radius:10px;font-family:'Manrope',sans-serif;
-  transition:background .2s,transform .15s;
-}
-.hero-card-cta:hover{background:var(--green-dark);transform:translateY(-1px)}
-.hero-card-note{font-size:.73rem;color:rgba(255,255,255,.3);text-align:center;margin-top:12px}
-
-/* stats bar */
-.stats-bar{
-  max-width:1240px;margin:56px auto 0;
-  display:grid;grid-template-columns:repeat(4,1fr);
-  border:1px solid rgba(255,255,255,.08);border-radius:var(--r);
-  overflow:hidden;position:relative;z-index:1;
-}
-.stats-bar-item{
-  padding:24px 20px;text-align:center;
-  border-right:1px solid rgba(255,255,255,.07);
-  background:rgba(255,255,255,.03);
-  transition:background .2s;
-}
-.stats-bar-item:last-child{border-right:none}
-.stats-bar-item:hover{background:rgba(255,255,255,.06)}
-.sbi-val{font-size:1.9rem;font-weight:800;color:var(--green);letter-spacing:-.5px;font-family:'Manrope',sans-serif}
-.sbi-lbl{font-size:.75rem;color:rgba(255,255,255,.4);margin-top:4px}
-
-/* ── SECTIONS ─────────────────────────────────────────── */
-section{padding:96px 24px}
-.container{max-width:1240px;margin:0 auto}
-.sec-label{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
-.sec-label.dark{color:var(--navy)}
-.sec-title{font-size:clamp(1.7rem,3vw,2.4rem);font-weight:800;color:var(--navy);line-height:1.15;letter-spacing:-.4px}
-.sec-title.light{color:#fff}
-.sec-sub{font-size:1rem;color:var(--slate);margin-top:14px;max-width:560px;line-height:1.78}
-.sec-sub.light{color:rgba(255,255,255,.6)}
-.sec-hdr{margin-bottom:56px}
+.sec-label::before{content:'';display:block;width:24px;height:2px;background:var(--blue)}
+.sec-title{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;color:#fff;line-height:1.15;letter-spacing:-.3px}
+.sec-title span{color:var(--blue)}
+.sec-sub{font-size:1rem;color:var(--text2);line-height:1.8;margin-top:16px;max-width:580px}
+.sec-hdr{margin-bottom:60px}
 .sec-hdr.c{text-align:center}
-.sec-hdr.c .sec-sub{margin:14px auto 0}
+.sec-hdr.c .sec-sub{margin:16px auto 0}
 
-/* ── PROBLEMA ────────────────────────────────────────── */
-#problema{background:var(--ivory)}
-.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.pain-card{
-  background:var(--white);border-radius:var(--r);padding:28px;
-  border:1px solid var(--border);border-top:3px solid transparent;
-  transition:border-top-color .25s,box-shadow .25s;
-}
-.pain-card:hover{border-top-color:var(--green);box-shadow:var(--shadow)}
-.pain-emoji{font-size:1.8rem;margin-bottom:14px}
-.pain-card h3{font-size:.98rem;font-weight:700;color:var(--navy);margin-bottom:8px}
-.pain-card p{font-size:.875rem;color:var(--slate);line-height:1.65}
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .65s ease,transform .65s ease}
+.reveal-l.in{opacity:1;transform:none}
+.reveal-r{opacity:0;transform:translateX(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal-r.in{opacity:1;transform:none}
 
-/* ── SOLUÇÃO ─────────────────────────────────────────── */
-#solucao{background:var(--white)}
-.solucao-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
-.solucao-left .sec-sub{max-width:480px}
-.solucao-points{display:flex;flex-direction:column;gap:14px;margin-top:32px}
-.solucao-point{
-  display:flex;align-items:flex-start;gap:14px;
-  padding:18px 20px;border-radius:10px;
-  border:1px solid var(--border);
-  transition:border-color .2s,box-shadow .2s;
+/* ── QUEM SOMOS ── */
+#quem-somos{background:var(--bg2)}
+.qs-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.qs-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:36px}
+.qs-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:18px 16px;display:flex;align-items:center;gap:12px;
+  transition:border-color .25s,box-shadow .25s;
 }
-.solucao-point:hover{border-color:var(--green);box-shadow:0 2px 16px rgba(0,193,124,.1)}
-.sp-icon{
-  width:38px;height:38px;border-radius:9px;flex-shrink:0;
-  background:rgba(0,193,124,.1);border:1px solid rgba(0,193,124,.2);
-  display:flex;align-items:center;justify-content:center;font-size:1rem;
-}
-.sp-content h4{font-size:.92rem;font-weight:700;color:var(--navy);margin-bottom:3px}
-.sp-content p{font-size:.82rem;color:var(--slate);line-height:1.55}
-.solucao-right{
-  background:linear-gradient(145deg,var(--navy),var(--navy-light));
-  border-radius:20px;padding:40px 36px;
-  border:1px solid rgba(0,193,124,.15);
-}
-.solucao-card-title{font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:8px}
-.solucao-card-sub{font-size:.88rem;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:28px}
-.solucao-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.sc-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px}
-.sc-stat-val{font-size:1.4rem;font-weight:800;color:var(--green);font-family:'Manrope',sans-serif}
-.sc-stat-lbl{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:3px;line-height:1.4}
-.garantia-tag{
-  display:inline-flex;align-items:center;gap:7px;margin-top:24px;
-  background:rgba(0,193,124,.15);border:1px solid rgba(0,193,124,.3);
-  color:#5EFAC3;font-size:.78rem;font-weight:700;
-  padding:8px 14px;border-radius:8px;letter-spacing:.3px;
-}
-
-/* ── SERVICES ─────────────────────────────────────────── */
-#servicos{background:var(--ivory)}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.svc-card{
-  background:var(--white);border-radius:var(--r);padding:28px;
-  border:1px solid var(--border);
-  transition:transform .25s,box-shadow .25s,border-color .25s;
-}
-.svc-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-xl);border-color:rgba(0,193,124,.3)}
-.svc-icon{
-  width:48px;height:48px;border-radius:11px;
+.qs-card:hover{border-color:var(--border2);box-shadow:0 0 24px rgba(0,102,255,.1)}
+.qs-check{
+  width:30px;height:30px;border-radius:8px;flex-shrink:0;
+  background:rgba(0,102,255,.15);border:1px solid var(--border2);
   display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;margin-bottom:16px;
-  background:rgba(15,31,61,.06);
 }
-.svc-card h3{font-size:.98rem;font-weight:700;color:var(--navy);margin-bottom:8px}
-.svc-card p{font-size:.85rem;color:var(--slate);line-height:1.65}
-.svc-tag{
-  display:inline-block;margin-top:14px;
-  font-size:.7rem;font-weight:700;color:var(--green);
-  background:rgba(0,193,124,.1);padding:3px 10px;border-radius:100px;
-  letter-spacing:.3px;
+.qs-card h4{font-size:.85rem;font-weight:700;color:#fff}
+.qs-side{background:rgba(15,23,42,.7);border:1px solid var(--border);border-radius:var(--r2);padding:36px}
+.qs-side img{border-radius:12px;width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:20px}
+.qs-tagline{font-size:1rem;font-weight:600;color:#fff;line-height:1.6}
+.qs-tagline span{color:var(--blue)}
+.qs-mini-stats{display:flex;gap:24px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+.qs-stat-val{font-size:1.5rem;font-weight:800;color:var(--blue);font-family:'Poppins',sans-serif}
+.qs-stat-lbl{font-size:.75rem;color:var(--text2);margin-top:2px}
+
+/* ── SERVIÇOS ── */
+#servicos{background:var(--bg)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.svc-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r2);
+  padding:32px;position:relative;overflow:hidden;
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+}
+.svc-card::before{
+  content:'';position:absolute;inset:0;opacity:0;
+  background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,102,255,.14),transparent 70%);
+  transition:opacity .3s;pointer-events:none;
+}
+.svc-card:hover{transform:translateY(-6px);border-color:var(--border2);box-shadow:0 16px 48px rgba(0,102,255,.14)}
+.svc-card:hover::before{opacity:1}
+.svc-icon{
+  width:52px;height:52px;border-radius:14px;margin-bottom:20px;
+  background:rgba(0,102,255,.12);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+}
+.svc-card h3{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:10px}
+.svc-card p{font-size:.875rem;color:var(--text2);line-height:1.7}
+.svc-pill{
+  display:inline-block;margin-top:16px;font-size:.68rem;font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;color:var(--blue);
+  background:rgba(0,102,255,.1);padding:4px 12px;border-radius:100px;border:1px solid var(--border2);
 }
 
-/* ── SOBRE SÉRGIO ─────────────────────────────────────── */
-#sobre{
-  background:linear-gradient(150deg,var(--navy) 0%,#0D2347 60%,var(--navy) 100%);
-  position:relative;overflow:hidden;
+/* ── DIFERENCIAIS ── */
+#diferenciais{background:var(--bg2)}
+.dif-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.dif-list{display:flex;flex-direction:column;gap:12px;margin-top:32px}
+.dif-item{
+  display:flex;align-items:center;gap:14px;
+  padding:15px 20px;background:var(--card);border:1px solid var(--border);
+  border-radius:12px;font-size:.875rem;color:var(--text2);font-weight:500;
+  transition:border-color .2s;
 }
-#sobre::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 600px 400px at 100% 0%,rgba(0,193,124,.08) 0%,transparent 60%),
-    radial-gradient(ellipse 500px 500px at 0% 100%,rgba(184,151,90,.06) 0%,transparent 60%);
-  pointer-events:none;
+.dif-item:hover{border-color:var(--border2)}
+.dif-item svg{flex-shrink:0;color:var(--blue)}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r2);
+  padding:32px 24px;text-align:center;transition:border-color .25s,box-shadow .25s;
 }
-.sobre-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1}
-.sobre-content .sec-label{color:var(--gold-light)}
-.sobre-content .sec-title{color:#fff}
-.sobre-quote{
-  font-size:1.15rem;font-style:italic;color:rgba(255,255,255,.8);
-  line-height:1.8;margin:24px 0;
-  padding-left:20px;border-left:3px solid var(--green);
+.stat-card:hover{border-color:var(--border2);box-shadow:0 8px 32px rgba(0,102,255,.1)}
+.stat-val{font-size:2.4rem;font-weight:800;color:var(--blue);font-family:'Poppins',sans-serif;letter-spacing:-1px;line-height:1}
+.stat-lbl{font-size:.8rem;color:var(--text2);margin-top:8px;line-height:1.4}
+.garantia{
+  margin-top:20px;padding:22px 24px;
+  background:rgba(0,102,255,.08);border:1px solid var(--border2);border-radius:var(--r);
+  text-align:center;font-size:.875rem;color:var(--text2);line-height:1.7;
 }
-.sobre-content p{font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:14px}
-.sobre-card{
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:20px;padding:36px;
-}
-.sobre-timeline{display:flex;flex-direction:column;gap:20px}
-.timeline-item{display:flex;gap:16px}
-.tl-year{
-  flex-shrink:0;width:48px;
-  font-size:.75rem;font-weight:800;color:var(--green);
-  font-family:'Manrope',sans-serif;letter-spacing:.5px;
-  padding-top:2px;
-}
-.tl-content{border-left:1px solid rgba(255,255,255,.1);padding-left:16px}
-.tl-content h4{font-size:.88rem;font-weight:700;color:#fff;margin-bottom:3px}
-.tl-content p{font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.55}
+.garantia strong{color:#fff;display:block;margin-bottom:5px}
 
-/* ── DEPOIMENTOS ─────────────────────────────────────── */
-#depoimentos{background:var(--white)}
-.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.test-card{
-  border-radius:var(--r);border:1px solid var(--border);
-  padding:30px;position:relative;overflow:hidden;
-  transition:box-shadow .25s,border-color .25s;
+/* ── CASES ── */
+#cases{background:var(--bg)}
+.cases-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.case-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r2);
+  padding:36px;transition:border-color .25s,box-shadow .25s;
 }
-.test-card:hover{box-shadow:var(--shadow);border-color:rgba(0,193,124,.3)}
-.test-card::before{content:'\201C';position:absolute;top:-10px;right:20px;font-size:8rem;color:rgba(0,193,124,.06);font-family:Georgia,serif;line-height:1}
-.stars{display:flex;gap:2px;margin-bottom:16px}
-.star{color:#F59E0B;font-size:.9rem}
-.test-card blockquote{font-size:.88rem;color:var(--slate);line-height:1.8;font-style:italic;margin-bottom:20px}
-.test-author{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--ivory)}
-.av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;color:#fff;flex-shrink:0;background:linear-gradient(135deg,var(--navy),var(--navy-light))}
-.au-name{font-size:.88rem;font-weight:700;color:var(--navy)}
-.au-role{font-size:.75rem;color:var(--slate-light);margin-top:1px}
+.case-card:hover{border-color:var(--border2);box-shadow:0 12px 40px rgba(0,102,255,.1)}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--blue);
+  background:rgba(0,102,255,.1);padding:5px 12px;border-radius:100px;
+  border:1px solid var(--border2);margin-bottom:18px;
+}
+.case-card h3{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:18px}
+.case-row{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+.case-label{font-size:.68rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);width:76px;flex-shrink:0;padding-top:3px}
+.case-text{font-size:.875rem;color:var(--text2);line-height:1.65}
+.case-result{background:rgba(0,102,255,.08);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;margin-top:16px}
+.case-result-val{font-size:1.3rem;font-weight:800;color:var(--blue);font-family:'Poppins',sans-serif}
+.case-result-lbl{font-size:.78rem;color:var(--text2);margin-top:2px}
 
-/* ── FAQ ──────────────────────────────────────────────── */
-#faq{background:var(--ivory)}
-.faq-grid{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
-.faq-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
-.faq-q{width:100%;background:none;border:none;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:.93rem;font-weight:700;color:var(--navy);text-align:left;cursor:pointer;transition:background .2s;font-family:'Manrope',sans-serif}
-.faq-q:hover{background:var(--ivory)}
-.faq-q svg{flex-shrink:0;transition:transform .3s;color:var(--green)}
-.faq-q.open svg{transform:rotate(180deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
-.faq-a.open{max-height:300px}
-.faq-a-inner{padding:0 24px 20px;font-size:.87rem;color:var(--slate);line-height:1.78}
-
-/* ── CTA FINAL ────────────────────────────────────────── */
+/* ── CTA FINAL ── */
 #cta-final{
-  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 50%,var(--navy) 100%);
-  padding:96px 24px;text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#031020 0%,#082456 50%,#031020 100%);
+  padding:100px 48px;text-align:center;position:relative;overflow:hidden;
 }
 #cta-final::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 700px 400px at 50% 50%,rgba(0,193,124,.08) 0%,transparent 65%);
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,102,255,.18),transparent 70%);
 }
-.cta-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(0,193,124,.15);border:1px solid rgba(0,193,124,.3);
-  color:#5EFAC3;font-size:.72rem;font-weight:700;
-  padding:6px 14px;border-radius:100px;margin-bottom:24px;
-  letter-spacing:.5px;text-transform:uppercase;position:relative;z-index:1;
-}
-.cta-title{font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;color:#fff;margin-bottom:16px;letter-spacing:-.4px;position:relative;z-index:1;line-height:1.2}
-.cta-sub{color:rgba(255,255,255,.6);font-size:1rem;max-width:500px;margin:0 auto 40px;line-height:1.75;position:relative;z-index:1}
-.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
-.cta-btn-main{
-  display:inline-flex;align-items:center;gap:10px;
-  background:#25D366;color:#fff;font-weight:800;font-size:1rem;
-  padding:18px 36px;border-radius:12px;font-family:'Manrope',sans-serif;
-  box-shadow:0 8px 32px rgba(37,211,102,.4);
-  transition:transform .15s,box-shadow .2s;
-}
-.cta-btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(37,211,102,.55)}
-.cta-btn-sec{
-  display:inline-flex;align-items:center;gap:9px;
-  background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);
-  color:#fff;font-weight:700;font-size:1rem;
-  padding:17px 32px;border-radius:12px;font-family:'Manrope',sans-serif;
-  transition:background .2s;
-}
-.cta-btn-sec:hover{background:rgba(255,255,255,.15)}
-.cta-note{margin-top:20px;font-size:.78rem;color:rgba(255,255,255,.3);position:relative;z-index:1}
+.cta-title{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;color:#fff;margin-bottom:16px;letter-spacing:-.3px;position:relative}
+.cta-title span{color:var(--blue)}
+.cta-sub{font-size:1.05rem;color:var(--text2);max-width:520px;margin:0 auto 44px;line-height:1.8;position:relative}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative}
+.cta-note{margin-top:20px;font-size:.78rem;color:var(--text3);position:relative}
 
-/* ── CONTACT ──────────────────────────────────────────── */
-#contato{background:var(--white)}
-.contact-wrap{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:start}
-.ch{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 16px;border:1px solid var(--border);
-  border-radius:10px;margin-bottom:10px;
-  text-decoration:none;color:inherit;
-  transition:border-color .2s,background .2s;
-}
-.ch:hover{border-color:var(--green);background:rgba(0,193,124,.03)}
-.ch-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.ch-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--slate-light)}
-.ch-val{font-size:.92rem;font-weight:700;color:var(--navy);margin-top:1px}
-.social-row{display:flex;gap:10px;margin-top:16px}
-.btn-social{
-  display:flex;align-items:center;gap:7px;
-  padding:10px 16px;border:1px solid var(--border);
-  border-radius:9px;font-size:.82rem;font-weight:600;color:var(--slate);
-  transition:border-color .2s,color .2s,background .2s;
-}
-.btn-ig:hover{border-color:#E1306C;color:#E1306C;background:rgba(225,48,108,.04)}
-.btn-li:hover{border-color:#0077B5;color:#0077B5;background:rgba(0,119,181,.04)}
-.form-card{background:var(--ivory);border:1px solid var(--border);border-radius:var(--r);padding:32px}
-.form-hdr{font-size:1.05rem;font-weight:800;color:var(--navy);margin-bottom:4px;font-family:'Manrope',sans-serif}
-.form-sub{font-size:.85rem;color:var(--slate);margin-bottom:24px}
-.fg{margin-bottom:14px}
-.fg label{display:block;font-size:.78rem;font-weight:700;color:var(--slate);margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px}
-.fg input,.fg textarea,.fg select{
-  width:100%;background:var(--white);border:1.5px solid var(--border);
-  border-radius:8px;padding:11px 14px;
-  color:var(--navy);font-family:'Inter',sans-serif;font-size:.88rem;
-  outline:none;transition:border-color .2s;resize:vertical;
-}
-.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--green)}
-.fg input::placeholder,.fg textarea::placeholder{color:var(--slate-light)}
-.btn-send{
-  width:100%;padding:14px;
-  background:var(--navy);color:#fff;font-weight:800;font-size:.95rem;
-  border:none;border-radius:10px;font-family:'Manrope',sans-serif;
-  transition:opacity .2s,transform .15s;
-}
-.btn-send:hover{opacity:.88;transform:translateY(-1px)}
-.form-ok{display:none;text-align:center;padding:28px 0}
-.form-ok .ok-icon{font-size:2.5rem;margin-bottom:12px}
-.form-ok h3{font-size:1.05rem;font-weight:800;color:var(--navy);margin-bottom:6px}
-.form-ok p{font-size:.85rem;color:var(--slate);line-height:1.6}
-
-/* ── FOOTER ───────────────────────────────────────────── */
-footer{background:var(--navy);padding:60px 24px 32px}
-.ft-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
-.ft-brand p{font-size:.85rem;color:rgba(255,255,255,.38);line-height:1.7;margin-top:14px;max-width:260px}
-.ft-col h4{font-size:.7rem;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
-.ft-col a{display:block;font-size:.875rem;color:rgba(255,255,255,.45);margin-bottom:10px;transition:color .2s}
-.ft-col a:hover{color:var(--green)}
-.ft-social{display:flex;gap:10px;margin-top:16px}
-.ft-social a{
-  width:36px;height:36px;border-radius:8px;
+/* ── FOOTER ── */
+footer{background:#020810;padding:72px 48px 32px;border-top:1px solid var(--border)}
+.ft-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
+.ft-brand p{font-size:.85rem;color:var(--text3);line-height:1.75;margin-top:14px;max-width:280px}
+.ft-col h4{font-size:.68rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:16px}
+.ft-col a{display:block;font-size:.875rem;color:rgba(255,255,255,.4);margin-bottom:10px;transition:color .2s}
+.ft-col a:hover{color:#fff}
+.ft-social{display:flex;gap:8px;margin-top:16px}
+.ft-soc{
+  width:38px;height:38px;border-radius:9px;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-  color:rgba(255,255,255,.5);
-  transition:color .2s,background .2s;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  color:var(--text3);transition:color .2s,background .2s,border-color .2s;
 }
-.ft-social a:hover{color:#fff;background:rgba(255,255,255,.12)}
-.ft-bottom{max-width:1240px;margin:40px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.ft-soc:hover{color:#fff;background:rgba(0,102,255,.15);border-color:var(--border2)}
+.ft-bottom{max-width:1200px;margin:0 auto;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .ft-bottom p{font-size:.75rem;color:rgba(255,255,255,.2)}
 .ft-links{display:flex;gap:20px}
-.ft-links a{font-size:.75rem;color:rgba(255,255,255,.25);transition:color .2s}
-.ft-links a:hover{color:rgba(255,255,255,.6)}
+.ft-links a{font-size:.75rem;color:rgba(255,255,255,.2);transition:color .2s}
+.ft-links a:hover{color:var(--text3)}
 
-/* ── WA FLOAT ────────────────────────────────────────── */
+/* ── WA FLOAT ── */
 .wa-float{
-  position:fixed;bottom:28px;right:28px;z-index:999;
-  width:58px;height:58px;border-radius:50%;
+  position:fixed;bottom:28px;right:28px;z-index:500;
+  width:60px;height:60px;border-radius:50%;
   background:#25D366;color:#fff;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(37,211,102,.5);
+  box-shadow:0 6px 24px rgba(37,211,102,.5);
   animation:wa-pulse 2.5s infinite;transition:transform .2s;
 }
 .wa-float:hover{transform:scale(1.1);animation:none}
-@keyframes wa-pulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.5)}50%{box-shadow:0 4px 36px rgba(37,211,102,.8)}}
+@keyframes wa-pulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.5)}50%{box-shadow:0 6px 40px rgba(37,211,102,.75)}}
 
-/* ── RESPONSIVE ───────────────────────────────────────── */
+/* ── RESPONSIVE ── */
 @media(max-width:1024px){
-  .hero-inner{grid-template-columns:1fr;gap:48px}
-  .hero-card{max-width:380px}
-  .solucao-inner{grid-template-columns:1fr;gap:48px}
-  .sobre-inner{grid-template-columns:1fr;gap:48px}
-  .contact-wrap{grid-template-columns:1fr;gap:40px}
-  .ft-inner{grid-template-columns:1fr 1fr}
-  .pain-grid{grid-template-columns:repeat(2,1fr)}
-  .services-grid{grid-template-columns:repeat(2,1fr)}
-  .stats-bar{grid-template-columns:repeat(2,1fr)}
-  .test-grid{grid-template-columns:1fr}
+  .sec{padding:80px 32px}
+  .qs-grid,.dif-grid{grid-template-columns:1fr;gap:48px}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .cases-grid{grid-template-columns:1fr}
+  .ft-grid{grid-template-columns:1fr 1fr}
+  #hdr{padding:0 32px}
 }
 @media(max-width:768px){
-  section{padding:72px 20px}
-  nav,.btn-area{display:none}
-  .hamburger{display:flex}
-  .hero{padding:112px 20px 60px}
-  .hero h1{font-size:2rem}
-  .hero-cta-row{flex-direction:column}
-  .btn-primary,.btn-secondary{justify-content:center}
-  .pain-grid,.services-grid{grid-template-columns:1fr}
-  .stats-bar{grid-template-columns:repeat(2,1fr)}
-  .cta-actions{flex-direction:column;align-items:center}
-  .ft-inner{grid-template-columns:1fr}
+  .sec{padding:64px 20px}
+  nav,#hdr .hdr-cta,#hdr .hdr-login{display:none}
+  .ham{display:flex}
+  #hdr{padding:0 20px}
+  .svc-grid{grid-template-columns:1fr}
+  .qs-cards{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .hero-ctas{padding:28px 20px 44px}
+  .hero-cta-row{flex-direction:column;align-items:center}
+  .hero-trust{gap:14px}
+  .ft-grid{grid-template-columns:1fr}
   .ft-bottom{flex-direction:column;text-align:center}
-  .wa-float{bottom:20px;right:20px;width:52px;height:52px}
-  .sobre-inner,.solucao-inner{grid-template-columns:1fr}
+  .cta-btns{flex-direction:column;align-items:center}
+  #cta-final{padding:72px 20px}
+  .qs-mini-stats{flex-wrap:wrap;gap:16px}
 }
 </style>
 </head>
 <body>
-<script>
-  /* === WhatsApp — altere apenas aqui === */
-  var S4_WA = '5521999579161';
-  var S4_WA_DISPLAY = '(21) 99957-9161';
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('a[href*="wa.me/"]').forEach(function (a) {
-      a.href = a.href.replace(/wa\.me\/\d+/, 'wa.me/' + S4_WA);
-    });
-    document.querySelectorAll('.ch-val').forEach(function (el) {
-      if (el.textContent.trim().startsWith('(21)')) el.textContent = S4_WA_DISPLAY;
-    });
-  });
-</script>
 
 <!-- ══ HEADER ══════════════════════════════════════════════ -->
-<header id="hdr">
-  <div class="hdr">
-    <a href="#" class="logo" style="gap:6px">
-      <img src="/logo-S4-00.jpeg" alt="S4" style="height:38px;width:38px;object-fit:contain;border-radius:8px;mix-blend-mode:screen;flex-shrink:0" />
-      <img src="/LogoS4-04.jpg" alt="S4 Assessoria | Gestão e Tecnologia" style="height:28px;width:auto;object-fit:contain;mix-blend-mode:screen" />
+<header id="hdr" class="clear">
+  <a href="#" class="logo">
+    <img src="/logo-S4-00.jpeg" alt="S4"/>
+    <img src="/LogoS4-04.jpg" alt="S4 Assessoria | Gestão e Tecnologia"/>
+  </a>
+  <nav>
+    <a href="#quem-somos">Início</a>
+    <a href="#servicos">Soluções</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#cases">Cases</a>
+    <a href="#diferenciais">Sobre</a>
+    <a href="#cta-final">Contato</a>
+  </nav>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="/login" class="hdr-login">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Área do Cliente
     </a>
-
-    <nav>
-      <a href="#problema">Desafios</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#sobre">Quem somos</a>
-      <a href="#depoimentos">Cases</a>
-      <a href="#contato">Contato</a>
-    </nav>
-
-    <div class="hdr-actions">
-      <a href="https://instagram.com/s4assessoria1" target="_blank" rel="noopener" class="btn-social-hdr">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-      </a>
-      <a href="https://linkedin.com/in/sergio-murilo-nogueira" target="_blank" rel="noopener" class="btn-social-hdr">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      </a>
-      <a href="https://wa.me/5521999579161?text=Olá%2C+vim+pelo+site+da+S4+Assessoria!" target="_blank" rel="noopener" class="btn-wa-hdr">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-        WhatsApp
-      </a>
-      <a href="/login" class="btn-area">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Área do Cliente
-      </a>
-    </div>
-
-    <button class="hamburger" id="ham" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="https://wa.me/5521999579161?text=Olá!+Quero+falar+com+um+especialista+S4+Assessoria." target="_blank" rel="noopener" class="hdr-cta">
+      Fale com um Especialista
+    </a>
   </div>
+  <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
 </header>
 
-<nav class="mob-nav" id="mobNav">
-  <a href="#problema" onclick="closeMob()">Desafios</a>
-  <a href="#servicos" onclick="closeMob()">Serviços</a>
-  <a href="#sobre" onclick="closeMob()">Quem somos</a>
-  <a href="#depoimentos" onclick="closeMob()">Cases</a>
-  <a href="#contato" onclick="closeMob()">Contato</a>
-  <a href="https://instagram.com/s4assessoria1" target="_blank" style="color:#E1306C;border-color:rgba(225,48,108,.3)">📷 @s4assessoria1</a>
-  <a href="https://wa.me/5521999579161?text=Olá%2C+vim+pelo+site!" target="_blank" style="background:#25D366;border-color:#25D366;color:#fff">WhatsApp agora</a>
-  <a href="/login" style="background:rgba(15,31,61,.4);border-color:rgba(0,193,124,.3);color:rgba(255,255,255,.8)">Área do Cliente</a>
+<nav class="mob-menu" id="mobMenu">
+  <a href="#quem-somos" onclick="closeMob()">Início</a>
+  <a href="#servicos" onclick="closeMob()">Soluções &amp; Serviços</a>
+  <a href="#cases" onclick="closeMob()">Cases</a>
+  <a href="#diferenciais" onclick="closeMob()">Sobre</a>
+  <a href="#cta-final" onclick="closeMob()">Contato</a>
+  <a href="/login" onclick="closeMob()">Área do Cliente</a>
+  <a href="https://wa.me/5521999579161?text=Olá!+Vim+pelo+site." target="_blank" rel="noopener" class="mob-cta" onclick="closeMob()">Fale com um Especialista</a>
 </nav>
 
-<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<!-- ══ HERO ════════════════════════════════════════════════ -->
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="badge-row">
-        <div class="badge-main">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          Gestão e Tecnologia para PMEs
-        </div>
-        <div class="badge-live">
-          <span class="live-dot"></span>
-          Atendendo agora
+  <div class="hero-img-wrap">
+    <img src="/hero.png" alt="S4 Assessoria – Transformando Gestão em Resultados" fetchpriority="high" loading="eager" width="1920" height="1080"/>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-ctas reveal">
+    <div class="hero-cta-row">
+      <a href="https://wa.me/5521999579161?text=Olá!+Quero+agendar+um+Diagnóstico+Gratuito+com+a+S4+Assessoria." target="_blank" rel="noopener" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Agendar Diagnóstico Gratuito
+      </a>
+      <a href="#servicos" class="btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Conhecer Soluções
+      </a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item"><span class="trust-dot"></span>Sem compromisso</div>
+      <div class="trust-item"><span class="trust-dot"></span>Resposta em até 2h</div>
+      <div class="trust-item"><span class="trust-dot"></span>+50 empresas atendidas</div>
+      <div class="trust-item"><span class="trust-dot"></span>25 anos de experiência</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ QUEM SOMOS ════════════════════════════════════════ -->
+<section class="sec" id="quem-somos">
+  <div class="container">
+    <div class="qs-grid">
+      <div class="reveal-l">
+        <span class="sec-label">Quem Somos</span>
+        <h2 class="sec-title">Transformamos Gestão<br/><span>em Resultados</span></h2>
+        <p class="sec-sub">A S4 Assessoria une gestão, tecnologia e inteligência de negócios para ajudar empresas a crescer com eficiência, segurança e previsibilidade.</p>
+        <div class="qs-cards">
+          <div class="qs-card">
+            <div class="qs-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h4>Gestão Estratégica</h4>
+          </div>
+          <div class="qs-card">
+            <div class="qs-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h4>Tecnologia Inteligente</h4>
+          </div>
+          <div class="qs-card">
+            <div class="qs-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h4>Segurança da Informação</h4>
+          </div>
+          <div class="qs-card">
+            <div class="qs-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h4>Infraestrutura e Cloud</h4>
+          </div>
+          <div class="qs-card">
+            <div class="qs-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h4>Automação de Processos</h4>
+          </div>
+          <div class="qs-card">
+            <div class="qs-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h4>Inteligência Artificial</h4>
+          </div>
         </div>
       </div>
+      <div class="reveal-r">
+        <div class="qs-side">
+          <img src="/hero.png" alt="S4 Assessoria em ação"/>
+          <p class="qs-tagline">Levamos a inteligência de gestão das <span>grandes empresas</span> para PMEs que precisam crescer com processo, não com improviso.</p>
+          <div class="qs-mini-stats">
+            <div><div class="qs-stat-val">+150</div><div class="qs-stat-lbl">Projetos</div></div>
+            <div><div class="qs-stat-val">+50</div><div class="qs-stat-lbl">Empresas</div></div>
+            <div><div class="qs-stat-val">25</div><div class="qs-stat-lbl">Anos de exp.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <h1>
-        <span class="hl2">Processo</span> que<br>
-        gera <span class="hl">resultado.</span>
-      </h1>
+<!-- ══ SERVIÇOS ══════════════════════════════════════════ -->
+<section class="sec" id="servicos">
+  <div class="container">
+    <div class="sec-hdr c reveal">
+      <span class="sec-label">Soluções</span>
+      <h2 class="sec-title">Nossos <span>Serviços</span></h2>
+      <p class="sec-sub">Soluções integradas que combinam estratégia, tecnologia e execução para transformar sua empresa.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card reveal" style="transition-delay:.05s">
+        <div class="svc-icon">🎯</div>
+        <h3>Consultoria Empresarial</h3>
+        <p>Planejamento estratégico, OKRs e dashboards de gestão. Transformamos a operação em algo gerenciável e previsível, com resultado mensurável em 90 dias.</p>
+        <span class="svc-pill">Core</span>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.1s">
+        <div class="svc-icon">⚡</div>
+        <h3>Transformação Digital</h3>
+        <p>Mapeamos, automatizamos e digitalizamos seus processos. Integração de sistemas, workflows inteligentes e dashboards em tempo real.</p>
+        <span class="svc-pill">Inovação</span>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.15s">
+        <div class="svc-icon">🏛️</div>
+        <h3>Governança de TI</h3>
+        <p>Estruturação de políticas e controles baseados em ITIL e COBIT. Gestão de riscos e conformidade para operações seguras e eficientes.</p>
+        <span class="svc-pill">Governança</span>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.2s">
+        <div class="svc-icon">🔒</div>
+        <h3>Segurança da Informação</h3>
+        <p>Proteção de dados, gestão de vulnerabilidades e conformidade LGPD. Controles que protegem seus ativos críticos e a confiança dos clientes.</p>
+        <span class="svc-pill">Proteção</span>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.25s">
+        <div class="svc-icon">☁️</div>
+        <h3>Cloud Computing</h3>
+        <p>Migração, arquitetura e gestão de infraestrutura em nuvem. Redução de custos, escalabilidade e alta disponibilidade com as melhores plataformas.</p>
+        <span class="svc-pill">Infraestrutura</span>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.3s">
+        <div class="svc-icon">🤖</div>
+        <h3>Automação e IA</h3>
+        <p>RPA e agentes de IA aplicados ao negócio. Automatizamos tarefas repetitivas e usamos dados para decisões mais inteligentes e rápidas.</p>
+        <span class="svc-pill">IA &amp; Automação</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <p class="hero-sub">
-        Consultoria de gestão e tecnologia para pequenas e médias empresas.
-        Transformamos o improviso em processo previsível — para que sua empresa
-        cresça com controle, não na base do achismo.
-      </p>
+<!-- ══ DIFERENCIAIS ══════════════════════════════════════ -->
+<section class="sec" id="diferenciais">
+  <div class="container">
+    <div class="dif-grid">
+      <div class="reveal-l">
+        <span class="sec-label">Diferenciais</span>
+        <h2 class="sec-title">Por que escolher<br/><span>a S4?</span></h2>
+        <p class="sec-sub">Não entregamos relatório. Entramos na operação, construímos junto com você e ficamos até o resultado aparecer.</p>
+        <div class="dif-list">
+          <div class="dif-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Atendimento consultivo e personalizado</div>
+          <div class="dif-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Soluções desenhadas para o seu contexto</div>
+          <div class="dif-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Metodologia baseada em resultados mensuráveis</div>
+          <div class="dif-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Equipe especializada em gestão e tecnologia</div>
+          <div class="dif-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Tecnologia de ponta aplicada ao negócio</div>
+          <div class="dif-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Foco em crescimento sustentável e previsível</div>
+        </div>
+      </div>
+      <div class="reveal-r">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-val" data-target="150" data-prefix="+">0</div>
+            <div class="stat-lbl">Projetos Entregues</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" data-target="50" data-prefix="+">0</div>
+            <div class="stat-lbl">Empresas Atendidas</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" data-target="95" data-prefix="+" data-suffix="%">0</div>
+            <div class="stat-lbl">Satisfação dos Clientes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" data-target="25">0</div>
+            <div class="stat-lbl">Anos de Experiência</div>
+          </div>
+        </div>
+        <div class="garantia">
+          <strong>Garantia de Resultado</strong>
+          Se não atingirmos as metas definidas nos primeiros 90 dias, devolvemos o investimento.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="hero-cta-row">
-        <a href="https://wa.me/5521999579161?text=Olá%2C+quero+um+diagnóstico+gratuito+com+a+S4+Assessoria!" target="_blank" rel="noopener" class="btn-primary">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-          Diagnóstico gratuito — WhatsApp
+<!-- ══ CASES ════════════════════════════════════════════ -->
+<section class="sec" id="cases">
+  <div class="container">
+    <div class="sec-hdr c reveal">
+      <span class="sec-label">Cases</span>
+      <h2 class="sec-title">Resultados <span>Reais</span></h2>
+      <p class="sec-sub">Empresas que transformaram gestão e tecnologia com a S4 Assessoria.</p>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card reveal" style="transition-delay:.05s">
+        <div class="case-tag">✓ Redução de Custos</div>
+        <h3>Otimização Operacional em Empresa de Serviços</h3>
+        <div class="case-row"><div class="case-label">Problema</div><div class="case-text">Custos operacionais elevados e processos manuais consumindo 60% do tempo da equipe.</div></div>
+        <div class="case-row"><div class="case-label">Solução</div><div class="case-text">Mapeamento de processos, automação de tarefas repetitivas e reestruturação da operação.</div></div>
+        <div class="case-result"><div class="case-result-val">-38%</div><div class="case-result-lbl">Redução nos custos operacionais em 90 dias</div></div>
+      </div>
+      <div class="case-card reveal" style="transition-delay:.1s">
+        <div class="case-tag">✓ Automação de Processos</div>
+        <h3>Digitalização de Fluxos em PME de Tecnologia</h3>
+        <div class="case-row"><div class="case-label">Problema</div><div class="case-text">Processos manuais críticos sem rastreabilidade, gerando retrabalho e falhas recorrentes.</div></div>
+        <div class="case-row"><div class="case-label">Solução</div><div class="case-text">Plataforma de automação com dashboards e alertas em tempo real integrados ao time.</div></div>
+        <div class="case-result"><div class="case-result-val">+98%</div><div class="case-result-lbl">Eficiência operacional após implementação</div></div>
+      </div>
+      <div class="case-card reveal" style="transition-delay:.15s">
+        <div class="case-tag">✓ Modernização Tecnológica</div>
+        <h3>Migração para Cloud em Empresa de Saúde</h3>
+        <div class="case-row"><div class="case-label">Problema</div><div class="case-text">Infraestrutura legada com indisponibilidade frequente e alto custo de manutenção.</div></div>
+        <div class="case-row"><div class="case-label">Solução</div><div class="case-text">Migração para cloud com arquitetura de alta disponibilidade e disaster recovery.</div></div>
+        <div class="case-result"><div class="case-result-val">99.9%</div><div class="case-result-lbl">Uptime com redução de 45% nos custos de infra</div></div>
+      </div>
+      <div class="case-card reveal" style="transition-delay:.2s">
+        <div class="case-tag">✓ Aumento de Produtividade</div>
+        <h3>Transformação Digital em Empresa de Varejo</h3>
+        <div class="case-row"><div class="case-label">Problema</div><div class="case-text">Equipe sobrecarregada com tarefas operacionais, sem tempo para atividades estratégicas.</div></div>
+        <div class="case-row"><div class="case-label">Solução</div><div class="case-text">Automação de rotinas com IA e reestruturação da gestão de equipes e prioridades.</div></div>
+        <div class="case-result"><div class="case-result-val">+65%</div><div class="case-result-lbl">Aumento de produtividade em 60 dias</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA FINAL ═════════════════════════════════════════ -->
+<section id="cta-final">
+  <div class="container" style="position:relative;z-index:1">
+    <div class="reveal">
+      <h2 class="cta-title">Pronto para transformar<br/><span>sua empresa?</span></h2>
+      <p class="cta-sub">Tecnologia, processos e estratégia para gerar resultados reais. Agende um diagnóstico gratuito e descubra o potencial do seu negócio.</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/5521999579161?text=Olá!+Quero+falar+com+um+especialista+da+S4+Assessoria." target="_blank" rel="noopener" class="btn-primary" style="font-size:1.05rem;padding:18px 36px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Falar com Especialista
         </a>
-        <a href="https://calendly.com/sergiomurilonogueira/30min" target="_blank" rel="noopener" class="btn-secondary">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <a href="https://calendly.com/sergiomurilonogueira/30min" target="_blank" rel="noopener" class="btn-outline" style="padding:17px 30px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Agendar pelo Calendly
         </a>
       </div>
-
-      <div class="hero-trust">
-        <div class="trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00C17C" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          Sem compromisso
-        </div>
-        <div class="trust-sep"></div>
-        <div class="trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00C17C" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          Resposta em até 2h
-        </div>
-        <div class="trust-sep"></div>
-        <div class="trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00C17C" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          Foco em PMEs
-        </div>
-      </div>
-    </div>
-
-    <div style="display:flex;justify-content:center">
-      <div class="hero-card">
-        <div class="hero-card-title">Diagnóstico Gratuito S4</div>
-        <div class="hero-card-sub">30 minutos para descobrir o que está travando o crescimento da sua empresa.</div>
-        <div class="hero-stats">
-          <div class="hero-stat"><div class="hero-stat-val">PME</div><div class="hero-stat-lbl">Foco exclusivo</div></div>
-          <div class="hero-stat"><div class="hero-stat-val">90d</div><div class="hero-stat-lbl">Para resultados</div></div>
-          <div class="hero-stat"><div class="hero-stat-val">2h</div><div class="hero-stat-lbl">Tempo de resposta</div></div>
-        </div>
-        <a href="https://calendly.com/sergiomurilonogueira/30min" target="_blank" rel="noopener" class="hero-card-cta">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Agendar agora — é gratuito
-        </a>
-        <div class="hero-card-note">✓ Sem compromisso · ✓ Especialistas em PME</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="stats-bar container">
-    <div class="stats-bar-item"><div class="sbi-val">PME</div><div class="sbi-lbl">Foco exclusivo em pequenas e médias</div></div>
-    <div class="stats-bar-item"><div class="sbi-val">90d</div><div class="sbi-lbl">Para resultados concretos</div></div>
-    <div class="stats-bar-item"><div class="sbi-val">4</div><div class="sbi-lbl">Pilares integrados</div></div>
-    <div class="stats-bar-item"><div class="sbi-val">2h</div><div class="sbi-lbl">Tempo de resposta</div></div>
-  </div>
-</section>
-
-<!-- ══ PROBLEMA ════════════════════════════════════════════ -->
-<section id="problema">
-  <div class="container">
-    <div class="sec-hdr c">
-      <span class="sec-label">Sua PME reconhece isso?</span>
-      <h2 class="sec-title">Os gargalos que travam o crescimento</h2>
-      <p class="sec-sub">A S4 Assessoria foi criada para resolver exatamente essas dores. Se você se reconhece em algum desses cenários, está no lugar certo.</p>
-    </div>
-    <div class="pain-grid">
-      <div class="pain-card">
-        <div class="pain-emoji">📉</div>
-        <h3>Vendas que dependem de indicação</h3>
-        <p>Meses bons quando alguém indica. Meses ruins sem entender o porquê. Sem processo comercial estruturado, o crescimento é imprevisível.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-emoji">🔄</div>
-        <h3>O dono no centro de tudo</h3>
-        <p>A empresa para quando você para. Sem processos documentados, cada decisão passa por você — crescimento com mais caos, não com mais controle.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-emoji">🧩</div>
-        <h3>Processos desorganizados</h3>
-        <p>A operação cresceu mas a gestão não acompanhou. Retrabalho, falta de indicadores e ausência de visão clara travam a próxima fase do negócio.</p>
-      </div>
+      <p class="cta-note">✓ Diagnóstico gratuito · ✓ Sem compromisso · ✓ Resposta em até 2h</p>
     </div>
   </div>
 </section>
 
-<!-- ══ SOLUÇÃO ════════════════════════════════════════════ -->
-<section id="solucao">
-  <div class="container">
-    <div class="solucao-inner">
-      <div class="solucao-left">
-        <span class="sec-label">Como a S4 resolve</span>
-        <h2 class="sec-title">Não é curso.<br>Não é coaching.<br>É implementação.</h2>
-        <p class="sec-sub">A maioria das consultorias entrega relatório. Nós entramos na operação, construímos junto com o empresário e ficamos até o resultado aparecer.</p>
-        <div class="solucao-points">
-          <div class="solucao-point">
-            <div class="sp-icon">🎯</div>
-            <div class="sp-content">
-              <h4>Diagnóstico em 30 minutos</h4>
-              <p>Identificamos os 2 ou 3 gargalos reais — sem lista de 20 problemas, sem enrolação.</p>
-            </div>
-          </div>
-          <div class="solucao-point">
-            <div class="sp-icon">⚙️</div>
-            <div class="sp-content">
-              <h4>Implementação ao lado do empresário</h4>
-              <p>Não deixamos um manual. Construímos juntos, passo a passo, até funcionar.</p>
-            </div>
-          </div>
-          <div class="solucao-point">
-            <div class="sp-icon">📊</div>
-            <div class="sp-content">
-              <h4>Resultado mensurável em 90 dias</h4>
-              <p>Definimos métricas no início. Você sabe exatamente o que vai melhorar e quando.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="solucao-right">
-        <div class="solucao-card-title">Assessoria de Alta Performance</div>
-        <div class="solucao-card-sub">3 anos entregando resultados reais para PMEs de todos os segmentos com metodologia própria e acompanhamento contínuo.</div>
-        <div class="solucao-stats">
-          <div class="sc-stat"><div class="sc-stat-val">🎯</div><div class="sc-stat-lbl">Diagnóstico focado nos gargalos reais</div></div>
-          <div class="sc-stat"><div class="sc-stat-val">⚙️</div><div class="sc-stat-lbl">Implementação junto ao empresário</div></div>
-          <div class="sc-stat"><div class="sc-stat-val">📊</div><div class="sc-stat-lbl">Métricas definidas desde o início</div></div>
-          <div class="sc-stat"><div class="sc-stat-val">🔁</div><div class="sc-stat-lbl">Acompanhamento contínuo</div></div>
-        </div>
-        <div class="garantia-tag">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Garantia de resultado ou devolvemos o investimento
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ SERVICES ════════════════════════════════════════════ -->
-<section id="servicos">
-  <div class="container">
-    <div class="sec-hdr c">
-      <span class="sec-label">Nossos Serviços</span>
-      <h2 class="sec-title">O que a S4 entrega</h2>
-      <p class="sec-sub">Cada serviço foi desenhado para resolver um problema real da sua PME — do processo comercial à tecnologia.</p>
-    </div>
-    <div class="services-grid">
-      <div class="svc-card">
-        <div class="svc-icon">⚙️</div>
-        <h3>Consultoria de Gestão</h3>
-        <p>Planejamento estratégico, OKRs, KPIs e dashboards de gestão. Transformamos a operação em algo gerenciável e previsível.</p>
-        <span class="svc-tag">Core</span>
-      </div>
-      <div class="svc-card">
-        <div class="svc-icon">📈</div>
-        <h3>Processo Comercial</h3>
-        <p>Funil de vendas estruturado, cadência de prospecção e pipeline com métricas. Sua empresa para de depender de indicação.</p>
-        <span class="svc-tag">Alto impacto</span>
-      </div>
-      <div class="svc-card">
-        <div class="svc-icon">🏢</div>
-        <h3>Reestruturação Corporativa</h3>
-        <p>Reorganização de processos, governança e estrutura operacional para empresas em transição ou expansão.</p>
-        <span class="svc-tag">Transformação</span>
-      </div>
-      <div class="svc-card">
-        <div class="svc-icon">📣</div>
-        <h3>Comunicação e Marketing</h3>
-        <p>Assessoria de comunicação corporativa, posicionamento de marca e estratégia de marketing integrada para PMEs.</p>
-        <span class="svc-tag">Visibilidade</span>
-      </div>
-      <div class="svc-card">
-        <div class="svc-icon">💻</div>
-        <h3>Tecnologia e Software</h3>
-        <p>Desenvolvimento de software personalizado, automação de processos, implantação de ERP e transformação digital.</p>
-        <span class="svc-tag">Inovação</span>
-      </div>
-      <div class="svc-card">
-        <div class="svc-icon">📋</div>
-        <h3>Licitação e Novos Negócios</h3>
-        <p>Estruturação para participação em licitações públicas, desenvolvimento de parcerias e expansão de canais de receita.</p>
-        <span class="svc-tag">Crescimento</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ SOBRE ════════════════════════════════════════════════ -->
-<section id="sobre">
-  <div class="container">
-    <div class="sobre-inner">
-      <div class="sobre-content">
-        <span class="sec-label" style="color:var(--gold-light)">Quem está por trás da S4</span>
-        <h2 class="sec-title light">Construído por quem<br>conhece a dor de perto.</h2>
-        <blockquote class="sobre-quote">
-          "Perdi minha mãe com 5 anos. Fugi de casa. Morei nas ruas. E aos 50, quase passei dessa para outra. Nunca parei de construir."
-        </blockquote>
-        <p>Sou Sérgio Murilo. Passei 20 anos dentro de uma das maiores operadoras de infraestrutura do Brasil — o Grupo CCR, hoje Motiva. Vi de perto como grandes empresas funcionam por processo, não por sorte.</p>
-        <p>Em 2021, no meio da pandemia, deixei o corporativo para criar a S4 Assessoria. A missão é simples: levar a inteligência de gestão das grandes empresas para as PMEs que mais precisam — sem jargão, sem relatório bonito, com resultado real.</p>
-        <div style="margin-top:28px">
-          <a href="https://linkedin.com/in/sergio-murilo-nogueira" target="_blank" rel="noopener"
-            style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border:1.5px solid rgba(0,193,124,.4);border-radius:9px;color:#5EFAC3;font-size:.85rem;font-weight:600;transition:background .2s"
-            onmouseover="this.style.background='rgba(0,193,124,.1)'" onmouseout="this.style.background='transparent'">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-            Ver perfil no LinkedIn
-          </a>
-        </div>
-      </div>
-
-      <div class="sobre-card">
-        <div class="sobre-timeline">
-          <div class="timeline-item">
-            <div class="tl-year">1991</div>
-            <div class="tl-content">
-              <h4>Setor Público</h4>
-              <p>Primeira experiência com gestão de processos e ineficiência operacional no setor público.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="tl-year">1995</div>
-            <div class="tl-content">
-              <h4>Rádio Tupi & Rádio Mania</h4>
-              <p>Carreira no jornalismo cobrindo o trânsito da Ponte Rio-Niterói. Comunicação como ferramenta de negócio.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="tl-year">2000</div>
-            <div class="tl-content">
-              <h4>Grupo CCR (hoje Motiva)</h4>
-              <p>20 anos de comunicação corporativa em uma das maiores operadoras de infraestrutura do país.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="tl-year">2021</div>
-            <div class="tl-content">
-              <h4>Fundação da S4 Assessoria</h4>
-              <p>Deixou o corporativo para levar gestão de alto nível para PMEs. Do improviso ao processo previsível.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="tl-year">2022</div>
-            <div class="tl-content">
-              <h4>Engenharia de Software</h4>
-              <p>De volta à universidade para integrar tecnologia à consultoria. Nunca é tarde para aprender.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ DEPOIMENTOS ══════════════════════════════════════════ -->
-<section id="depoimentos">
-  <div class="container">
-    <div class="sec-hdr c">
-      <span class="sec-label">Em breve</span>
-      <h2 class="sec-title">Cases reais em construção</h2>
-      <p class="sec-sub">Nossos primeiros resultados documentados estarão aqui em breve. Se você passou por uma transformação com a S4, <a href="https://wa.me/5521999579161?text=Quero+compartilhar+meu+case+com+a+S4" target="_blank" rel="noopener" style="color:var(--green);text-decoration:underline">entre em contato</a> — adoraríamos contar sua história.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FAQ ══════════════════════════════════════════════════ -->
-<section id="faq">
-  <div class="container">
-    <div class="sec-hdr c">
-      <span class="sec-label">Perguntas Frequentes</span>
-      <h2 class="sec-title">Dúvidas comuns</h2>
-    </div>
-    <div class="faq-grid">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          O que diferencia a S4 de um coach ou consultoria tradicional?
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-a">
-          <div class="faq-a-inner">A S4 não entrega teoria nem relatório. Entramos na operação da empresa, identificamos os gargalos reais e construímos junto com o empresário os processos que vão funcionar. O diferencial é a co-implementação — ficamos ao lado até o resultado aparecer, com garantia de entrega.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Quanto tempo leva para ver resultados?
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-a">
-          <div class="faq-a-inner">Em processo comercial e gestão, os primeiros resultados mensuráveis aparecem em 30 a 60 dias. Resultados consolidados com impacto em receita em 90 dias. Definimos métricas específicas no início do projeto para que você saiba exatamente o que esperar e quando.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          A S4 atende empresas de qualquer segmento?
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-a">
-          <div class="faq-a-inner">Sim. Trabalhamos com PMEs de serviços, varejo, indústria leve, tecnologia e setor público. O foco é em empresas com 5 a 100 funcionários que querem estruturar a gestão e criar processos comerciais previsíveis.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          O diagnóstico gratuito tem algum compromisso?
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-a">
-          <div class="faq-a-inner">Nenhum. São 30 minutos onde entendemos seu negócio, identificamos os gargalos principais e apresentamos um caminho possível. Você sai com clareza sobre os próximos passos — independentemente de fechar ou não um projeto com a S4.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ CTA FINAL ════════════════════════════════════════════ -->
-<section id="cta-final">
-  <div class="container">
-    <div class="cta-badge">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-      Diagnóstico Gratuito · 30 Minutos · Sem Compromisso
-    </div>
-    <h2 class="cta-title">Pronto para sair do improviso<br>e construir um negócio previsível?</h2>
-    <p class="cta-sub">30 minutos que podem mudar a direção da sua empresa. Identificamos o que está travando e apresentamos um plano de ação concreto.</p>
-    <div class="cta-actions">
-      <a href="https://calendly.com/sergiomurilonogueira/30min" target="_blank" rel="noopener" class="cta-btn-main" style="background:var(--green);box-shadow:0 8px 32px rgba(0,193,124,.4)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Agendar diagnóstico gratuito
-      </a>
-      <a href="https://wa.me/5521999579161?text=Olá%2C+quero+agendar+um+diagnóstico+gratuito+com+a+S4+Assessoria!" target="_blank" rel="noopener" class="cta-btn-sec">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-        Falar pelo WhatsApp
-      </a>
-    </div>
-    <p class="cta-note">✓ Sem compromisso &nbsp;·&nbsp; ✓ Especialistas em PMEs &nbsp;·&nbsp; ✓ Garantia de resultado</p>
-  </div>
-</section>
-
-<!-- ══ CONTATO ══════════════════════════════════════════════ -->
-<section id="contato">
-  <div class="container">
-    <div class="contact-wrap">
-      <div>
-        <span class="sec-label dark">Fale Conosco</span>
-        <h2 class="sec-title">Entre em contato<br>agora mesmo</h2>
-        <p class="sec-sub">Nossa equipe está pronta para entender seu desafio e apresentar soluções personalizadas para a sua PME.</p>
-
-        <div style="margin-top:32px">
-          <a href="https://wa.me/5521999579161?text=Olá%2C+vim+pelo+site+da+S4+Assessoria!" target="_blank" rel="noopener" class="ch">
-            <div class="ch-icon" style="background:#DCF8E8">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-            </div>
-            <div><div class="ch-lbl">WhatsApp</div><div class="ch-val">(21) 99957-9161</div></div>
-          </a>
-          <a href="https://calendly.com/sergiomurilonogueira/30min" target="_blank" rel="noopener" class="ch">
-            <div class="ch-icon" style="background:rgba(0,193,124,.1)">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C17C" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            </div>
-            <div><div class="ch-lbl">Agendamento Online</div><div class="ch-val">Diagnóstico Gratuito — 30 min</div></div>
-          </a>
-        </div>
-
-        <div class="social-row">
-          <a href="https://instagram.com/s4assessoria1" target="_blank" rel="noopener" class="btn-social btn-ig">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            @s4assessoria1
-          </a>
-          <a href="https://linkedin.com/in/sergio-murilo-nogueira" target="_blank" rel="noopener" class="btn-social btn-li">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-            LinkedIn
-          </a>
-        </div>
-      </div>
-
-      <div class="form-card">
-        <div id="frmBody">
-          <div class="form-hdr">Solicite seu diagnóstico gratuito</div>
-          <div class="form-sub">Preencha e retornaremos em até 2 horas úteis.</div>
-          <form onsubmit="sendForm(event)">
-            <div class="fg"><label>Nome *</label><input type="text" placeholder="Seu nome completo" required /></div>
-            <div class="fg"><label>E-mail *</label><input type="email" placeholder="seu@email.com.br" required /></div>
-            <div class="fg"><label>WhatsApp</label><input type="tel" placeholder="(21) 99999-9999" /></div>
-            <div class="fg">
-              <label>Segmento</label>
-              <select>
-                <option value="">Selecione</option>
-                <option>Serviços B2B</option>
-                <option>Varejo / Comércio</option>
-                <option>Indústria</option>
-                <option>Tecnologia</option>
-                <option>Setor Público</option>
-                <option>Outro</option>
-              </select>
-            </div>
-            <div class="fg"><label>Qual seu maior desafio? *</label><textarea rows="3" placeholder="Descreva brevemente o que está travando sua empresa..." required></textarea></div>
-            <button type="submit" class="btn-send">Enviar e agendar diagnóstico →</button>
-          </form>
-        </div>
-        <div class="form-ok" id="frmOk">
-          <div class="ok-icon">✅</div>
-          <h3>Mensagem enviada!</h3>
-          <p>Nossa equipe entrará em contato<br>em até 2 horas úteis.</p>
-          <a href="https://wa.me/5521999579161?text=Olá%2C+acabei+de+preencher+o+formulário!" target="_blank" class="btn-primary" style="margin-top:16px;justify-content:center">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-            Falar pelo WhatsApp agora
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FOOTER ═══════════════════════════════════════════════ -->
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
 <footer>
-  <div class="ft-inner">
+  <div class="ft-grid">
     <div class="ft-brand">
-      <a href="#" class="logo" style="font-size:1.15rem">
-        <img src="/logo-S4-00.jpeg" alt="S4" style="height:34px;width:34px;object-fit:contain;border-radius:7px;mix-blend-mode:screen;flex-shrink:0" />
-        <img src="/LogoS4-04.jpg" alt="S4 Assessoria | Gestão e Tecnologia" style="height:24px;width:auto;object-fit:contain;mix-blend-mode:screen" />
-      </a>
-      <p>Consultoria de gestão e tecnologia para PMEs. Do improviso ao processo previsível — sua empresa crescendo com controle e previsibilidade.</p>
+      <div style="display:flex;align-items:center;gap:8px">
+        <img src="/logo-S4-00.jpeg" alt="S4" style="height:40px;width:40px;object-fit:contain;border-radius:10px;mix-blend-mode:screen"/>
+        <img src="/LogoS4-04.jpg" alt="S4 Assessoria" style="height:28px;width:auto;object-fit:contain;mix-blend-mode:screen"/>
+      </div>
+      <p>Gestão e tecnologia para empresas que querem crescer com eficiência, segurança e previsibilidade.</p>
       <div class="ft-social">
-        <a href="https://instagram.com/s4assessoria1" target="_blank" rel="noopener" title="Instagram">
+        <a href="https://instagram.com/s4assessoria1" target="_blank" rel="noopener" class="ft-soc" aria-label="Instagram">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
         </a>
-        <a href="https://linkedin.com/in/sergio-murilo-nogueira" target="_blank" rel="noopener" title="LinkedIn">
+        <a href="https://linkedin.com/in/sergio-murilo-nogueira" target="_blank" rel="noopener" class="ft-soc" aria-label="LinkedIn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
         </a>
-        <a href="https://wa.me/5521999579161" target="_blank" rel="noopener" title="WhatsApp">
+        <a href="https://wa.me/5521999579161" target="_blank" rel="noopener" class="ft-soc" aria-label="WhatsApp">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
         </a>
       </div>
     </div>
     <div class="ft-col">
-      <h4>Serviços</h4>
-      <a href="#servicos">Consultoria de Gestão</a>
-      <a href="#servicos">Processo Comercial</a>
-      <a href="#servicos">Reestruturação</a>
-      <a href="#servicos">Comunicação</a>
-      <a href="#servicos">Tecnologia</a>
-      <a href="#servicos">Licitação</a>
+      <h4>Empresa</h4>
+      <a href="#quem-somos">Quem Somos</a>
+      <a href="#diferenciais">Por que a S4</a>
+      <a href="#cases">Cases</a>
+      <a href="https://linkedin.com/in/sergio-murilo-nogueira" target="_blank" rel="noopener">Equipe</a>
     </div>
     <div class="ft-col">
-      <h4>Empresa</h4>
-      <a href="#sobre">Quem somos</a>
-      <a href="#depoimentos">Cases</a>
-      <a href="#faq">FAQ</a>
-      <a href="/login">Área do Cliente</a>
+      <h4>Serviços</h4>
+      <a href="#servicos">Consultoria Empresarial</a>
+      <a href="#servicos">Transformação Digital</a>
+      <a href="#servicos">Governança de TI</a>
+      <a href="#servicos">Cloud Computing</a>
+      <a href="#servicos">Automação e IA</a>
     </div>
     <div class="ft-col">
       <h4>Contato</h4>
-      <a href="https://wa.me/5521999579161" target="_blank">(21) 99957-9161</a>
-      <a href="https://calendly.com/sergiomurilonogueira/30min" target="_blank">Agendar diagnóstico</a>
-      <a href="https://instagram.com/s4assessoria1" target="_blank">Instagram</a>
-      <a href="https://linkedin.com/in/sergio-murilo-nogueira" target="_blank">LinkedIn</a>
+      <a href="tel:+5521999579161">📞 (21) 99957-9161</a>
+      <a href="https://wa.me/5521999579161" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a href="mailto:contato@s4assessoria.com.br">✉️ contato@s4assessoria.com.br</a>
+      <a href="https://calendly.com/sergiomurilonogueira/30min" target="_blank" rel="noopener">📅 Agendar Reunião</a>
+      <a href="/login">🔐 Área do Cliente</a>
     </div>
   </div>
   <div class="ft-bottom">
-    <p>© <span id="yr"></span> S4 Assessoria | Gestão e Tecnologia. Todos os direitos reservados.</p>
+    <p>© 2026 S4 Assessoria – Gestão e Tecnologia. Todos os direitos reservados.</p>
     <div class="ft-links">
-      <a href="#">Política de Privacidade</a>
-      <a href="#">Termos de Uso</a>
+      <a href="/privacidade">Política de Privacidade</a>
+      <a href="/privacidade">LGPD</a>
     </div>
   </div>
 </footer>
 
-<!-- ══ WA FLOAT ══════════════════════════════════════════════ -->
-<a href="https://wa.me/5521999579161?text=Olá%2C+vim+pelo+site+da+S4+Assessoria!" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp S4 Assessoria">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+<!-- WhatsApp Float -->
+<a href="https://wa.me/5521999579161?text=Olá!+Vim+pelo+site+da+S4+Assessoria." target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
 </a>
 
 <script>
-document.getElementById('yr').textContent = new Date().getFullYear();
+const hdr=document.getElementById('hdr');
+function onScroll(){hdr.className=window.scrollY>40?'solid':'clear'}
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
-window.addEventListener('scroll', () => {
-  document.getElementById('hdr').classList.toggle('scrolled', window.scrollY > 30);
-});
+const ham=document.getElementById('ham');const mob=document.getElementById('mobMenu');
+ham.addEventListener('click',()=>mob.classList.toggle('open'));
+function closeMob(){mob.classList.remove('open')}
 
-const ham = document.getElementById('ham');
-const mobNav = document.getElementById('mobNav');
-ham.addEventListener('click', () => {
-  const open = mobNav.classList.toggle('open');
-  const s = ham.querySelectorAll('span');
-  s[0].style.transform = open ? 'rotate(45deg) translate(5px,5px)' : '';
-  s[1].style.opacity   = open ? '0' : '';
-  s[2].style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
-});
-function closeMob() {
-  mobNav.classList.remove('open');
-  ham.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(el));
+
+function animCount(el){
+  const target=+el.dataset.target,prefix=el.dataset.prefix||'',suffix=el.dataset.suffix||'';
+  const steps=1800/16;let cur=0;
+  const t=setInterval(()=>{
+    cur=Math.min(cur+target/steps,target);
+    el.textContent=prefix+Math.round(cur)+suffix;
+    if(cur>=target)clearInterval(t);
+  },16);
 }
-document.addEventListener('click', e => { if (!ham.contains(e.target) && !mobNav.contains(e.target)) closeMob(); });
-
-function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const ans  = item.querySelector('.faq-a');
-  const open = ans.classList.contains('open');
-  document.querySelectorAll('.faq-a.open').forEach(a => { a.classList.remove('open'); a.previousElementSibling.classList.remove('open'); });
-  if (!open) { ans.classList.add('open'); btn.classList.add('open'); }
-}
-
-function sendForm(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.btn-send');
-  btn.textContent = 'Enviando...'; btn.disabled = true;
-  setTimeout(() => {
-    document.getElementById('frmBody').style.display = 'none';
-    document.getElementById('frmOk').style.display   = 'block';
-  }, 800);
-}
-
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-  });
-});
+const cio=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.querySelectorAll('[data-target]').forEach(animCount);cio.unobserve(e.target)}
+  })
+},{threshold:.3});
+document.querySelectorAll('.stats-grid').forEach(el=>cio.observe(el));
 </script>
 </body>
 </html>
