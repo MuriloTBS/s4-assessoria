@@ -140,15 +140,13 @@ nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
   display:flex;align-items:center;justify-content:center;
 }
 .qs-card h4{font-size:.85rem;font-weight:700;color:#fff}
-.qs-side{background:rgba(15,23,42,.7);border:1px solid var(--border);border-radius:var(--r2);padding:36px}
-.qs-img-wrap{position:relative;border-radius:12px;overflow:hidden;margin-bottom:20px;aspect-ratio:16/9}
-.qs-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;border-radius:0;margin-bottom:0}
+.qs-side{background:rgba(15,23,42,.7);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.qs-img-wrap{position:relative;aspect-ratio:16/9;overflow:hidden}
+.qs-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
 .qs-gem-mask{position:absolute;bottom:8%;right:5%;width:12%;height:18%;background:radial-gradient(ellipse at center,#050B18 55%,rgba(5,11,24,.5) 80%,transparent 100%);pointer-events:none}
+.qs-content{padding:28px 32px}
 .qs-tagline{font-size:1rem;font-weight:600;color:#fff;line-height:1.6}
 .qs-tagline span{color:var(--blue)}
-.qs-mini-stats{display:flex;gap:24px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
-.qs-stat-val{font-size:1.5rem;font-weight:800;color:var(--blue);font-family:'Poppins',sans-serif}
-.qs-stat-lbl{font-size:.75rem;color:var(--text2);margin-top:2px}
 
 /* ── SERVIÇOS ── */
 #servicos{background:var(--bg)}
@@ -477,11 +475,8 @@ footer{background:#020810;padding:72px 48px 32px;border-top:1px solid var(--bord
             <img src="/quem-somos.png" alt="S4 Assessoria – Reunião de estratégia"/>
             <div class="qs-gem-mask"></div>
           </div>
-          <p class="qs-tagline">Levamos a inteligência de gestão das <span>grandes empresas</span> para PMEs que precisam crescer com processo, não com improviso.</p>
-          <div class="qs-mini-stats">
-            <div><div class="qs-stat-val">+150</div><div class="qs-stat-lbl">Projetos</div></div>
-            <div><div class="qs-stat-val">+50</div><div class="qs-stat-lbl">Empresas</div></div>
-            <div><div class="qs-stat-val">4</div><div class="qs-stat-lbl">Anos de exp.</div></div>
+          <div class="qs-content">
+            <p class="qs-tagline">Levamos a inteligência de gestão das <span>grandes empresas</span> para PMEs que precisam crescer com processo, não com improviso.</p>
           </div>
         </div>
       </div>
